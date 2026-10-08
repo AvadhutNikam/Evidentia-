@@ -1,0 +1,5 @@
+Suspect_ID,Case_ID,Suspect_Name,Role_Claim,Vehicle_Access,ATM_CCTV_Identification,CDR_Tower_Correlation,Possession_Victim_Belongings,Blood_DNA_Match,Alibi_Falsified,Approver_Testimony_Named,Custody_Escape_Flight,Biological_Trace_Hair,Witness_Identified_Cab,Phone_Switched_Off_PostCrime,Death_Penalty_Conviction
+S-NP-01,FIR-2009-MH-PUN-534,Yogesh Raut,Cab Driver (Mastermind),1,1,1,1,1,1,1,1,1,1,1,1
+S-NP-02,FIR-2009-MH-PUN-534,Rajesh Chaudhari,Security Guard (Approver),0,0,0,0,0,0,0,0,0,0,0,0
+S-NP-03,FIR-2009-MH-PUN-534,Mahesh Thakur,In-Car Accomplice,1,0,1,0,1,1,1,0,1,1,1,1
+S-NP-04,FIR-2009-MH-PUN-534,Vishwas Kadam,In-Car Accomplice,1,0,1,0,1,1,1,0,1,1,1,1

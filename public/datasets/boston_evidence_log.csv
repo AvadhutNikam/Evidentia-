@@ -1,0 +1,9 @@
+EvidenceID,Timestamp,SourceType,Raw_Description,Reliability_Score,Related_Entities
+E-001,2013-04-15 14:49:00,CCTV,"Footage from Lord & Taylor shows two young men carrying heavy backpacks near the finish line moments before detonations. Suspects appear to act alone.",95,"Tamerlan Tsarnaev, Dzhokhar Tsarnaev"
+E-002,2013-04-15 16:30:00,Forensics,"Crime scene sweep recovers fragments of a pressure cooker, nails, ball bearings, and black powder. Components are readily available domestically.",99,""
+E-003,2013-04-16 09:15:00,Digital,"Analysis of recovered computer search history shows queries for 'Inspire magazine', 'how to build bombs', and radical jihadist literature.",95,"Tamerlan Tsarnaev"
+E-004,2013-04-17 11:00:00,Financial,"Bank records indicate a recent wire transfer of $1,200 to an account in Dagestan, Russia.",85,"Tamerlan Tsarnaev"
+E-005,2013-04-18 10:20:00,OSINT,"Suspects' social media profiles show anti-American sentiment but no direct communication with known foreign terrorist networks.",80,"Tamerlan Tsarnaev, Dzhokhar Tsarnaev"
+E-006,2013-04-19 01:15:00,Forensics,"Firearms recovered from Watertown shootout are unregistered and traced back to local private sales, not international arms dealers.",90,"Tamerlan Tsarnaev"
+E-007,2013-04-19 14:00:00,Human Intelligence,"Informant suggests suspects may have received explosive training during a 2012 trip to Russia.",50,"Tamerlan Tsarnaev"
+E-008,2013-04-20 09:00:00,Interrogation,"Initial statements from surviving suspect indicate they acted independently to defend Islam, using internet instructions, with no outside command.",90,"Dzhokhar Tsarnaev"

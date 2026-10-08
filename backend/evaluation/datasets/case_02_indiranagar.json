@@ -1,0 +1,97 @@
+{
+  "id": "case_02_indiranagar",
+  "title": "State of Karnataka v. Manjunath & Ors. (Indiranagar Robbery-Homicide)",
+  "split": "tuning",
+  "category": "real_landmark",
+  "is_contested": false,
+  "citation": "Principal Sessions Court, Bengaluru (SC-412/2019)",
+  "confidence_note": "High (Direct latent fingerprint match and gold jewellery recovery under Sec 27 Evidence Act)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Former domestic assistant Manjunath and accomplice",
+    "rationale": "Latent fingerprint on broken window latch matched Manjunath; stolen 120g temple gold recovered from pawn broker based on disclosure."
+  },
+  "decisive_evidence_ids": [
+    "EX-02-01",
+    "EX-02-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Former Domestic Staff Manjunath",
+      "statement": "Former domestic worker Manjunath knew the safe combination, broke through the rear window, and assaulted the resident."
+    },
+    {
+      "id": "H2",
+      "label": "Local Gang Break-In",
+      "statement": "An opportunistic neighborhood gang broke in randomly through the unlocked rear terrace."
+    },
+    {
+      "id": "H3",
+      "label": "Family Dispute / Staged Robbery",
+      "statement": "An estranged relative staged the burglary to seize property deeds and ancestral gold."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-02-01",
+      "name": "Fingerprint Bureau Latent Print Lift on Window Latch",
+      "evidence_type": "fingerprint",
+      "file_hash": "sha256_fp_latch_bengaluru",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Eight ridge characteristics lifted from glass pane and aluminum latch of rear ground-floor window matched right index finger of Manjunath (AFIS score 98.4%)."
+    },
+    {
+      "id": "EX-02-02",
+      "name": "Residential Street CCTV Camera Feed",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_street_cctv_100ft",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Neighbor's Dahua IP camera captures two individuals wearing helmets entering lane at 02:14 AM and leaving at 02:49 AM on a black motorcycle with obscured plates."
+    },
+    {
+      "id": "EX-02-03",
+      "name": "Pawnshop Recovery Memo under Sec 27 Evidence Act",
+      "evidence_type": "document",
+      "file_hash": "sha256_pawn_gold_recovery_27",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Recovery of 120 grams of melted temple design gold necklace from Sri Balaji Bankers pawnshop pursuant to voluntary disclosure statement of Manjunath."
+    },
+    {
+      "id": "EX-02-04",
+      "name": "Witness Statement of Security Guard",
+      "evidence_type": "witness",
+      "file_hash": "sha256_guard_stmt_indiranagar",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 2,
+      "text": "Private security guard on duty reported hearing a loud thud around 02:30 AM but thought it was stray cats knocked off the parapet."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-02-ADV",
+    "name": "Anonymous Tip accusing Neighboring Relative",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_anonymous_letter",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Unsigned letter dropped in police complaint box claiming the victim's nephew was seen arguing on the veranda that afternoon."
+  }
+}

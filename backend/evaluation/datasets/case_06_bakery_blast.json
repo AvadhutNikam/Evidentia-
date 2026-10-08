@@ -1,0 +1,97 @@
+{
+  "id": "case_06_bakery_blast",
+  "title": "ATS v. Mirza B. (Pune Bakery IED Blast)",
+  "split": "test",
+  "category": "real_court_anonymized",
+  "is_contested": false,
+  "citation": "Special MCOCA Sessions Court, Pune (Case 4/2010) / Bombay HC Review 2023",
+  "confidence_note": "High (Forensic chemical recovery of RDX at residence, cyber cafe browsing logs)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Mirza B. and conspirators (LeT / IM module)",
+    "rationale": "Chemical trace match of RDX explosive residue at residence; cyber cafe IP logs booking transit tickets; fake electoral card."
+  },
+  "decisive_evidence_ids": [
+    "EX-06-01",
+    "EX-06-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Mirza B. & Terror Module",
+      "statement": "Mirza B. procured RDX explosives, assembled the detonator in Udgir, and provided logistical shelter for the planters."
+    },
+    {
+      "id": "H2",
+      "label": "Rogue Kitchen Cylinder Explosion",
+      "statement": "An industrial commercial LPG kitchen cylinder suffered catastrophic rupture at the bakery counter."
+    },
+    {
+      "id": "H3",
+      "label": "Foreign Tourist Syndicate",
+      "statement": "International narcotics traffickers detonated ordnance to eliminate an informant."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-06-01",
+      "name": "CFSL Pune Post-Blast Chemical Residue Analysis",
+      "evidence_type": "document",
+      "file_hash": "sha256_cfsl_rdx_hydrocarbon",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Gas Chromatography-Mass Spectrometry (GC-MS) of swab samples from blast crater confirmed traces of RDX, Ammonium Nitrate, and Hydrocarbon petroleum oil. Completely disproves LPG cylinder rupture."
+    },
+    {
+      "id": "EX-06-02",
+      "name": "Udgir Residence Search - Explosive Seizure Memo",
+      "evidence_type": "document",
+      "file_hash": "sha256_udgir_search_rdx_1200g",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Seizure of 1,200 grams of blackish explosive powder from accused Mirza B.'s Udgir premises. Chemical composition matched military grade RDX identical to blast scene residue."
+    },
+    {
+      "id": "EX-06-03",
+      "name": "Central Cyber Cafe IP Server Access Log",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_cyber_cafe_ip_log",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Cyber cafe terminal log in Udgir shows browsing of Pune Koregaon Park topography under alias Syed Kharadi. MAC address tied to physical desktop workstation."
+    },
+    {
+      "id": "EX-06-04",
+      "name": "Witness Deposition of Auto-Rickshaw Driver",
+      "evidence_type": "witness",
+      "file_hash": "sha256_auto_driver_statement",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 2,
+      "text": "Auto driver recalled ferrying two young men with heavy rucksacks near Pune railway station but could not identify faces during test identification parade."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-06-ADV",
+    "name": "Planted Kitchen Gas Safety Certificate",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_gas_cert",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "Forged inspection report claiming a commercial gas valve was recalled for sudden catastrophic rupture."
+  }
+}

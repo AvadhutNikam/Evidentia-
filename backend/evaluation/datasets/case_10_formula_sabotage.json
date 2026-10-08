@@ -1,0 +1,97 @@
+{
+  "id": "case_10_formula_sabotage",
+  "title": "Case S3: Pharmaceutical Formula Sabotage",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Controlled Synthetic Benchmark Suite (Trap: Planted Red Herring Badge)",
+  "confidence_note": "Absolute (Fluorescent reagent tracer on perpetrator's lab coat)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Lead Chemist Dr. Roy",
+    "rationale": "Fluorescent reagent marker coated Roy's gloves; Dr. Sen's badge was deliberately stolen and planted near the reactor."
+  },
+  "decisive_evidence_ids": [
+    "EX-10-02",
+    "EX-10-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Lead Chemist Dr. Roy",
+      "statement": "Lead Chemist Dr. Roy sabotaged the catalytic batch after receiving rival equity options."
+    },
+    {
+      "id": "H2",
+      "label": "Junior Assistant Dr. Sen",
+      "statement": "Junior Assistant Dr. Sen contaminated the bioreactor out of resentment over authorship."
+    },
+    {
+      "id": "H3",
+      "label": "Equipment Mechanical Failure",
+      "statement": "The temperature valve malfunctioned due to improper calibration, ruining the batch."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-10-01",
+      "name": "Planted Security ID Badge of Dr. Sen",
+      "evidence_type": "document",
+      "file_hash": "sha256_planted_badge_sen",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 2,
+      "text": "Dr. Sen's magnetic ID badge found lying directly in front of the contaminated reactor vat valve. (TRAP: Dr. Sen filed an HR complaint at 10:00 AM stating her badge was stolen from the common coat rack)."
+    },
+    {
+      "id": "EX-10-02",
+      "name": "Hospital Emergency Room Admitting Log for Dr. Sen",
+      "evidence_type": "document",
+      "file_hash": "sha256_hospital_er_alibi_sen",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Official emergency room medical record proving Dr. Sen was admitted for severe acute allergic reaction at Apollo Clinic at 18:30 and remained on IV drip until 23:00. Bioreactor sabotage occurred at 20:15. Physically disconfirms Dr. Sen."
+    },
+    {
+      "id": "EX-10-03",
+      "name": "Fluorescent Chemical Tracer Analysis on Lab Gear",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_fluorescent_catalyst_roy",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Spectrophotometric analysis revealed Microtaggant chemical tracer beads from the contaminant chemical flask on Dr. Roy's personal silicone lab gloves and wristwatch strap."
+    },
+    {
+      "id": "EX-01-04",
+      "name": "Maintenance Temperature Valve Calibration Certificate",
+      "evidence_type": "document",
+      "file_hash": "sha256_valve_calibration_pass",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Independent ISO-9001 certified valve pressure test logs show the thermocouple responded accurately with zero mechanical failure."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-10-ADV",
+    "name": "Anonymous Letter accusing Dr. Sen",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_anonymous_sen",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "An anonymous printout claiming Dr. Sen bragged about ruining the enzyme formula."
+  }
+}

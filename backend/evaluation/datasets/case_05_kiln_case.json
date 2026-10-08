@@ -1,0 +1,97 @@
+{
+  "id": "case_05_kiln_case",
+  "title": "State v. Rajeev S. (Restaurant Tandoor Kiln Homicide)",
+  "split": "test",
+  "category": "real_court_anonymized",
+  "is_contested": false,
+  "citation": "Supreme Court of India (Criminal Appeal No. 179/2008, AIR 2013 SC 3344)",
+  "confidence_note": "High (Direct firearm recovery, ballistic lead bullet extracted from skull, eyewitness interception)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Rajeev S. (Husband / Former Youth Politician)",
+    "rationale": "Intercepted at restaurant kiln while burning body; licensed Arminius .32 revolver recovered from possession; lead bullets matched skull trauma."
+  },
+  "decisive_evidence_ids": [
+    "EX-05-01",
+    "EX-05-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Rajeev S. (Accused Husband)",
+      "statement": "Rajeev S. shot his wife in their flat with his .32 revolver, transported the body to Bagiya restaurant, and attempted incineration."
+    },
+    {
+      "id": "H2",
+      "label": "Political Assassins / Rival Gang",
+      "statement": "Opposing faction hitmen executed the victim due to political rivalry and dumped the body at the open restaurant garden."
+    },
+    {
+      "id": "H3",
+      "label": "Accidental Kitchen Inferno / Self-Harm",
+      "statement": "The victim committed suicide inside the premises; restaurant staff attempted panic concealment."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-05-01",
+      "name": "Arminius .32 Revolver Recovery and CFSL Ballistic Striation",
+      "evidence_type": "document",
+      "file_hash": "sha256_arminius_revolver_cfsl",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Seizure of licensed Arminius .32 revolver No. 042211 from Rajeev S. Ballistic comparison proved test bullets fired through barrel matched microscopic striations on two lead bullets extracted from victim's cranium."
+    },
+    {
+      "id": "EX-05-02",
+      "name": "Mandir Marg Police Patrol Interception Report",
+      "evidence_type": "witness",
+      "file_hash": "sha256_patrol_constable_report",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Delhi Police Home Guard constable Abdul Nazir on night patrol observed high flames and white smoke rising from open-air Bagiya restaurant; caught manager pouring butter bags into clay tandoor."
+    },
+    {
+      "id": "EX-05-03",
+      "name": "Forensic Medicine Department Autopsy & Bone Histology",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_autopsy_aiims_bone",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "AIIMS Forensic Board confirmed cause of death was firearm injury to head and neck, ante-mortem in nature. Incineration was post-mortem. Femur DNA matched victim's mother with 99.99% probability."
+    },
+    {
+      "id": "EX-05-04",
+      "name": "Flat 8/2A Mandir Marg Crime Scene Blood Stains",
+      "evidence_type": "document",
+      "file_hash": "sha256_flat_sofa_blood_memo",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Blood spatter detected on sofa cushion and wooden cabinet at accused's official residence; chemical group B positive, identical to victim's blood."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-05-ADV",
+    "name": "Planted Political Threat Note",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_political_threat",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Photocopied pamphlet alleging a rival political unit had placed a hit on the residence."
+  }
+}

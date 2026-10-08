@@ -1,0 +1,97 @@
+{
+  "id": "case_04_delhi_bar",
+  "title": "State v. Siddharth V. & Ors. (Bar Shooting Homicide)",
+  "split": "test",
+  "category": "real_court_anonymized",
+  "is_contested": false,
+  "citation": "High Court of Delhi, Criminal Appeal No. 614/2006 (Conviction U/S 302 IPC)",
+  "confidence_note": "High (Supreme Court confirmed, CFSL ballistics match, vehicle recovery)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Siddharth V. (VIP patron at restaurant counter)",
+    "rationale": "Forensic ballistics recovery of .22 ammunition, vehicle Tata Safari DL-2C-S-5555 recovery, and corroboration by non-hostile bar patrons."
+  },
+  "decisive_evidence_ids": [
+    "EX-04-01",
+    "EX-04-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Siddharth V. (Patron at Tamarind Bar)",
+      "statement": "Siddharth V. fired two shots from his .22 licensed pistol after being refused a drink at 02:00 AM."
+    },
+    {
+      "id": "H2",
+      "label": "Unknown Bouncer / Security Staff",
+      "statement": "An armed private bouncer engaged in an accidental discharge during a scuffle with intoxicated guests."
+    },
+    {
+      "id": "H3",
+      "label": "Second Shooter Theory",
+      "statement": "A separate unidentified gunman fired the fatal round from outside the courtyard."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-04-01",
+      "name": "Central Forensic Science Laboratory (CFSL) Ballistics Report",
+      "evidence_type": "document",
+      "file_hash": "sha256_cfsl_ballistics_22bore",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "CFSL ballistics examination confirmed two fired empty cartridge cases recovered from the bar floor were .22 caliber rimfire ammunition fired from the identical pistol registered under Siddharth V.'s arms license."
+    },
+    {
+      "id": "EX-04-02",
+      "name": "Tamarind Court Hospitality Cash Counter Register",
+      "evidence_type": "document",
+      "file_hash": "sha256_bar_counter_bill_slip",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Handwritten bar order slips confirm Siddharth V. and associates opened a table tab at 23:45 and remained drinking near the central service counter past midnight."
+    },
+    {
+      "id": "EX-04-03",
+      "name": "Vehicle Seizure Memo - Tata Safari DL-2C-S-5555",
+      "evidence_type": "document",
+      "file_hash": "sha256_seizure_safari_noida",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Police recovered Tata Safari SUV DL-2C-S-5555 registered in suspect's family name abandoned in Noida Sector 15. Tyre tread impression matched entry tracks outside the restaurant gate."
+    },
+    {
+      "id": "EX-04-04",
+      "name": "Hostile Witness Retraction Record of Primary Complainant",
+      "evidence_type": "witness",
+      "file_hash": "sha256_hostile_retraction_depo",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 2,
+      "text": "Lead complainant retracted initial FIR statement during trial deposition claiming poor lighting made identification impossible, contradicting his initial signed police statement."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-04-ADV",
+    "name": "Planted Bouncer Pistol Statement",
+    "evidence_type": "witness",
+    "file_hash": "sha256_fake_bouncer_affidavit",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "Affidavit from a disgruntled parking attendant claiming he saw an outside bouncer brandishing a handgun."
+  }
+}

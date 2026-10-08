@@ -1,0 +1,96 @@
+{
+  "id": "case_09_server_room",
+  "title": "Case S2: Server Room Algorithmic Source Code Exfiltration",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Controlled Synthetic Benchmark Suite (Trap: Non-Diagnostic Presence Evidence)",
+  "confidence_note": "Absolute (Cryptographic USB serial pairing & physical locker search)",
+  "ground_truth": {
+    "hypothesis_id": "H3",
+    "culprit_summary": "Systems Administrator Verma",
+    "rationale": "Hardware USB vendor serial matched Verma's private encrypted drive; building access logs fit everyone equally and have zero diagnosticity."
+  },
+  "decisive_evidence_ids": [
+    "EX-09-04"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Lead Developer Ankit",
+      "statement": "Lead Developer Ankit copied the trading algorithm to an external disk before tendering resignation."
+    },
+    {
+      "id": "H2",
+      "label": "Database Admin Priya",
+      "statement": "Database Admin Priya executed an unapproved SQL dump of the algorithm repository."
+    },
+    {
+      "id": "H3",
+      "label": "Systems Admin Verma",
+      "statement": "Systems Admin Verma mounted an unauthorized USB mass storage device directly at the server rack console."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-09-01",
+      "name": "Building Turnstile Access Badge Report",
+      "evidence_type": "document",
+      "file_hash": "sha256_turnstile_badging_all",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Turnstile logs show Ankit, Priya, and Verma all scanned into the office building between 09:00 AM and 09:30 AM and remained present all day. (NON-DIAGNOSTIC: Fits all three hypotheses equally)."
+    },
+    {
+      "id": "EX-09-02",
+      "name": "Cafeteria & Common Hallway CCTV Footages",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_hallway_cctv_all",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "CCTV shows all three employees walked through the 4th-floor hallway near the server room during lunch hours. (NON-DIAGNOSTIC: Fits all hypotheses equally)."
+    },
+    {
+      "id": "EX-09-03",
+      "name": "General Network Wi-Fi Router Connection Log",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_wifi_dhcp_all",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Enterprise Cisco AP shows laptops of Ankit, Priya, and Verma maintained active DHCP leases throughout the afternoon. (NON-DIAGNOSTIC)."
+    },
+    {
+      "id": "EX-09-04",
+      "name": "Kernel USB Device Plug Event Log & Hardware Seizure",
+      "evidence_type": "document",
+      "file_hash": "sha256_kernel_usb_storage_seizure",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Linux dmesg syslog records Kingston DataTraveler USB Serial #KNG-883921-X mounted at rack 4 console at 14:22:01. Physical search recovered the identical thumb drive with serial #KNG-883921-X from Verma's gym bag in locker 12B."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-09-ADV",
+    "name": "Planted Resignation Letter Draft",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_resignation",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "An unsigned Word document draft of a resignation letter mentioning Ankit's plan to start a competing hedge fund."
+  }
+}

@@ -1,0 +1,35 @@
+================================================================================
+STATE BANK OF INDIA - ATM SURVEILLANCE & TRANSACTION ARCHIVE RECORD
+BRANCH: VIMANNAGAR / SWARGATE ATM TERMINAL #02 (PUNE)
+================================================================================
+PROSECUTION EXHIBIT NO. 24 (Marked in Sessions Case No. 89/2010)
+ADMITTED UNDER SECTION 65B INDIAN EVIDENCE ACT, 1872
+
+TRANSACTION LOG:
+Terminal ID: S1AM004289 (SBI Vimannagar, Nagar Road, Pune)
+Date: 08-OCT-2009
+Time: 21:14:08 IST
+Card Number: 4591-XXXX-XXXX-4128 (Nayana Pujari, Savings Account)
+Transaction Type: Fast Cash Withdrawal (Approved)
+Amount Dispensed: INR 61,000/- (Multi-terminal transactions over 15 minutes)
+Dispenser Status: SUCCESS - Notes Dispensed: 122 x INR 500
+
+CCTV CAPTURE RECORD:
+Camera Channel: Overhead Camera #01 (Facing Cash Slot & PIN Pad)
+Recording Format: H.264 Digital Surveillance Master / DVR HD-04
+Timestamp of Capture: 2009-10-08 21:14:08.420 to 21:16:32.110 IST
+
+FORENSIC EXAMINATION & VISUAL FINDINGS (Crime Branch Technical Unit):
+1. The camera recorded an adult male individual wearing a dark blue casual shirt
+   and blue jeans operating the ATM keyboard.
+2. Facial features, hairline, and physical posture positively identified as accused
+   Yogesh Ashok Raut (Driver of Toyota Qualis cab).
+3. The individual was seen retrieving the cash bundle and stuffing it into a dark
+   leather jacket pocket before exiting the ATM vestibule at 21:16:35 IST.
+4. Subsequent bank transaction records confirm three attempts using PIN 4812,
+   which corresponded to the victim's personal diary note.
+
+CERTIFICATE UNDER SECTION 65B:
+Certified by Branch Manager & Chief Security Officer, State Bank of India,
+Zonal Office, Pune. Original DVR hard disk seized and marked as Exhibit 24-A.
+================================================================================

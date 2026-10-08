@@ -1,0 +1,97 @@
+{
+  "id": "case_11_dockyard_homicide",
+  "title": "Case S4: Dockyard Cargo Berth Homicide",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Controlled Synthetic Benchmark Suite (Trap: Heavy Circumstantial Bias vs Forensic Ballistics)",
+  "confidence_note": "Absolute (Gunshot residue SEM-EDX and rifling groove match)",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Dock Foreman Tariq",
+    "rationale": "Gunshot residue on Tariq's hands and unique extractor pin marks match his firearm; Contractor Gill had a loud argument earlier creating intense circumstantial bias."
+  },
+  "decisive_evidence_ids": [
+    "EX-11-02",
+    "EX-11-04"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Contractor Gill (Hotheaded Rival)",
+      "statement": "Contractor Gill murdered the shipping inspector following a fierce, public fistfight on Berth 4."
+    },
+    {
+      "id": "H2",
+      "label": "Dock Foreman Tariq",
+      "statement": "Foreman Tariq ambushed the inspector to protect a clandestine contraband container operation."
+    },
+    {
+      "id": "H3",
+      "label": "Accidental Stray Flare Discharge",
+      "statement": "An emergency distress flare fired from a passing cargo ship ricocheted and caused fatal trauma."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-11-01",
+      "name": "Eyewitness Deposition on Berth 4 Brawl",
+      "evidence_type": "witness",
+      "file_hash": "sha256_brawl_witness_gill",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Three dock workers testify Contractor Gill shouted death threats at the victim at 17:30 and threw a punch before storming off. (TRAP: Massive circumstantial bias)."
+    },
+    {
+      "id": "EX-11-02",
+      "name": "Scanning Electron Microscopy (SEM-EDX) Gunshot Residue Test",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_sem_edx_gsr_tariq",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Dermal stub analysis using SEM-EDX found characteristic spherical Lead-Barium-Antimony (Pb-Ba-Sb) primer particles on Foreman Tariq's right hand and jacket cuffs. Contractor Gill tested completely negative for GSR."
+    },
+    {
+      "id": "EX-11-03",
+      "name": "Contractor Gill Diner CCTV and Payment Timecard",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_diner_cctv_gill_alibi",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "CCTV footage and credit card slip from Blue Harbor Diner 12 miles away places Contractor Gill eating with his accountant between 18:45 and 20:00. Fatal shooting occurred at 19:15."
+    },
+    {
+      "id": "EX-11-04",
+      "name": "FSL Ballistic Comparison on .38 Revolver Seized from Tariq",
+      "evidence_type": "document",
+      "file_hash": "sha256_tariq_38_ballistics",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Striation markings on bullet slug recovered from victim matched test firings from unlicensed Colt .38 revolver seized from Tariq's tool locker with 5 land-and-groove right-hand twist."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-11-ADV",
+    "name": "Planted Gill Business Card in Berth Sump",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_gill_card",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "A dry, undamaged business card of Contractor Gill dropped right beside the victim's body in a muddy puddle."
+  }
+}

@@ -1,0 +1,51 @@
+================================================================================
+FORENSIC SCIENCE LABORATORY (FSL)
+GOVERNMENT OF MAHARASHTRA, KALINA, MUMBAI - 400 098
+BIOLOGY & SEROLOGY DIVISION • DNA TYPING REPORT
+================================================================================
+Report No: FSL/DNA/PUN/2009/1482
+Reference: Special Sessions Case No. 89/2010 (Yerwada PS CR No. 534/2009)
+Date of Examination: 12th April 2010
+Director / Senior Scientific Officer: Dr. S. K. Tripathi, M.Sc., Ph.D.
+
+EXHIBITS RECEIVED FOR DNA PROFILING:
+Exhibit A: Blood swab recovered from rear seat upholstery of Toyota Qualis (MH-12-AR-2541)
+Exhibit B: Semen stains and epithelial swabs collected from deceased during post-mortem
+Exhibit C: Reference blood sample of Accused No. 1 (Yogesh Ashok Raut)
+Exhibit D: Reference blood sample of Accused No. 2 (Mahesh Balasaheb Thakur)
+Exhibit E: Reference blood sample of Accused No. 3 (Vishwas Hindurao Kadam)
+Exhibit F: Control blood sample of Accused No. 4 (Rajesh Pandurang Chaudhari)
+
+TECHNIQUE EMPLOYED:
+Polymerase Chain Reaction (PCR) based Short Tandem Repeat (STR) profiling using
+AmpFlSTR Identifiler Plus PCR Amplification Kit (15 Tetranucleotide STR Loci + Amelogenin).
+
+ALLELIC MATCH RESULTS:
+--------------------------------------------------------------------------------
+LOCUS       | EXHIBIT A (CAB) | EXHIBIT B (VICTIM) | EXHIBIT C (Y. RAUT) | MATCH
+--------------------------------------------------------------------------------
+D8S1179     | 13, 15          | 13, 15             | 13, 15              | MATCH
+D21S11      | 28, 30          | 28, 30             | 28, 30              | MATCH
+D7S820      | 10, 11          | 10, 11             | 10, 11              | MATCH
+CSF1PO      | 11, 12          | 11, 12             | 11, 12              | MATCH
+D3S1358     | 15, 17          | 15, 17             | 15, 17              | MATCH
+TH01        | 7, 9            | 7, 9               | 7, 9                | MATCH
+D13S317     | 8, 12           | 8, 12              | 8, 12               | MATCH
+D16S539     | 11, 13          | 11, 13             | 11, 13              | MATCH
+D2S1338     | 18, 20          | 18, 20             | 18, 20              | MATCH
+D19S433     | 14, 15.2        | 14, 15.2           | 14, 15.2            | MATCH
+vWA         | 16, 18          | 16, 18             | 16, 18              | MATCH
+TPOX        | 8, 11           | 8, 11              | 8, 11               | MATCH
+D18S51      | 14, 19          | 14, 19             | 14, 19              | MATCH
+AMELOGENIN  | X, Y            | X, Y               | X, Y                | MALE CONFIRMED
+--------------------------------------------------------------------------------
+
+CONCLUSION:
+The DNA profile generated from biological trace stains in Exhibit A and Exhibit B
+is identical to the reference DNA profile of Accused No. 1 Yogesh Ashok Raut.
+The probability of finding this identical profile at random among unrelated
+individuals is estimated to be less than 1 in 4.84 x 10^12 (1 in 4.8 Trillion).
+Accused No. 4 (Rajesh Chaudhari) is completely EXCLUDED from biological samples.
+
+[Marked as Prosecution Exhibit No. 49, Admitted under Section 45 Indian Evidence Act]
+================================================================================

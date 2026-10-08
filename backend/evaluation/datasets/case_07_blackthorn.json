@@ -1,0 +1,97 @@
+{
+  "id": "case_07_blackthorn",
+  "title": "Operation Blackthorn (First Mass DNA Forensic Case)",
+  "split": "test",
+  "category": "real_court_anonymized",
+  "is_contested": false,
+  "citation": "Crown Court Leicester (Forensic Science Service Landmark Record, 1988)",
+  "confidence_note": "High (Groundbreaking first forensic DNA STR profiling in criminal history)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Baker Colin P. (Uncovered through proxy blood donor confession)",
+    "rationale": "Forensic DNA match with seminal stains; proxy donor Ian Kelly confessed to taking blood test on suspect's behalf."
+  },
+  "decisive_evidence_ids": [
+    "EX-07-01",
+    "EX-07-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Local Baker Colin P.",
+      "statement": "Local bakery worker Colin P. committed the assaults along the footpath and evaded initial screening via proxy donor."
+    },
+    {
+      "id": "H2",
+      "label": "Richard B. (Falsely Accused Hospital Porter)",
+      "statement": "Hospital porter Richard B., who made false admissions during interrogation, committed the crimes."
+    },
+    {
+      "id": "H3",
+      "label": "Transient Drifter Syndicate",
+      "statement": "An itinerant railway worker traversing the Leicestershire rail line committed the crimes."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-07-01",
+      "name": "FSS Alec Jeffreys Multilocus DNA Profile",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_jeffreys_dna_str_01",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "DNA autoradiograph by Sir Alec Jeffreys demonstrated seminal fluids from both crime scenes came from the same male. Excluded initial suspect Richard B. entirely. Direct profile matched Colin P. with 1 in 30 billion precision."
+    },
+    {
+      "id": "EX-07-02",
+      "name": "Police Interrogation Admission of Porter Richard B.",
+      "evidence_type": "confession",
+      "file_hash": "sha256_false_confession_porter",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 2,
+      "text": "Hospital porter Richard B. gave a confused 14-page confession after 12 hours of questioning. Later proved completely false when DNA proved he did not produce the semen."
+    },
+    {
+      "id": "EX-07-03",
+      "name": "Pub Witness Statement & Confession of Proxy Ian Kelly",
+      "evidence_type": "witness",
+      "file_hash": "sha256_ian_kelly_proxy_stmt",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Witness overheard bakery coworker Ian Kelly in a local pub bragging he took the voluntary police blood test using Colin P.'s passport for £200. Kelly arrested and gave signed statement admitting proxy fraud."
+    },
+    {
+      "id": "EX-07-04",
+      "name": "Bakery Work Shift Timecard",
+      "evidence_type": "document",
+      "file_hash": "sha256_bakery_punch_card",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Bakery employment logs show Colin P. clocked off work at 16:30, leaving a 2-hour unverified window along the rural footpath on the evening of the attack."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-07-ADV",
+    "name": "Fabricated Railway Ticket Stub",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_railway_stub",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Railway pass found in ditch suggesting an itinerant traveler arrived from London that evening."
+  }
+}

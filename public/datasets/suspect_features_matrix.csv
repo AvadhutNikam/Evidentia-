@@ -1,0 +1,7 @@
+Suspect_ID,Case_ID,Suspect_Name,Inside_Access_Credentials,CDR_Tower_Proximity,Mule_Financial_Link,Forensic_Data_Carve,ATM_CCTV_Match,Telegram_VoIP_Encrypted,Physical_Weapon_Possession,Alibi_Contradiction,Escape_Attempt_Flight,Fingerprint_DNA_Match,Forensic_Lab_Report,Wiretap_Admissions,Prior_Police_Record,Digital_Manual_Found
+S-01,FIR-2024-MH-PUN-089,Rohan Deshmukh,1,1,1,1,0,1,0,1,0,0,1,0,0,1
+S-02,FIR-2024-MH-PUN-089,Amit Verma (Mule Broker),0,0,1,0,1,1,0,0,1,0,1,1,1,0
+S-03,FIR-2024-KA-BLR-142,Suresh Gowda,0,1,0,0,0,0,1,1,1,1,1,0,1,0
+S-04,FIR-2024-DL-ND-058,Manish Kapoor,1,1,1,1,0,1,0,1,1,0,1,1,0,1
+S-05,CASE-BOS-2013-001,Dzhokhar Tsarnaev,0,1,0,1,1,0,1,1,1,1,1,0,0,1
+S-06,CASE-BOS-2013-001,Tamerlan Tsarnaev,0,1,0,1,1,0,1,0,1,1,1,0,1,1

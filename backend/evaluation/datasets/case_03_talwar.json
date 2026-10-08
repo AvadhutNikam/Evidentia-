@@ -1,0 +1,94 @@
+{
+  "id": "case_03_talwar",
+  "title": "CBI v. Rajesh & Nupur Talwar (Aarushi Talwar Double Homicide)",
+  "split": "test",
+  "category": "contested",
+  "is_contested": true,
+  "citation": "Allahabad High Court (Criminal Appeal No. 7463/2013, Judgment 12 October 2017)",
+  "confidence_note": "Legally Unresolved / Acquitted on Benefit of Doubt (Circumstantial chain incomplete, conflicting FSL reports)",
+  "ground_truth": {
+    "hypothesis_id": "UNRESOLVED",
+    "culprit_summary": "Legally inconclusive; trial court convicted parents, High Court acquitted due to tainted crime scene and missing links",
+    "rationale": "High Court held prosecution failed to prove chain of circumstances beyond reasonable doubt. Benchmark uses this case strictly as an ambiguity test."
+  },
+  "decisive_evidence_ids": [],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Parents (Rajesh & Nupur Talwar)",
+      "statement": "The parents committed the killings inside the sealed flat under sudden grave provocation, then dressed up the crime scene."
+    },
+    {
+      "id": "H2",
+      "label": "Domestic Servants / Outside Intruders",
+      "statement": "Domestic helpers (Krishna, Rajkumar, Vijay Mandal) entered Hemraj's room, attempted assault, and committed the murders before fleeing."
+    },
+    {
+      "id": "H3",
+      "label": "Unidentified External Intruders",
+      "statement": "Unknown third-party intruders entered the flat through the unlocked outer mesh door."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-03-01",
+      "name": "Terrace & Bedroom Fingerprint Examination",
+      "evidence_type": "fingerprint",
+      "file_hash": "sha256_talwar_fp_crime_scene",
+      "hash_verified": true,
+      "chain_of_custody_complete": false,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 2,
+      "text": "Fingerprint Bureau lifted 26 latent prints from master bedroom and terrace door; 24 prints smudged due to uncordoned crowd of 40+ media and neighbors walking through crime scene."
+    },
+    {
+      "id": "EX-03-02",
+      "name": "Airtel Router Internet Activity Log",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_airtel_router_activity",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Modem records show periodic router handshakes throughout the night (03:53 AM, 04:11 AM). Prosecution alleged wakefulness; defense showed automated DHCP packet polling."
+    },
+    {
+      "id": "EX-03-03",
+      "name": "FSL CDFD Hyderabad DNA Typing Report on Pillow Covers",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_cdfd_dna_pillow",
+      "hash_verified": true,
+      "chain_of_custody_complete": false,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 2,
+      "text": "Initial report indicated Hemraj's DNA on Krishna's pillow cover. CDFD later issued clarification letter stating typo error in labeling sample tubes (admitted clerical mix-up)."
+    },
+    {
+      "id": "EX-03-04",
+      "name": "Medical Opinion on Dental Scalpel / Surgical Cleaver Wound",
+      "evidence_type": "document",
+      "file_hash": "sha256_postmortem_dr_doharey",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 3,
+      "text": "Autopsy surgeon Dr. Sunil Doharey noted incised neck wounds had clinical precision consistent with surgical scalpel, but did not record this finding in the initial autopsy report."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-03-ADV",
+    "name": "Sensational Media Leak Allegation",
+    "evidence_type": "document",
+    "file_hash": "sha256_press_leak_talwar",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Unattributed media leak asserting an alleged honor killing confession without judicial endorsement."
+  }
+}

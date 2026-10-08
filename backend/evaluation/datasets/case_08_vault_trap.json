@@ -1,0 +1,97 @@
+{
+  "id": "case_08_vault_trap",
+  "title": "Case S1: Bank Vault Dual-Keypad Breach",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Controlled Synthetic Benchmark Suite (Trap: Confident Misleading Eyewitness)",
+  "confidence_note": "Absolute (Cryptographic keylog & physical safe sensor ground truth)",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Head Cashier Dev (Authorized insider abuse)",
+    "rationale": "Biometric iris log and master cryptographic keycard used; misleading eyewitness guard was mistaken due to uniform similarity."
+  },
+  "decisive_evidence_ids": [
+    "EX-08-02",
+    "EX-08-04"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Night Watchman Ramesh",
+      "statement": "Night Watchman Ramesh overpowered the lobby sensor and entered the vault using stolen master keys."
+    },
+    {
+      "id": "H2",
+      "label": "Head Cashier Dev",
+      "statement": "Head Cashier Dev executed an unauthorized midnight entry using his cryptographic token to siphon currency bags."
+    },
+    {
+      "id": "H3",
+      "label": "External Tunnel Heist Gang",
+      "statement": "An external robbery crew breached the vault wall from the adjoining storm drain."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-08-01",
+      "name": "Overconfident Eyewitness Statement of Floor Guard",
+      "evidence_type": "witness",
+      "file_hash": "sha256_witness_guard_trap",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 3,
+      "text": "Lobby security guard asserts with 100% subjective confidence: 'I saw Watchman Ramesh walking down the dark corridor into the vault at 01:15 AM wearing khaki trousers.' (TRAP: Watchman and Cashier wore identical company monsoon raincoats)."
+    },
+    {
+      "id": "EX-08-02",
+      "name": "Vault Electronic Access Biometric & Smartcard Audit Log",
+      "evidence_type": "document",
+      "file_hash": "sha256_biometric_iris_vault_audit",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Hardware security module (HSM) tamper-proof log records Vault Door 2 unlocked at 01:14:22 AM via RSA Smartcard ID #CASHIER-DEV coupled with 99.8% iris match for Dev. Watchman Ramesh's RFID badge was stationary in the guard shack."
+    },
+    {
+      "id": "EX-08-03",
+      "name": "Adjoining Storm Drain Physical Inspection Memo",
+      "evidence_type": "document",
+      "file_hash": "sha256_storm_drain_inspection",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Municipal drainage engineer report confirms concrete reinforced vault wall is 18 inches solid rebar with no cracks, moisture, or drilling attempts. Completely disproves tunnel heist."
+    },
+    {
+      "id": "EX-08-04",
+      "name": "Currency Bundle Fluorescent Dye Forensic Swab",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_fluorescent_swab_dev_car",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Forensic UV swab of steering wheel in Head Cashier Dev's Honda City detected traces of Rhodamine-B chemical dye powder tagged onto the missing Reserve Bank cash packets."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-08-ADV",
+    "name": "Planted Khaki Cloth Scrap",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_cloth_scrap",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Unverified cloth fragment labeled 'Ramesh uniform' found placed inside the vault doorway."
+  }
+}

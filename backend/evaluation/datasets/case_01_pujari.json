@@ -1,0 +1,97 @@
+{
+  "id": "case_01_pujari",
+  "title": "State of Maharashtra v. Yogesh Raut & Ors. (Pune Techie Case)",
+  "split": "tuning",
+  "category": "real_landmark",
+  "is_contested": false,
+  "citation": "Special Sessions Court, Pune (Judgment dated 27 March 2017) / Confirmed Bombay High Court 2024",
+  "confidence_note": "High (Beyond Reasonable Doubt, confirmed on appeal with forensic corroboration)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Yogesh Raut and co-accused (cab driver and accomplices)",
+    "rationale": "Forensic blood match in Qualis cab MH-12-CR-8692, ATM CCTV cash withdrawal, Sec 164 CrPC judicial confession by approver."
+  },
+  "decisive_evidence_ids": [
+    "EX-01-01",
+    "EX-01-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Yogesh Raut & Co-accused",
+      "statement": "Cab driver Yogesh Raut and accomplices abducted the victim in Qualis cab MH-12-CR-8692, used her ATM cards, and committed the assault."
+    },
+    {
+      "id": "H2",
+      "label": "Unknown Highway Syndicate",
+      "statement": "An opportunistic inter-state highway gang hijacked the victim at Kharadi bypass; cab driver Yogesh was unrelated."
+    },
+    {
+      "id": "H3",
+      "label": "Workplace Colleague",
+      "statement": "A disgruntled corporate colleague arranged the abduction using a hired private vehicle."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-01-01",
+      "name": "State Bank of India ATM CCTV Footage & Transaction Log",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_sbi_atm_08102009",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "SBI ATM CCTV camera at Talegaon Dabhade timestamped 22:45 IST clearly captures Yogesh Raut wearing a dark jacket withdrawing Rs 20,000 using the victim's debit card. Face match positive at 94.2% match against police dossier."
+    },
+    {
+      "id": "EX-01-02",
+      "name": "Vodafone Cellular Tower BTS Call Detail Records",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_cdr_bts_kharadi_talegaon",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Cell tower BTS logs for IMEI matching Yogesh Raut's handset move synchronously with victim's mobile tower pings from Kharadi bypass to Talegaon Dabhade between 20:15 and 23:30 IST on the incident night."
+    },
+    {
+      "id": "EX-01-03",
+      "name": "State Forensic Science Laboratory (FSL) Qualis Cab Inspection",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_fsl_dna_qualis_09",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Luminol testing of vehicle Qualis MH-12-CR-8692 revealed latent bloodstains on rear seat upholstery. DNA profiling matched victim's reference blood sample with random match probability 1 in 1.4 billion. Front passenger seat hairs matched Yogesh Raut."
+    },
+    {
+      "id": "EX-01-04",
+      "name": "Judicial Confession of Approver Rajesh Chaudhari",
+      "evidence_type": "confession",
+      "file_hash": "sha256_confession_164_jmfc",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 3,
+      "text": "Judicial confession recorded under Section 164 CrPC before Metropolitan Magistrate detailing the sequence of kidnapping, ATM pin extraction, and murder executed under Yogesh Raut's leadership."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-01-ADV",
+    "name": "Planted Highway Gang Receipt",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_toll_slip",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "Unverified handwritten scrap allegedly found on highway shoulder mentioning an unknown inter-state gang planning Kharadi robbery."
+  }
+}

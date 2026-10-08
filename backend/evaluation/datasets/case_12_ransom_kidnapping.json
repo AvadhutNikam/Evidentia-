@@ -1,0 +1,97 @@
+{
+  "id": "case_12_ransom_kidnapping",
+  "title": "Case S5: High-Value Ransom Extortion Drop",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Controlled Synthetic Benchmark Suite (Trap: False Shielding Confession vs FASTag/CDR)",
+  "confidence_note": "Absolute (Cryptographic Toll FASTag RFID & CDR Tower Triangulation)",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Older Brother Vicky (Organized Extortion Plotter)",
+    "rationale": "FASTag toll RFID and cell tower CDR place Vicky at the drop site; younger brother surrendered with a false confession to shield family."
+  },
+  "decisive_evidence_ids": [
+    "EX-12-02",
+    "EX-12-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Older Brother Vicky",
+      "statement": "Vicky masterminded the extortion, drove the getaway vehicle, and picked up the cash bag at the highway culvert."
+    },
+    {
+      "id": "H2",
+      "label": "Younger Brother Bunty (Confessing)",
+      "statement": "Younger brother Bunty committed the crime alone as confessed in his voluntary written submission."
+    },
+    {
+      "id": "H3",
+      "label": "Staged Insurance Fraud by Victim's Family",
+      "statement": "The victim's business partner faked the kidnapping to file a corporate ransom insurance claim."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-12-01",
+      "name": "Signed Surrender & Written Confession of Bunty",
+      "evidence_type": "confession",
+      "file_hash": "sha256_bunty_false_confession",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 3,
+      "text": "Bunty walked into the police station claiming full sole responsibility for the ransom pickup. (TRAP: Bunty could not describe the color of the bag or the vehicle model used)."
+    },
+    {
+      "id": "EX-12-02",
+      "name": "National Highways Authority (NHAI) FASTag Toll RFID Log",
+      "evidence_type": "document",
+      "file_hash": "sha256_nhai_fastag_vicky_scorpio",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "NHAI Khed-Shivapur toll plaza RFID antenna registered Vicky's Mahindra Scorpio MH-14-EA-9911 traversing south at 21:12 and returning north at 22:45. Optical high-speed camera clearly captures Vicky in the driver seat."
+    },
+    {
+      "id": "EX-12-03",
+      "name": "Telecom Cellular Tower CDR Triangulation for Both Brothers",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_cdr_bts_vicky_vs_bunty",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Airtel CDR data reveals Vicky's handset was actively communicating through the culvert cell sector at 22:05 during the drop. Bunty's handset was continuously latched to a residential cell tower in Hadapsar, 85 kilometers away."
+    },
+    {
+      "id": "EX-12-04",
+      "name": "Victim Family Corporate Bank Statement",
+      "evidence_type": "document",
+      "file_hash": "sha256_bank_statement_genuine_ransom",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "HDFC Bank certified statements show a legitimate emergency cash withdrawal of Rs 50 Lakhs debited against personal savings, with no commercial insurance claim filed."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-12-ADV",
+    "name": "Planted Bunty Shopping Bill",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_bunty_slip",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "A receipt allegedly showing Bunty purchasing duct tape near the crime location."
+  }
+}
