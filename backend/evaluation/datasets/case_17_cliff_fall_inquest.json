@@ -1,0 +1,201 @@
+{
+  "id": "case_17_cliff_fall_inquest",
+  "title": "Inquest into the Fatal Cliff Fall of Meera D. (Tiger Point Matheran Case)",
+  "split": "blind_test",
+  "category": "blind_mixed_evidence",
+  "is_contested": false,
+  "citation": "Independent Contributor: Criminal Trial Advocacy Moot Panel (Case #BLIND-2024-F03)",
+  "confidence_note": "High - Scientific geological shear analysis, medical autopsy, and third-party tourist video",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Tragic Accidental Slip & Shale Ledge Shear",
+    "rationale": "Medical autopsy proves complete absence of pre-mortem assault or throttling marks. Tourist video timestamped 3 minutes before fall places husband 10 meters away. Geological survey reveals fresh 1.2m mud-shear collapse of wet shale."
+  },
+  "decisive_evidence_ids": [
+    "EX-17-01",
+    "EX-17-02",
+    "EX-17-04"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Husband Rohan D. (Homicide by Pushing)",
+      "statement": "Husband deliberately pushed victim over the cliff edge during a dispute over marital finances to collect insurance and dowry assets."
+    },
+    {
+      "id": "H2",
+      "label": "Accidental Slip & Ledge Shale Shear",
+      "statement": "Victim accidentally slipped on moss-covered rainy shale rock while posing for a photograph when the ledge edge gave way."
+    },
+    {
+      "id": "H3",
+      "label": "Intentional Self-Harm / Suicide",
+      "statement": "Victim intentionally leaped from the vantage point due to severe personal depression."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 0.65
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.4
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "partially_verified",
+        "numeric_adjustment": 0.4
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "limited_capacity",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "limited_capacity",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [],
+    "H2": [],
+    "H3": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-17-01",
+      "name": "District Civil Hospital Autopsy & Forensic Medical Post-Mortem",
+      "evidence_type": "Document",
+      "file_hash": "sha256_autopsy_meera_matheran_fall",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Post-mortem protocol records extensive blunt polytrauma and deceleration fractures of cranium and ribcage consistent with 80m vertical fall onto granite boulders. Neck hyoid bone is completely intact with zero subcutaneous petechial hemorrhages or fingernail scratch marks, conclusively ruling out pre-fall strangulation or violent physical struggling."
+    },
+    {
+      "id": "EX-17-02",
+      "name": "Third-Party Tourist Smartphone Video Recording",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_tourist_video_tiger_point_1612",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Time-calibrated video captured by an independent tourist at 16:12:05 IST captures Meera posing near the unfenced cliff edge on rain-soaked moss wearing smooth leather fashion sandals. Her husband Rohan is clearly captured 11 meters back on the paved asphalt walkway conversing with a tea vendor, holding umbrellas."
+    },
+    {
+      "id": "EX-17-03",
+      "name": "Family Bank Passbooks & Insurance Query Records",
+      "evidence_type": "Document",
+      "file_hash": "sha256_family_finances_dowry_claim",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Victim's father lodged formal complaint alleging Rohan harassed Meera regarding ₹15 Lakh home downpayment. Investigation confirms a joint life insurance policy was active, creating significant circumstantial friction."
+    },
+    {
+      "id": "EX-17-04",
+      "name": "Geological Survey of India Ledge Failure Examination",
+      "evidence_type": "Document",
+      "file_hash": "sha256_gsi_geological_shale_slip",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Geotechnical field survey at the fall point revealed a fresh 1.4-meter lateral mud-and-shale shear detachment along a saturated bedding plane. Soil compaction and striated shoe-sole scuff marks at the breakaway lip correspond to sudden physical loss of traction and rock collapse."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-17-ADV",
+    "name": "Biased In-Law Written Accusation",
+    "evidence_type": "Document",
+    "file_hash": "sha256_inlaw_complaint_murder_demand",
+    "hash_verified": false,
+    "chain_of_custody_complete": true,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "Handwritten statement by victim's brother stating 'Rohan had threatened to throw her off if money was not arranged.'"
+  }
+}

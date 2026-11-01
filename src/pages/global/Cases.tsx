@@ -402,6 +402,11 @@ export function Cases() {
                     </div>
 
                     <div className="flex items-center gap-1.5">
+                      {(c as any).is_demo && (
+                        <span className="text-[9px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded" title="Pre-calibrated demonstration case">
+                          Demo
+                        </span>
+                      )}
                       <span className={cn(
                         "w-2 h-2 rounded-full",
                         c.status === 'Active' ? "bg-emerald-500" :

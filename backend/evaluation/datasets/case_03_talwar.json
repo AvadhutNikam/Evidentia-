@@ -1,10 +1,10 @@
 {
   "id": "case_03_talwar",
-  "title": "CBI v. Rajesh & Nupur Talwar (Aarushi Talwar Double Homicide)",
+  "title": "State Investigation v. Dr. R.T. & Dr. N.T. (Apartment Double Homicide Case)",
   "split": "test",
   "category": "contested",
   "is_contested": true,
-  "citation": "Allahabad High Court (Criminal Appeal No. 7463/2013, Judgment 12 October 2017)",
+  "citation": "High Court Appellate Review (Anonymized Special Appeal Docket)",
   "confidence_note": "Legally Unresolved / Acquitted on Benefit of Doubt (Circumstantial chain incomplete, conflicting FSL reports)",
   "ground_truth": {
     "hypothesis_id": "UNRESOLVED",
@@ -15,13 +15,13 @@
   "hypotheses": [
     {
       "id": "H1",
-      "label": "Parents (Rajesh & Nupur Talwar)",
+      "label": "Parents (Dr. R.T. & Dr. N.T.)",
       "statement": "The parents committed the killings inside the sealed flat under sudden grave provocation, then dressed up the crime scene."
     },
     {
       "id": "H2",
-      "label": "Domestic Servants / Outside Intruders",
-      "statement": "Domestic helpers (Krishna, Rajkumar, Vijay Mandal) entered Hemraj's room, attempted assault, and committed the murders before fleeing."
+      "label": "Domestic Staff / Outside Associates",
+      "statement": "Domestic helpers entered the premises, attempted assault, and committed the murders before fleeing."
     },
     {
       "id": "H3",

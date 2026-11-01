@@ -1,0 +1,139 @@
+{
+  "id": "case_26_hit_run_cctv_optical_illusion",
+  "title": "State v. P.S. & Ors. (Marine Drive Midnight Hit-and-Run Collision)",
+  "split": "test",
+  "category": "traffic_fatality",
+  "is_contested": false,
+  "citation": "Independent Contributor: Ret. ACP R. V. Deshmukh (Maharashtra Police CID) & Adv. Devendra Verma (ILS Pune)",
+  "confidence_note": "High - Confirmation bias trap: Suspect Singhania owns silver Honda with plate 4812 matching partial CCTV, had bumper dent, and lied to police. But paint spectrophotometry and aged rust prove Contractor Patil's Skoda Rapid was the striking vehicle.",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Transport Contractor P. Patil (Striking Vehicle Skoda Rapid MH-12-QB-4872)",
+    "rationale": "High-performance liquid chromatography and spectrophotometry confirm paint transfer on victim's bicycle frame is metallic polyurethane with bismuth vanadate yellow undertone, matching Skoda OEM factory formulation, not Honda factory enamel. Forensic metal analysis proves Singhania's bumper dent is oxidized old rust (3+ weeks old) with zero fresh impact fractures."
+  },
+  "decisive_evidence_ids": [
+    "EX-26-01",
+    "EX-26-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Businessman K. Singhania (Silver Honda City MH-12-AA-4812)",
+      "statement": "Singhania struck the bicyclist at 11:58 PM while speeding in his silver Honda City and fled the scene, later claiming he was at a restaurant."
+    },
+    {
+      "id": "H2",
+      "label": "Transport Contractor P. Patil (Silver Skoda Rapid MH-12-QB-4872)",
+      "statement": "Patil operated his silver Skoda Rapid at excessive speed, struck the victim at the pedestrian crossing, and concealed the damaged vehicle in a private warehouse."
+    },
+    {
+      "id": "H3",
+      "label": "Unregistered Overloaded Aggregate Tipper Truck",
+      "statement": "An overloaded construction dump truck sideswiped the cyclist with its rear under-run protection bar."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "vehicle_ownership",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "inconsistent_timeline",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "sedan_vehicle",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "avoid_dui_arrest",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "false_statements_given",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.9
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "vehicle_ownership",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "cell_tower_colocated",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "sedan_vehicle",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "commercial_deadline_speeding",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "unverified",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.95
+      }
+    ]
+  },
+  "exhibits": [
+    {
+      "id": "EX-26-01",
+      "name": "Central Forensic Science Laboratory (CFSL) Paint Multi-Layer Spectrophotometry",
+      "evidence_type": "Forensic",
+      "file_hash": "sha256_paint_spectrophotometry_skoda",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Fourier Transform Infrared (FTIR) microscopy and microspectrophotometry of micro-paint scrapings recovered from the victim's bicycle frame identify a four-coat automotive finish: phosphate primer, electrocoat, silver metallic basecoat containing aluminum flake, and clear polyurethane topcoat with bismuth vanadate yellow toner. The organic binder matrix matches Skoda OEM formulation Brilliant Silver (Paint Code 8E8E); entirely incompatible with Honda Tafeta White/Silver acrylic enamel."
+    },
+    {
+      "id": "EX-26-02",
+      "name": "State Motor Vehicles Department Metallurgical Damage Chronology",
+      "evidence_type": "Physical",
+      "file_hash": "sha256_bumper_dent_metallurgical_chronology",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Physical inspection of Singhania's Honda City bumper indentation reveals heavy micro-crystalline iron oxide (pitting rust) covering the crease edges with accumulated road grime, confirming the metal deformation occurred at least 3 weeks prior. Zero fresh paint transfer or fractured plastic clips were present, disproving involvement in the midnight collision."
+    },
+    {
+      "id": "EX-26-03",
+      "name": "High-Speed ANPR Tollway Camera & Windshield Fracture Capture",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_anpr_toll_skoda_patil",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "High-definition infrared Automatic Number Plate Recognition (ANPR) camera located 2.4 km south at Sea Link toll plaza captured silver Skoda Rapid registration MH-12-QB-4872 at 12:05:14 AM displaying severe spiderweb impact fracture on passenger-side windshield and fractured right headlight assembly."
+    }
+  ]
+}

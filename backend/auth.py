@@ -25,16 +25,70 @@ from fastapi import Depends, HTTPException, status, Header
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
+from dotenv import load_dotenv
+from pathlib import Path
+
+# Explicitly ensure environment is loaded
+_BACKEND_DIR = Path(__file__).resolve().parent
+_ENV_FILE = _BACKEND_DIR / ".env"
+if _ENV_FILE.exists():
+    load_dotenv(dotenv_path=_ENV_FILE)
+else:
+    load_dotenv()
+
 from database import get_db
-from models import User, CaseMember, Case
+from models import User, CaseMember, Case, UserSession
+import uuid
+import hashlib
 
 # ==============================================================================
 # CONFIGURATION & CONSTANTS
 # ==============================================================================
 
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "evidentia_super_secret_forensic_jwt_key_2026_prod")
+# Insecure default strings that must never be permitted in production or evaluation
+_INSECURE_DEFAULT_SECRETS = {
+    "evidentia_super_secret_forensic_jwt_key_2026_prod",
+    "secret",
+    "changeme",
+    "jwt_secret_key",
+    "evidentia_secret",
+    "your_jwt_secret_key_here"
+}
+
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+
+def validate_jwt_secret() -> str:
+    """
+    Validates that JWT_SECRET_KEY is defined in host environment settings
+    and meets cryptographic security standards.
+    Stops the app at startup with a clear error if missing or insecure.
+    """
+    secret = os.getenv("JWT_SECRET_KEY")
+    if not secret or not secret.strip():
+        raise RuntimeError(
+            "\n" + "=" * 80 + "\n"
+            "[FATAL SECURITY ERROR] 'JWT_SECRET_KEY' environment variable is NOT set!\n\n"
+            "Evidentia-AI requires a cryptographically secure JWT secret key to start.\n"
+            "Hardcoded default secrets have been completely removed.\n\n"
+            "To fix this, generate a long random secret:\n"
+            "  python -c \"import secrets; print(secrets.token_urlsafe(64))\"\n\n"
+            "And add it to your environment (.env):\n"
+            "  JWT_SECRET_KEY=<generated_secret>\n"
+            + "=" * 80 + "\n"
+        )
+    if secret.strip() in _INSECURE_DEFAULT_SECRETS or len(secret.strip()) < 32:
+        raise RuntimeError(
+            "\n" + "=" * 80 + "\n"
+            "[FATAL SECURITY ERROR] 'JWT_SECRET_KEY' is set to an insecure default or is too short (< 32 chars)!\n"
+            "A strong, unique cryptographic secret is required. Please set a secure JWT_SECRET_KEY.\n"
+            + "=" * 80 + "\n"
+        )
+    return secret.strip()
+
+# Stop the app at startup with a clear error if JWT_SECRET_KEY is missing or insecure
+JWT_SECRET_KEY = validate_jwt_secret()
 JWT_ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 15  # Security Upgrade: High-security shorter sessions (15 minutes)
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 MAX_FAILED_ATTEMPTS = 5
 LOCKOUT_DURATION_MINUTES = 15
@@ -117,15 +171,22 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 # JWT TOKEN MANAGEMENT
 # ==============================================================================
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    """Create a signed JWT access token."""
+def create_access_token(
+    data: dict, 
+    expires_delta: Optional[timedelta] = None,
+    jti: Optional[str] = None
+) -> str:
+    """Create a signed JWT access token with unique JTI session identifier."""
     to_encode = data.copy()
     now = datetime.now(timezone.utc)
     expire = now + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    session_id = jti or str(uuid.uuid4())
+    token_type = data.get("type", "access")
     to_encode.update({
         "exp": expire,
         "iat": now,
-        "type": "access"
+        "type": token_type,
+        "jti": session_id
     })
     return jwt.encode(to_encode, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
 
@@ -183,7 +244,10 @@ def get_current_user(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token payload missing subject identifier"
             )
-        user = db.query(User).filter(User.id == int(user_id)).first()
+        if str(user_id).isdigit():
+            user = db.query(User).filter(User.id == int(user_id)).first()
+        else:
+            user = db.query(User).filter(User.email == str(user_id)).first()
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -194,21 +258,32 @@ def get_current_user(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="User account is deactivated"
             )
+
+        # Check session revocation if jti is present
+        jti = payload.get("jti")
+        if jti:
+            token_hash = hashlib.sha256(jti.encode("utf-8")).hexdigest()
+            sess = db.query(UserSession).filter(
+                UserSession.session_token_hash == token_hash,
+                UserSession.user_id == user.id
+            ).first()
+            if sess:
+                if sess.is_revoked:
+                    raise HTTPException(
+                        status_code=status.HTTP_401_UNAUTHORIZED,
+                        detail="Session has been revoked by user or administrator. Please sign in again.",
+                        headers={"WWW-Authenticate": "Bearer"}
+                    )
+                # Touch last_active_at
+                sess.last_active_at = datetime.now(timezone.utc)
+                db.commit()
+
         return user
 
-    # Seamless development fallback: if no token is provided, pick or create default Admin
-    default_user = db.query(User).filter(User.email == "admin@evidentia.gov.in").first()
-    if default_user:
-        return default_user
-    
-    # Return any first user
-    first_user = db.query(User).first()
-    if first_user:
-        return first_user
-
+    # Strict authentication: credentials are required
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Authentication credentials required. Please sign in.",
+        detail="Authentication credentials required. Please sign in with a valid Bearer token.",
         headers={"WWW-Authenticate": "Bearer"}
     )
 
@@ -225,6 +300,10 @@ def require_role(allowed_roles: List[str]):
             )
         return current_user
     return role_checker
+
+
+# Convenient admin-only dependency
+require_admin = require_role(["admin"])
 
 
 # ==============================================================================
@@ -255,11 +334,18 @@ def check_case_access(
         return False
 
     effective_role = membership.case_role or user.role
+    if effective_role == "lead":
+        effective_role = "lead_investigator"
     perms = ROLE_PERMISSIONS.get(effective_role, ROLE_PERMISSIONS["reviewer"])
 
     action_map = {
         "read": True,
+        "view_case": True,
+        "view_evidence": True,
         "analyze": perms.get("can_analyze", False),
+        "edit_case": perms.get("can_analyze", False),
+        "edit_evidence": perms.get("can_analyze", False),
+        "review_case": perms.get("can_override_scoring", False) or effective_role in ["admin", "lead_investigator", "reviewer"],
         "add_evidence": perms.get("can_add_evidence", False),
         "delete_evidence": perms.get("can_delete_evidence", False),
         "delete_case": perms.get("can_delete_case", False),

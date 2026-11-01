@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, Globe, BarChart2, Settings, User, Search, Shield, Award } from 'lucide-react';
+import { LayoutDashboard, Briefcase, Globe, BarChart2, Settings, User, Search, Shield, Award, Cpu } from 'lucide-react';
 import { cn } from '../../utils';
 
 const globalNavItems = [
   { path: '/dashboard', icon: LayoutDashboard, label: 'Overview' },
   { path: '/cases', icon: Briefcase, label: 'Investigations' },
   { path: '/evaluation', icon: Award, label: 'ACH Benchmark' },
+  { path: '/model-card', icon: Cpu, label: 'AI Model Card' },
   { path: '/osint', icon: Globe, label: 'OSINT Intelligence' },
   { path: '/search', icon: Search, label: 'Cross-Examination' },
   { path: '/reports', icon: BarChart2, label: 'Briefings & Dossiers' },

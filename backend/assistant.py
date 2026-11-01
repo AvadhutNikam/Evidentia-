@@ -3,15 +3,14 @@ import os
 from typing import List, Dict
 from sqlalchemy.orm import Session
 from models import Evidence, Entity, Event
-from google import genai
+from config import FALLBACK_MODEL_NAMES
+from ai_dispatch_engine import dispatch_ai_completion, AirGapSecurityViolationError
 
 
 class InvestigationAssistant:
     def __init__(self, db: Session, case_id: int):
         self.db = db
         self.case_id = case_id
-        api_key = os.getenv("GEMINI_API_KEY")
-        self.client = genai.Client(api_key=api_key) if api_key else None
 
     def get_case_context(self) -> str:
         """Build a context string from all case data."""
@@ -57,30 +56,29 @@ class InvestigationAssistant:
         Cite specific exhibits, dates, and named entities where applicable.
         """
 
-        candidate_models = [
-            "gemini-flash-lite-latest",
-            "gemini-3.5-flash-lite",
-            "gemini-flash-latest",
-            "gemini-3.8-flash"
-        ]
+        # Dispatch through Air-Gap & Private Model aware engine
+        try:
+            ai_res = dispatch_ai_completion(
+                prompt=prompt,
+                case_id=self.case_id,
+                db=self.db
+            )
+            if ai_res.get("success") and ai_res.get("text"):
+                return {
+                    "answer": ai_res["text"].strip(),
+                    "sources": self.get_sources(),
+                    "provider": ai_res.get("provider", "cloud_gemini")
+                }
+        except AirGapSecurityViolationError as err:
+            return {
+                "answer": f"[AIR-GAP ENFORCEMENT ACTIVE]: {str(err)}",
+                "sources": self.get_sources(),
+                "provider": "airgap_blocked"
+            }
+        except Exception as e:
+            print(f"[!] AI Dispatch failed: {e}")
 
-        if self.client:
-            for model_name in candidate_models:
-                try:
-                    response = self.client.models.generate_content(
-                        model=model_name,
-                        contents=prompt
-                    )
-                    if response and response.text:
-                        return {
-                            "answer": response.text.strip(),
-                            "sources": self.get_sources()
-                        }
-                except Exception as e:
-                    print(f"[!] Gemini model {model_name} failed: {e}")
-                    continue
-
-        # Grounded fallback if Gemini API is unreachable or rate-limited
+        # Grounded fallback if AI API is unreachable or rate-limited
         evidence_items = self.db.query(Evidence).filter(Evidence.case_id == self.case_id).all()
         entities = self.db.query(Entity).filter(Entity.case_id == self.case_id).all()
         events = self.db.query(Event).filter(Event.case_id == self.case_id).all()

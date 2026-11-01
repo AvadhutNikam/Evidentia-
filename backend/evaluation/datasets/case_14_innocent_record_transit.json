@@ -1,0 +1,219 @@
+{
+  "id": "case_14_innocent_record_transit",
+  "title": "State v. A.M. & Ors. (Transit Cargo Logistics Theft / Identity Trap Case)",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Sessions Court Special Cargo Crime Registry Docket #C-14/2026",
+  "confidence_note": "High (Latent friction ridge match and cellular GPS telemetry vs. airport flight alibi)",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Logistics Dispatcher Alok M. (H2, Clean Record)",
+    "rationale": "Latent fingerprint on container seal and coincident GPS telemetry prove Alok M. committed the cargo theft; prior offender Amarjit S. (H1) is conclusively exonerated by commercial flight records."
+  },
+  "decisive_evidence_ids": [
+    "EX-14-01",
+    "EX-14-02",
+    "EX-14-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Former Transporter Amarjit S. (Prior Cargo Hijack Record)",
+      "statement": "Former long-haul trucker Amarjit S., who has two prior convictions for highway cargo interception, intercepted the logistics container en route."
+    },
+    {
+      "id": "H2",
+      "label": "Logistics Depot Dispatcher Alok M. (Clean Record)",
+      "statement": "Depot logistics dispatcher Alok M. secretly broke the container seal at the intermediate siding and diverted the high-value electronics."
+    },
+    {
+      "id": "H3",
+      "label": "Accidental In-Transit Seal Rupture",
+      "statement": "The container seal snapped accidentally due to road vibration and cargo fell out undetected."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-14-01",
+      "name": "State Fingerprint Bureau Latent Friction Ridge ACE-V Report",
+      "evidence_type": "fingerprint",
+      "file_hash": "sha256_afis_latent_print_container_latch",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Latent friction ridge print lifted using cyanoacrylate fuming from the fresh sheared edge of high-security container seal #SL-88902 matched the left index finger of Suspect Alok M. (H2) with 14 clear minutiae points. Suspect Amarjit S. (H1) friction ridge pattern is completely incompatible and excluded."
+    },
+    {
+      "id": "EX-14-02",
+      "name": "GPS Telemetry & Cellular CDR Siding Triangulation",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_gps_cdr_alok_siding_0145",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Cell tower sector logs and FASTag telemetry show Alok M.'s personal vehicle was stationary alongside the container truck at the desolate railway siding for 38 minutes between 01:25 and 02:03 IST. Bluetooth handshake recorded between his vehicle and the depot scanner."
+    },
+    {
+      "id": "EX-14-03",
+      "name": "Air India Passenger Manifest & Airport CISF Biometric Gate Log",
+      "evidence_type": "document",
+      "file_hash": "sha256_air_india_ai804_manifest_amarjit",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Official certified flight manifest for Air India AI-804 confirms Suspect Amarjit S. (H1) boarded the aircraft at New Delhi (DEL) at 23:45 IST and landed at Bengaluru (BLR) at 02:35 IST. CISF biometric DigiYatra facial recognition timestamps confirm his physical presence aboard the flight throughout the incident window."
+    },
+    {
+      "id": "EX-14-04",
+      "name": "SCRB Certified Criminal Record Dossier for Amarjit S.",
+      "evidence_type": "document",
+      "file_hash": "sha256_scrb_prior_record_amarjit_2018_2020",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Certified conviction dossier showing Amarjit S. was convicted in 2018 and 2020 under Section 392 IPC for highway transit cargo thefts. Both cases involved tampering with container seals."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-14-ADV",
+    "name": "Fabricated Siding Log Sheet Entry",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_siding_log_amarjit",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Photocopied night register sheet containing a handwritten scribble alleging 'Amarjit truck spotted outside siding gate at 01:30.'"
+  },
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "remote_or_indirect",
+        "numeric_adjustment": 0.45
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "strongly_verified",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_impossible",
+        "numeric_adjustment": 0.05
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "limited_capacity",
+        "numeric_adjustment": 0.4
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [
+      {
+        "suspect_name": "Amarjit S.",
+        "offense_type": "Highway Lorry Cargo Hijacking & Interception",
+        "legal_section": "Section 392, 397 IPC",
+        "offense_date": "2018-11-20",
+        "location": "NH-48 Corridor, Kolhapur",
+        "outcome": "convicted",
+        "weapon_used": "Iron rod / cutter",
+        "entry_method": "Breaking container lock bolt seal",
+        "victim_type": "Logistics fleet vehicle",
+        "location_type": "Transit bypass corridor",
+        "time_pattern": "Nighttime 01:00-03:00",
+        "mo_description": "Sheared container bolt seal at transit halt and offloaded consumer electronics into waiting mini-truck.",
+        "verification_status": "verified",
+        "identity_match_confidence": 0.98,
+        "verified_identity": true,
+        "is_juvenile": false
+      }
+    ],
+    "H2": []
+  }
+}

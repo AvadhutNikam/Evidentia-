@@ -15,7 +15,7 @@
   --color-text-muted: #6e665d;
   --color-border: #eae4d9;
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', 'Noto Sans Devanagari', 'Mangal', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
@@ -40,6 +40,41 @@
   p, span, div, label {
     color: inherit;
   }
+}
+
+/* Indic Typography & Line-Height Compensation for Matras */
+html[lang="hi"] body, html[lang="mr"] body {
+  line-height: 1.625;
+  letter-spacing: 0.01em;
+}
+
+html[lang="hi"] input, html[lang="hi"] textarea,
+html[lang="mr"] input, html[lang="mr"] textarea {
+  line-height: 1.5;
+}
+
+/* ============================================================ */
+/* LIGHT HARDWARE MODE (Old Station PCs & 2G/3G Cellular)      */
+/* ============================================================ */
+.light-hardware-mode *,
+.light-hardware-mode *::before,
+.light-hardware-mode *::after {
+  animation-duration: 0.001s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001s !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.light-hardware-mode .backdrop-blur-md,
+.light-hardware-mode .backdrop-blur-sm,
+.light-hardware-mode .backdrop-blur-xs,
+.light-hardware-mode .backdrop-blur {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: #faf7f2 !important;
 }
 
 /* ============================================================ */
@@ -76,35 +111,32 @@
   border-color: #eae4d9 !important;
 }
 
-/* 3. High-contrast typography: Fix any legacy text-white */
-.text-white {
-  color: #191410 !important;
+/* 3. Typography defaults */
+.text-white-force {
+  color: #ffffff !important;
 }
 
-/* 4. Exceptions: ONLY inside solid dark/primary backgrounds should text be white */
+/* 4. Exceptions: Solid dark/primary backgrounds should have crisp white text */
 button.bg-primary,
 button.bg-accent,
-button[class*="bg-[#d93829]"],
-button[class*="bg-[#bf2b1d]"],
+button[class~="bg-[#d93829]"],
+button[class~="bg-[#bf2b1d]"],
 .bg-primary:not([class*="/"]),
-[class*="bg-[#d93829]"]:not([class*="/"]),
-[class*="bg-[#bf2b1d]"]:not([class*="/"]),
-[class*="bg-red-600"]:not([class*="/"]),
-[class*="bg-blue-600"]:not([class*="/"]),
-[class*="bg-emerald-600"]:not([class*="/"]),
-[class*="bg-black"],
-[class*="bg-[#14110f]"],
-.text-white-force {
+[class~="bg-[#d93829]"]:not([class*="/"]),
+[class~="bg-[#bf2b1d]"]:not([class*="/"]),
+[class~="bg-red-600"]:not([class*="/"]),
+[class~="bg-blue-600"]:not([class*="/"]),
+[class~="bg-emerald-600"]:not([class*="/"]),
+[class~="bg-black"],
+[class~="bg-[#14110f]"] {
   color: #ffffff !important;
 }
 
 button.bg-primary *,
 button.bg-accent *,
-button[class*="bg-[#d93829]"] *,
-button[class*="bg-[#bf2b1d]"] *,
+button[class~="bg-[#d93829]"] *,
+button[class~="bg-[#bf2b1d]"] *,
 .bg-primary:not([class*="/"]) *,
-[class*="bg-[#d93829]"]:not([class*="/"]) *,
-[class*="bg-[#bf2b1d]"]:not([class*="/"]) *,
 .text-white-force * {
   color: #ffffff !important;
 }

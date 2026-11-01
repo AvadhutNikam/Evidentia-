@@ -23,123 +23,12 @@ _nlp = None
 _whisper_model = None
 _gemini_client = None
 
-# Known forensic exhibit dossiers for real-case enrichment
-EXHIBIT_DOSSIERS = {
-    "sample_atm_cctv.mp4": {
-        "title": "Yerwada SBI ATM CCTV Footage (21:42:15 IST)",
-        "type": "Digital Video Surveillance (CCTV)",
-        "legal": "Prosecution Exhibit No. 24 • Sec 65B(4) Indian Evidence Act / Sec 63 BSA 2023",
-        "transcript": (
-            "Yerwada SBI ATM surveillance camera 02 recorded on 07-Oct-2009 at 21:42:15 IST. "
-            "Two adult males observed entering the ATM vestibule using victim Nayana Pujari's SBI debit card. "
-            "Accused Yogesh Ashok Raut is clearly observed at the ATM keypad withdrawing Rs 61,000 across three consecutive transactions. "
-            "Accomplice Rajesh Chaudhari is seen waiting outside the glass door in the getaway vehicle, a silver Toyota Qualis bearing registration MH-12-AR-2541. "
-            "Facial recognition and apparel match subsequent arrest seizures."
-        ),
-        "entities": [
-            {"name": "Yogesh Ashok Raut", "type": "PERSON", "confidence": 0.98, "role": "Prime Accused (Withdrawal Actor)"},
-            {"name": "Rajesh Chaudhari", "type": "PERSON", "confidence": 0.94, "role": "Accomplice / Approver"},
-            {"name": "Nayana Pujari", "type": "PERSON", "confidence": 0.99, "role": "Victim"},
-            {"name": "Yerwada SBI ATM", "type": "LOCATION", "confidence": 0.96, "role": "Crime Scene (Withdrawal)"},
-            {"name": "Toyota Qualis (MH-12-AR-2541)", "type": "VEHICLE", "confidence": 0.97, "role": "Crime Cab"}
-        ],
-        "events": [
-            {
-                "title": "Nayana Pujari Debit Card Fraudulent Withdrawal",
-                "description": "Yogesh Raut and Rajesh Chaudhari withdraw Rs 61,000 from victim's account at Yerwada SBI ATM.",
-                "timestamp": "2009-10-07T21:42:15",
-                "location": "Yerwada SBI ATM",
-                "confidence": 0.97
-            }
-        ]
-    },
-    "sample_cdr_dump.pdf": {
-        "title": "Call Detail Records & Kharadi Cell Tower Triangulation Dump",
-        "type": "Telecommunications Forensic Dump",
-        "legal": "Prosecution Exhibit No. 37 • Sec 65B Indian Evidence Act Nodal Certificate",
-        "transcript": (
-            "Idea & Vodafone Cellular Tower Dump for Kharadi Bypass sector (Cell ID 404-20-1102). "
-            "Between 20:30 and 22:15 IST on 07-Oct-2009, three mobile IMEIs co-located under the same cell tower antenna sector: "
-            "IMEI 35489002148102 (registered to Yogesh Ashok Raut), IMEI 35910293481230 (registered to Mahesh Thakur), and victim Nayana Pujari's cellular handset. "
-            "Outbound call made at 21:05 IST from suspect handset to co-accused Vishwas Kadam. "
-            "Cell tower handover route tracks eastward movement along Pune-Ahmednagar Highway towards Rajgurunagar."
-        ),
-        "entities": [
-            {"name": "Yogesh Ashok Raut", "type": "PERSON", "confidence": 0.97, "role": "Prime Accused Handset User"},
-            {"name": "Mahesh Thakur", "type": "PERSON", "confidence": 0.95, "role": "Co-Accused"},
-            {"name": "Vishwas Kadam", "type": "PERSON", "confidence": 0.93, "role": "Co-Accused"},
-            {"name": "Nayana Pujari", "type": "PERSON", "confidence": 0.99, "role": "Victim"},
-            {"name": "Kharadi Bypass", "type": "LOCATION", "confidence": 0.98, "role": "Abduction Scene"},
-            {"name": "Rajgurunagar", "type": "LOCATION", "confidence": 0.92, "role": "Secondary Scene"}
-        ],
-        "events": [
-            {
-                "title": "Cellular Tower Co-location at Kharadi Bypass",
-                "description": "Suspect handsets and victim phone co-locate under Kharadi cell tower 404-20-1102 between 20:30 and 22:15 IST.",
-                "timestamp": "2009-10-07T20:30:00",
-                "location": "Kharadi Bypass, Pune",
-                "confidence": 0.96
-            }
-        ]
-    },
-    "qualis_forensics.pdf": {
-        "title": "Forensic Science Laboratory (FSL) Biological Examination - Toyota Qualis",
-        "type": "Forensic Biological & Trace Report",
-        "legal": "Prosecution Exhibit No. 49 • Sec 45 Indian Evidence Act (Forensic Expert)",
-        "transcript": (
-            "Forensic Science Laboratory (FSL) Kalina inspection of vehicle Toyota Qualis MH-12-AR-2541. "
-            "Luminol test revealed positive latent bloodstains on the rear middle seat foam and driver-side floor matting. "
-            "Serological test confirms human blood group O Positive matching victim Nayana Pujari. "
-            "DNA STR multiplex analysis matched blood stains to reference blood sample of victim with 99.999% certainty. "
-            "Hair follicles recovered from front passenger headrest match suspect Yogesh Ashok Raut."
-        ),
-        "entities": [
-            {"name": "Nayana Pujari", "type": "PERSON", "confidence": 0.99, "role": "Victim (DNA Match)"},
-            {"name": "Yogesh Ashok Raut", "type": "PERSON", "confidence": 0.96, "role": "Suspect (Hair Trace)"},
-            {"name": "Toyota Qualis (MH-12-AR-2541)", "type": "VEHICLE", "confidence": 0.99, "role": "Crime Vehicle"},
-            {"name": "FSL Kalina, Mumbai", "type": "ORGANIZATION", "confidence": 0.95, "role": "Forensic Laboratory"}
-        ],
-        "events": [
-            {
-                "title": "FSL DNA Blood Trace Match in Qualis Cab",
-                "description": "FSL Kalina isolates victim Nayana Pujari DNA from bloodstains inside Toyota Qualis MH-12-AR-2541.",
-                "timestamp": "2009-10-18T11:00:00",
-                "location": "FSL Kalina, Mumbai",
-                "confidence": 0.99
-            }
-        ]
-    },
-    "approver_confession.pdf": {
-        "title": "Judicial Confession of Approver Rajesh Chaudhari under Section 164 CrPC",
-        "type": "Judicial Statement & Confession",
-        "legal": "Prosecution Exhibit No. 12 • Sec 164 CrPC & Sec 306/308 CrPC",
-        "transcript": (
-            "Statement recorded by Judicial Magistrate First Class (JMFC) Pune under Section 164 CrPC. "
-            "Approver Rajesh Chaudhari confessed under oath: Yogesh Raut was driving the silver Toyota Qualis on 07-Oct-2009. "
-            "At 20:15 IST, they spotted Nayana Pujari waiting for transport near Synechron / EON IT Park Kharadi bypass. "
-            "They offered her a shared cab lift. Inside the vehicle, Mahesh Thakur, Vishwas Kadam, and Yogesh Raut restrained her. "
-            "They drove to an isolated spot in Zarewadi forest, assaulted and murdered the victim, and disposed of the body."
-        ),
-        "entities": [
-            {"name": "Rajesh Chaudhari", "type": "PERSON", "confidence": 0.99, "role": "Approver / Confessor"},
-            {"name": "Yogesh Ashok Raut", "type": "PERSON", "confidence": 0.98, "role": "Prime Conspirator"},
-            {"name": "Mahesh Thakur", "type": "PERSON", "confidence": 0.96, "role": "Co-Accused"},
-            {"name": "Vishwas Kadam", "type": "PERSON", "confidence": 0.95, "role": "Co-Accused"},
-            {"name": "Nayana Pujari", "type": "PERSON", "confidence": 0.99, "role": "Victim"},
-            {"name": "Zarewadi Forest, Khed", "type": "LOCATION", "confidence": 0.97, "role": "Murder Scene"},
-            {"name": "JMFC Court Pune", "type": "ORGANIZATION", "confidence": 0.94, "role": "Judicial Authority"}
-        ],
-        "events": [
-            {
-                "title": "Approver Judicial Confession Recorded",
-                "description": "Rajesh Chaudhari confesses complete conspiracy and timeline of Nayana Pujari abduction and murder before JMFC.",
-                "timestamp": "2009-11-04T14:30:00",
-                "location": "JMFC Court, Pune",
-                "confidence": 0.98
-            }
-        ]
-    }
-}
+# Import isolated demo fixtures (used ONLY for demo-tagged cases)
+from demo_fixtures import DEMO_EXHIBIT_DOSSIERS, get_demo_fixture
+from config import DEFAULT_MODEL_NAME
+
+# Re-export for backwards compatibility
+EXHIBIT_DOSSIERS = DEMO_EXHIBIT_DOSSIERS
 
 
 # ============================================================
@@ -226,16 +115,15 @@ def resolve_file(file_path: str) -> Optional[str]:
     return None
 
 
-def extract_raw_text_from_file(file_path: str, file_type: str = "Document") -> str:
-    """Extracts raw text from local file using pypdf, PIL, or direct reading."""
-    resolved = resolve_file(file_path)
-    base_name = Path(file_path).name.lower()
-    
-    # Check if we have pre-calibrated genuine forensic dossier
-    for key, dossier in EXHIBIT_DOSSIERS.items():
-        if key.lower() in base_name or base_name in key.lower():
-            return dossier["transcript"]
+def extract_raw_text_from_file(file_path: str, file_type: str = "Document", allow_fixtures: bool = False) -> str:
+    """Extracts raw text from local file using pypdf, PIL, or direct reading.
+    Demo fixtures are ONLY permitted when allow_fixtures is explicitly set to True for demo cases."""
+    if allow_fixtures:
+        fixture = get_demo_fixture(file_path)
+        if fixture:
+            return fixture["transcript"]
 
+    resolved = resolve_file(file_path)
     if not resolved:
         return ""
 
@@ -348,7 +236,7 @@ CRITICAL: Return ONLY valid JSON, with NO surrounding markdown backticks or comm
 
     try:
         response = client.models.generate_content(
-            model="gemini-flash-lite-latest",
+            model=DEFAULT_MODEL_NAME,
             contents=prompt
         )
         text = response.text.strip()
@@ -373,21 +261,22 @@ CRITICAL: Return ONLY valid JSON, with NO surrounding markdown backticks or comm
 # DETERMINISTIC NLP & REGEX FALLBACK ENGINE
 # ============================================================
 
-def analyze_with_fallback(file_name: str, file_type: str, text: str) -> Dict[str, Any]:
+def analyze_with_fallback(file_name: str, file_type: str, text: str, allow_fixtures: bool = False) -> Dict[str, Any]:
     """Offline resilient extraction using spaCy and regex rules."""
-    base_name = Path(file_name).name.lower()
-
-    # Check pre-calibrated dossier first
-    for key, dossier in EXHIBIT_DOSSIERS.items():
-        if key.lower() in base_name or base_name in key.lower():
+    # Check pre-calibrated demo fixture ONLY if permitted
+    if allow_fixtures:
+        fixture = get_demo_fixture(file_name)
+        if fixture:
             return {
-                "forensic_type": dossier["type"],
-                "legal_reference": dossier["legal"],
-                "summary": dossier["transcript"],
+                "forensic_type": fixture["type"],
+                "legal_reference": fixture["legal"],
+                "summary": f"[Demo data] {fixture['transcript']}",
                 "confidence": 0.96,
-                "entities": dossier["entities"],
-                "events": dossier["events"],
-                "text": dossier["transcript"]
+                "entities": fixture["entities"],
+                "events": fixture["events"],
+                "text": fixture["transcript"],
+                "extraction_mode": "demo_fixture",
+                "is_demo_fixture": True
             }
 
     entities: List[Dict[str, Any]] = []
@@ -484,7 +373,9 @@ def analyze_with_fallback(file_name: str, file_type: str, text: str) -> Dict[str
         "confidence": 0.92,
         "entities": entities,
         "events": events,
-        "text": text or summary
+        "text": text or summary,
+        "extraction_mode": "live",
+        "is_demo_fixture": False
     }
 
 
@@ -497,25 +388,38 @@ def run_comprehensive_analysis(
     file_name: str,
     file_type: str,
     existing_text: Optional[str] = None,
-    case_context: str = ""
+    case_context: str = "",
+    is_demo_case: bool = False,
+    allow_demo_fixtures: bool = False
 ) -> Dict[str, Any]:
     """
     Main entry point for evidence analysis.
-    Never fails: extracts text, attempts Gemini neural analysis,
-    falls back cleanly to spaCy + regex rule engine.
+    If is_demo_case and allow_demo_fixtures are True, pre-calibrated demo fixtures
+    are returned and explicitly tagged as [Demo data].
+    Otherwise, executes the genuine live extraction pipeline (pypdf/OCR/Whisper + Gemini / spaCy fallback).
+    Uploads of new files always pass allow_demo_fixtures=False.
     """
-    # 1. Extract raw text
-    extracted_text = extract_raw_text_from_file(file_path, file_type)
+    # 0. Check if demo fixture is permitted (ONLY for cases explicitly tagged as demo)
+    if is_demo_case and allow_demo_fixtures:
+        fixture = get_demo_fixture(file_name)
+        if fixture:
+            return {
+                "text": fixture["transcript"],
+                "summary": f"[Demo data] {fixture['transcript']}",
+                "forensic_type": fixture["type"],
+                "legal_reference": fixture["legal"],
+                "confidence": 0.96,
+                "entities": fixture["entities"],
+                "events": fixture["events"],
+                "extraction_mode": "demo_fixture",
+                "is_demo_fixture": True
+            }
+
+    # 1. Extract raw text via REAL extraction (fixtures strictly disabled)
+    extracted_text = extract_raw_text_from_file(file_path, file_type, allow_fixtures=False)
     
     if not extracted_text and existing_text and len(existing_text.strip()) > 20:
         extracted_text = existing_text.strip()
-
-    if not extracted_text:
-        base_name = Path(file_name).name.lower()
-        for key, dossier in EXHIBIT_DOSSIERS.items():
-            if key.lower() in base_name or base_name in key.lower():
-                extracted_text = dossier["transcript"]
-                break
 
     if not extracted_text:
         extracted_text = (
@@ -539,11 +443,13 @@ def run_comprehensive_analysis(
             "legal_reference": gemini_result.get("legal_reference", "Section 65B IEA / Sec 63 BSA 2023"),
             "confidence": gemini_result.get("confidence", 0.95),
             "entities": gemini_result.get("entities", []),
-            "events": gemini_result.get("events", [])
+            "events": gemini_result.get("events", []),
+            "extraction_mode": "live",
+            "is_demo_fixture": False
         }
 
-    # 3. Deterministic NLP Fallback
-    fallback_result = analyze_with_fallback(file_name, file_type, extracted_text)
+    # 3. Deterministic NLP Fallback (spaCy + regex rules, never canned fixtures)
+    fallback_result = analyze_with_fallback(file_name, file_type, extracted_text, allow_fixtures=False)
     return {
         "text": extracted_text,
         "summary": fallback_result.get("summary", extracted_text),
@@ -551,7 +457,9 @@ def run_comprehensive_analysis(
         "legal_reference": fallback_result.get("legal_reference", "Section 65B IEA / Sec 63 BSA 2023"),
         "confidence": fallback_result.get("confidence", 0.92),
         "entities": fallback_result.get("entities", []),
-        "events": fallback_result.get("events", [])
+        "events": fallback_result.get("events", []),
+        "extraction_mode": "live",
+        "is_demo_fixture": False
     }
 
 

@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 import { entityService } from '../../services';
 import { Entity } from '../../types';
 import { Card } from '../../components/ui/Card';
-import { Users, Building, MapPin, Car, Calendar, Search } from 'lucide-react';
+import { Users, Building, MapPin, Car, Calendar, Search, Sparkles } from 'lucide-react';
 import { cn } from '../../utils';
+import { useStreamingAnalysis } from '../../context/StreamingAnalysisContext';
 
 export function Entities() {
   const { caseId } = useParams();
   const [entities, setEntities] = useState<Entity[]>([]);
+  const { isItemHighlighted } = useStreamingAnalysis();
 
   useEffect(() => {
     if (caseId) {
@@ -44,40 +46,57 @@ export function Entities() {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {entities.map(entity => (
-          <Card key={entity.id} className="p-5 hover:border-primary/50 transition-colors cursor-pointer group">
-            <div className="flex justify-between items-start mb-4">
-              <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center border border-border">
-                {getIcon(entity.type)}
-              </div>
-              <span className={cn(
-                "px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border",
-                entity.confidence >= 95 ? "bg-green-500/10 text-green-400 border-green-500/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
-              )}>
-                {entity.confidence}% Conf
-              </span>
-            </div>
-            <h3 className="text-lg font-serif font-semibold text-[#191410] mb-1 group-hover:text-primary transition-colors">{entity.name}</h3>
-            <p className="text-xs text-text-muted mb-4">{entity.type}</p>
-            
-            {entity.aliases.length > 0 && (
-              <div className="mb-4">
-                <div className="text-[10px] uppercase font-bold text-text-muted mb-1">Aliases</div>
-                <div className="flex gap-1 flex-wrap">
-                  {entity.aliases.map(a => (
-                    <span key={a} className="px-2 py-0.5 bg-surface-hover rounded text-[10px] text-text border border-border">
-                      {a}
+        {entities.map(entity => {
+          const isHighlighted = isItemHighlighted('entity', entity.id) || isItemHighlighted('entity', entity.name);
+          return (
+            <Card
+              key={entity.id}
+              className={cn(
+                "p-5 hover:border-primary/50 transition-all cursor-pointer group relative",
+                isHighlighted && "ring-2 ring-amber-400 bg-amber-50/70 border-amber-300 shadow-md"
+              )}
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center border border-border">
+                  {getIcon(entity.type)}
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {isHighlighted && (
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 border border-amber-300 flex items-center gap-0.5 animate-pulse">
+                      <Sparkles className="w-2.5 h-2.5 text-amber-700" />
+                      NEW
                     </span>
-                  ))}
+                  )}
+                  <span className={cn(
+                    "px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border",
+                    entity.confidence >= 95 ? "bg-green-500/10 text-green-400 border-green-500/20" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                  )}>
+                    {entity.confidence}% Conf
+                  </span>
                 </div>
               </div>
-            )}
+              <h3 className="text-lg font-serif font-semibold text-[#191410] mb-1 group-hover:text-primary transition-colors">{entity.name}</h3>
+              <p className="text-xs text-text-muted mb-4">{entity.type}</p>
+              
+              {entity.aliases.length > 0 && (
+                <div className="mb-4">
+                  <div className="text-[10px] uppercase font-bold text-text-muted mb-1">Aliases</div>
+                  <div className="flex gap-1 flex-wrap">
+                    {entity.aliases.map(a => (
+                      <span key={a} className="px-2 py-0.5 bg-surface-hover rounded text-[10px] text-text border border-border">
+                        {a}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-            <div className="pt-3 border-t border-border/50 text-xs text-text-muted flex justify-between">
-              <span>{entity.sourceEvidenceIds.length} Evidence Sources</span>
-            </div>
-          </Card>
-        ))}
+              <div className="pt-3 border-t border-border/50 text-xs text-text-muted flex justify-between">
+                <span>{entity.sourceEvidenceIds.length} Evidence Sources</span>
+              </div>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );

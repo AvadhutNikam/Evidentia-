@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Send, Bot, User, Loader2, FileText } from 'lucide-react';
+import { apiRequest } from '../../services/apiClient';
 
 interface Message {
   id: string;
@@ -60,17 +61,13 @@ export function AiAssistant() {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:8000/cases/${caseId}/assistant`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: input })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to get response');
-      }
-
-      const data = await response.json();
+      const data = await apiRequest<{ answer: string; sources?: string[] }>(
+        `/cases/${caseId}/assistant`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ question: input }),
+        }
+      );
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),

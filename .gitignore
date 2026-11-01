@@ -23,5 +23,54 @@ dist-ssr
 *.sln
 *.sw?
 
-backend/.env
+# Virtual Environments
+venv/
+.venv/
+env/
+.env*/
+backend/venv/
+backend/.venv/
+
+# Environment Variables & Secrets
 .env
+backend/.env
+*.env
+*.env.local
+*.key
+backend/*.key
+backend/.evidentia_encryption.key
+
+# SQLite Databases & Storage (including WAL / SHM files)
+evidentia.db
+backend/evidentia.db
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+
+# Uploaded Evidence Media & Files (Sensitive Case Data)
+uploads/
+backend/uploads/
+uploads/*
+backend/uploads/*
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+backend/__pycache__/
+backend/*/__pycache__/
+.pytest_cache/
+
+# Benchmark Evaluation Model Caches
+.assessment_cache.json
+.plain_gemini_cache.json
+backend/evaluation/results/.assessment_cache.json
+backend/evaluation/results/.plain_gemini_cache.json
+
+# Scratch & temporary workspace scripts
+scratch/
+test_frontend_api_and_rbac.mjs

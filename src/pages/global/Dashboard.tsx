@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react';
-import { caseService } from '../../services';
-import { Case } from '../../types';
+import { caseService, prioritiesService } from '../../services';
+import { Case, GlobalCasePriority } from '../../types';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
-import { Briefcase, AlertTriangle, FileText, CheckSquare, ChevronRight, Activity, ArrowUpRight, Scale } from 'lucide-react';
+import { Briefcase, AlertTriangle, FileText, CheckSquare, ChevronRight, Activity, ArrowUpRight, Scale, Clock, Timer, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '../../utils';
 import { GeographicCaseMap } from '../../components/map/GeographicCaseMap';
 
 export function Dashboard() {
   const [cases, setCases] = useState<Case[]>([]);
+  const [globalPriorities, setGlobalPriorities] = useState<GlobalCasePriority[]>([]);
+  const [loadingPriorities, setLoadingPriorities] = useState(false);
 
   useEffect(() => {
     caseService.getCases().then(setCases);
+    setLoadingPriorities(true);
+    prioritiesService.getGlobalPriorities()
+      .then(setGlobalPriorities)
+      .catch((err) => console.warn('Global priorities fetch:', err))
+      .finally(() => setLoadingPriorities(false));
   }, []);
 
   const activeCases = cases.filter(c => c.status === 'Active' || c.status === 'Under Investigation');
+
 
   return (
     <div className="space-y-8 pb-20 max-w-7xl mx-auto">
@@ -53,6 +61,80 @@ export function Dashboard() {
           </div>
         ))}
       </div>
+
+      {/* Statutory Filing Deadlines Across Dockets */}
+      {globalPriorities.length > 0 && (
+        <div className="rounded-3xl bg-white border border-[#eae4d9] shadow-xs p-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#f0ebe1] pb-4">
+            <div>
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#d93829] flex items-center gap-1.5 mb-0.5">
+                <Timer className="w-3.5 h-3.5" />
+                <span>Default Bail Statutory Watch</span>
+              </div>
+              <h3 className="font-serif font-bold text-lg text-[#191410]">
+                Impending Deadlines & Remand Countdowns
+              </h3>
+              <p className="text-xs text-[#6e665d]">
+                Ranked by nearest Section 167(2) CrPC / Section 187(3) BNSS chargesheet filing limit across active dockets.
+              </p>
+            </div>
+            <span className="px-3 py-1 bg-amber-50 text-amber-900 border border-amber-300 rounded-full text-xs font-mono font-bold self-start sm:self-auto">
+              {globalPriorities.filter(p => p.top_urgency === 'critical' || p.top_urgency === 'urgent').length} Action Required
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {globalPriorities.slice(0, 6).map((item) => (
+              <Link
+                key={item.case_id}
+                to={`/cases/${item.case_id}/priorities`}
+                className="p-4 rounded-2xl bg-[#faf7f2] border border-[#eae4d9] hover:border-[#d93829] transition-all flex flex-col justify-between gap-3 group"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="text-[10px] font-mono text-[#8c8276]">{item.fir_number}</span>
+                    <span className={cn(
+                      "px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase",
+                      item.top_urgency === 'critical' ? "bg-rose-100 text-rose-800 border border-rose-300" :
+                      item.top_urgency === 'urgent' ? "bg-amber-100 text-amber-900 border border-amber-300" :
+                      "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                    )}>
+                      {item.top_urgency}
+                    </span>
+                  </div>
+                  <h4 className="font-serif font-bold text-sm text-[#191410] group-hover:text-[#d93829] transition-colors line-clamp-1">
+                    {item.case_title}
+                  </h4>
+                  {item.has_dates ? (
+                    <div className="mt-2 flex items-baseline gap-2">
+                      <span className="text-2xl font-mono font-bold text-[#191410]">
+                        {item.chargesheet_days_left !== null && item.chargesheet_days_left !== undefined ? item.chargesheet_days_left : '—'}
+                      </span>
+                      <span className="text-[11px] font-serif text-[#6e665d]">days to chargesheet</span>
+                    </div>
+                  ) : (
+                    <div className="mt-2 text-[11px] font-mono text-amber-800 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
+                      Dates missing — configure countdown
+                    </div>
+                  )}
+                  {item.next_action_title && (
+                    <p className="text-[11px] text-[#6e665d] mt-1.5 line-clamp-1">
+                      • {item.next_action_title}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-[#eae4d9] text-[10px] font-mono text-[#8c8276]">
+                  <span>{item.overdue_reports_count} reports overdue</span>
+                  <span className="text-[#d93829] font-bold group-hover:underline flex items-center gap-0.5">
+                    Today's Priorities <ChevronRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Recent Cases Table */}

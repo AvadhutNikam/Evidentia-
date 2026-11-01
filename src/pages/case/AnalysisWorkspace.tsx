@@ -3,11 +3,13 @@ import { useEffect, useState, useMemo } from 'react';
 import { evidenceService, entityService, hypothesisService, contradictionService } from '../../services';
 import type { Evidence, Entity, Hypothesis, Contradiction } from '../../types';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
-import { FileText, Users, Lightbulb, AlertTriangle, BrainCircuit, TrendingUp, ExternalLink } from 'lucide-react';
+import { FileText, Users, Lightbulb, AlertTriangle, BrainCircuit, TrendingUp, ExternalLink, Zap } from 'lucide-react';
 import { cn } from '../../utils';
+import { useStreamingAnalysis } from '../../context/StreamingAnalysisContext';
 
 export function AnalysisWorkspace() {
   const { caseId } = useParams();
+  const { isItemHighlighted } = useStreamingAnalysis();
   const [evidence, setEvidence] = useState<Evidence[]>([]);
   const [entities, setEntities] = useState<Entity[]>([]);
   const [hypotheses, setHypotheses] = useState<Hypothesis[]>([]);
@@ -144,29 +146,45 @@ export function AnalysisWorkspace() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {[...hypotheses].sort((a, b) => b.confidence - a.confidence).map(h => (
-                <Link 
-                  key={h.id} 
-                  to={`/cases/${caseId}/hypotheses`}
-                  className="flex items-center gap-4 p-3 rounded-lg bg-[#faf7f2] hover:bg-[#f5efe6] border border-[#eae4d9] hover:border-[#d93829] transition-all group block cursor-pointer"
-                >
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-[#191410] truncate group-hover:text-[#d93829] transition-colors">{h.title}</div>
-                    <div className="text-xs text-text-muted mt-0.5 font-mono">
-                      {h.supportingEvidenceIds.length} supporting / {h.contradictingEvidenceIds.length} contradicting
+              {[...hypotheses].sort((a, b) => b.confidence - a.confidence).map((h, hIdx) => {
+                const isHighlighted = isItemHighlighted('hypothesis', h.id) || isItemHighlighted('hypothesis', hIdx + 1);
+                return (
+                  <Link 
+                    key={h.id} 
+                    to={`/cases/${caseId}/hypotheses`}
+                    className={cn(
+                      "flex items-center gap-4 p-3 rounded-lg border transition-all group block cursor-pointer",
+                      isHighlighted
+                        ? "bg-amber-50/80 border-amber-300 ring-2 ring-amber-400 shadow-xs"
+                        : "bg-[#faf7f2] hover:bg-[#f5efe6] border-[#eae4d9] hover:border-[#d93829]"
+                    )}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-[#191410] truncate group-hover:text-[#d93829] transition-colors">{h.title}</span>
+                        {isHighlighted && (
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-200 text-amber-950 border border-amber-300 flex items-center gap-0.5 shrink-0 animate-pulse">
+                            <Zap className="w-2.5 h-2.5 text-amber-700" />
+                            NEW SHIFT
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-xs text-text-muted mt-0.5 font-mono">
+                        {h.supportingEvidenceIds.length} supporting / {h.contradictingEvidenceIds.length} contradicting
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2 shrink-0">
-                    <div className="w-16 h-1.5 bg-[#eae4d9] rounded-full overflow-hidden">
-                      <div
-                        className={cn('h-full rounded-full', h.confidence >= 70 ? 'bg-emerald-500' : h.confidence >= 40 ? 'bg-amber-500' : 'bg-rose-500')}
-                        style={{ width: `${h.confidence}%` }}
-                      />
+                    <div className="flex items-center gap-2 shrink-0">
+                      <div className="w-16 h-1.5 bg-[#eae4d9] rounded-full overflow-hidden">
+                        <div
+                          className={cn('h-full rounded-full', h.confidence >= 70 ? 'bg-emerald-500' : h.confidence >= 40 ? 'bg-amber-500' : 'bg-rose-500')}
+                          style={{ width: `${h.confidence}%` }}
+                        />
+                      </div>
+                      <span className="text-sm font-bold font-mono text-[#191410] w-10 text-right">{h.confidence}%</span>
                     </div>
-                    <span className="text-sm font-bold font-mono text-[#191410] w-10 text-right">{h.confidence}%</span>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -197,15 +215,26 @@ export function AnalysisWorkspace() {
                     <div className="text-xs font-bold text-[#191410] truncate group-hover:text-[#d93829] transition-colors">{ev.fileName}</div>
                     <div className="text-[10px] text-text-muted font-mono">{ev.id} • {ev.fileType}</div>
                   </div>
-                  <span className={cn(
-                    'text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border shrink-0',
-                    ev.processingStatus === 'Analyzed' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                    ev.processingStatus === 'Processing' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                    ev.processingStatus === 'Queued' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                    'bg-stone-100 text-stone-600 border-stone-200'
-                  )}>
-                    {ev.processingStatus}
-                  </span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {ev.is_demo_fixture || ev.extraction_mode === 'demo_fixture' ? (
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-300">
+                        Demo fixture
+                      </span>
+                    ) : (
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300">
+                        Live
+                      </span>
+                    )}
+                    <span className={cn(
+                      'text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border',
+                      ev.processingStatus === 'Analyzed' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                      ev.processingStatus === 'Processing' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                      ev.processingStatus === 'Queued' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                      'bg-stone-100 text-stone-600 border-stone-200'
+                    )}>
+                      {ev.processingStatus}
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

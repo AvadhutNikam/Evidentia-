@@ -17,6 +17,7 @@ from typing import List, Dict, Any, Optional
 from sqlalchemy.orm import Session
 
 from models import Case, Entity, Evidence, Relationship
+from config import DEFAULT_MODEL_NAME
 
 logger = logging.getLogger("evidentia.relationship_engine")
 
@@ -139,7 +140,7 @@ If no verifiable relationships exist, return []."""
 
             try:
                 resp = self.client.models.generate_content(
-                    model="gemini-flash-lite-latest",
+                    model=DEFAULT_MODEL_NAME,
                     contents=prompt
                 )
                 raw = clean_json_str(resp.text)

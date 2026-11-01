@@ -1,0 +1,200 @@
+{
+  "id": "case_20_hit_and_run_substitute",
+  "title": "State v. K.B. (Marine Drive Luxury SUV Fatal Hit-and-Run / Driver Fall-Guy Case)",
+  "split": "blind_test",
+  "category": "blind_mixed_evidence",
+  "is_contested": false,
+  "citation": "Independent Contributor: High Court Criminal Appellate Moot Court (Case #BLIND-2024-F06)",
+  "confidence_note": "High - Steering airbag epithelial DNA match and Sea Link ANPR cabin imaging",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Wealthy Youth Kabir B. (Driver Ramakant was Paid Proxy Fall-Guy)",
+    "rationale": "Driver's airbag facial contact swab proves 99.98% STR DNA match to Kabir B. High-resolution toll plaza cabin camera 14 minutes prior captures Kabir driving alone."
+  },
+  "decisive_evidence_ids": [
+    "EX-20-01",
+    "EX-20-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Kabir B. (Industrialist Son) Driving",
+      "statement": "Kabir B. was speeding under the influence of alcohol and fled the scene in a trailing escort car, while family driver surrendered as a paid proxy."
+    },
+    {
+      "id": "H2",
+      "label": "Family Driver Ramakant Driving",
+      "statement": "Hired chauffeur Ramakant was legitimately operating the vehicle on personal errand and surrendered voluntarily."
+    },
+    {
+      "id": "H3",
+      "label": "Unidentified Commercial Lorry Collision",
+      "statement": "A heavy transport truck collided with pedestrians earlier; the Mercedes only struck road debris."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.3
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [],
+    "H2": [],
+    "H3": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-20-01",
+      "name": "State FSL Airbag Deployment DNA STR Profile Assay",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_airbag_str_dna_kabir_fsl",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Epithelial cell swab from the steering wheel driver airbag impact cushion yielded high-quality 16-locus autosomal STR profile matching suspect Kabir B. at 99.98% random match probability. Chauffeur Ramakant's DNA profile is completely absent on the driver airbag impact face."
+    },
+    {
+      "id": "EX-20-02",
+      "name": "Bandra-Worli Sea Link High-Resolution Toll ANPR & Cabin Camera",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_sealink_anpr_cabin_hd_2348",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Infrared night-vision cabin camera at Sea Link toll plaza captures the vehicle at 23:48 IST (14 minutes prior to crash). High-resolution image clearly shows Kabir B. operating the steering wheel wearing a black Balenciaga hoodie, with passenger and rear seats completely empty."
+    },
+    {
+      "id": "EX-20-03",
+      "name": "Written Surrender Statement of Driver Ramakant",
+      "evidence_type": "Document",
+      "file_hash": "sha256_surrender_ramakant_confession",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": false,
+      "source_independent": false,
+      "quality_rating": 2,
+      "text": "Signed statement by chauffeur Ramakant claiming he was alone driving the vehicle to garage. Medical examination reveals Ramakant has zero abrasions, seatbelt chest bruising, or facial impact erythema consistent with explosive airbag deployment."
+    },
+    {
+      "id": "EX-20-04",
+      "name": "Mercedes Bosch Airbag Control Unit (ACU) Crash Telemetry Dump",
+      "evidence_type": "Document",
+      "file_hash": "sha256_mercedes_acu_crash_telemetry",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Electronic control module forensic extraction records speed at impact was 138 km/h on Marine Drive, throttle position 84%, brake pressure 0 bar (zero braking), confirming reckless excessive speed."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-20-ADV",
+    "name": "Paid Chauffeur Affidavits",
+    "evidence_type": "Document",
+    "file_hash": "sha256_notarized_driver_affidavit",
+    "hash_verified": false,
+    "chain_of_custody_complete": true,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "Notarized affidavit by domestic driver claiming Kabir B. was sleeping at farmhouse at the time of the collision."
+  }
+}

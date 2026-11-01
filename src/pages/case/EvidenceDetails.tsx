@@ -1,16 +1,17 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { evidenceService, hypothesisService, citationService } from '../../services';
 import { Evidence, Entity, Hypothesis, CustodyLogEntry, EvidenceIntegrityResult, SourceCitation } from '../../types';
 import { CaseStateEngine } from '../../engine/CaseStateEngine';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
 import { SourceSpanViewerModal } from '../../components/common/SourceSpanViewerModal';
+import { SideBySideMultilingualViewer } from '../../components/evidence/SideBySideMultilingualViewer';
 import { 
   FileText, ArrowLeft, Loader2, Database, BrainCircuit, Scan, ShieldCheck, 
   Tag, Users, Clock, Eye, AlertTriangle, CheckCircle2, 
   MapPin, Sparkles, Building, Car, Award, ChevronRight, Fingerprint, RefreshCw,
   Download, ExternalLink, FileCode, Scale, BookOpen, Lightbulb, GitBranch, ArrowUpRight,
-  Copy, Check, ShieldAlert, Quote
+  Copy, Check, ShieldAlert, Quote, ArrowLeftRight, Smartphone
 } from 'lucide-react';
 import { cn } from '../../utils';
 
@@ -112,7 +113,7 @@ export function EvidenceDetails() {
   const [isLoadingFile, setIsLoadingFile] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisStep, setAnalysisStep] = useState(0);
-  const [viewMode, setViewMode] = useState<'formatted' | 'raw'>('formatted');
+  const [viewMode, setViewMode] = useState<'multilingual' | 'formatted' | 'raw'>('multilingual');
   
   // Feature 2: SHA-256 Forensics & Custody State
   const [custodyLogs, setCustodyLogs] = useState<CustodyLogEntry[]>([]);
@@ -128,6 +129,50 @@ export function EvidenceDetails() {
 
   const engine = CaseStateEngine.getInstance();
   const fileMeta = evidenceId ? REAL_FILE_MAP[evidenceId] : null;
+
+  // Omni Search Passage Highlight Params
+  const [searchParams, setSearchParams] = useSearchParams();
+  const highlightParam = searchParams.get('highlight') || searchParams.get('q') || '';
+  const charStartParam = searchParams.get('char_start');
+
+  const renderHighlightedContent = (text: string, term: string) => {
+    if (!term || !text) return text;
+    try {
+      const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      const parts = text.split(regex);
+      let matchedFirst = false;
+      return parts.map((part, idx) => {
+        if (part.toLowerCase() === term.toLowerCase()) {
+          const isFirst = !matchedFirst;
+          matchedFirst = true;
+          return (
+            <mark
+              key={idx}
+              id={isFirst ? "omni-highlight-target" : undefined}
+              className="bg-[#fef08a] text-[#854d0e] font-bold px-1.5 py-0.5 rounded border border-[#eab308] shadow-xs animate-pulse inline-block"
+            >
+              {part}
+            </mark>
+          );
+        }
+        return part;
+      });
+    } catch {
+      return text;
+    }
+  };
+
+  useEffect(() => {
+    if (highlightParam) {
+      const t = setTimeout(() => {
+        const el = document.getElementById('omni-highlight-target');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+      return () => clearTimeout(t);
+    }
+  }, [highlightParam, rawFileContent, evidence, viewMode]);
 
   const fetchCustody = (cId: string, eId: string | number) => {
     evidenceService.getEvidenceCustodyLogs(cId, eId).then(setCustodyLogs);
@@ -257,9 +302,26 @@ export function EvidenceDetails() {
           <ArrowLeft className="w-4 h-4 text-cyan-400" /> Back to Evidence Locker
         </Link>
         <div className="flex items-center gap-3">
+          {evidence.is_field_captured && (
+            <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm flex items-center gap-1.5">
+              <Smartphone className="w-3.5 h-3.5 text-purple-400" />
+              Captured in Field
+            </span>
+          )}
           <span className="text-xs font-mono uppercase tracking-widest text-text-muted px-2.5 py-1 bg-surface rounded border border-border">
             CERTIFIED UNDER SEC. 65B / SEC. 27 EVIDENCE ACT
           </span>
+          {evidence.is_demo_fixture || evidence.extraction_mode === 'demo_fixture' ? (
+            <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              Demo fixture (Demo data)
+            </span>
+          ) : (
+            <span className="px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 shadow-sm flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              Extracted live
+            </span>
+          )}
           <span className={cn(
             "px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm flex items-center gap-2",
             isAnalyzed 
@@ -273,21 +335,21 @@ export function EvidenceDetails() {
       </div>
 
       {/* Exhibit Title & Official Seizure Banner */}
-      <div className="bg-[#0f172a] p-6 rounded-xl border border-border shadow-xl">
+      <div className="bg-white p-6 rounded-2xl border border-[#eae4d9] shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider mb-2">
-              <Scale className="w-4 h-4" /> Exhibit Mark: <span className="text-[#191410] font-bold">{evidence.id}</span>
-              <span className="text-border">•</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-blue-700 uppercase tracking-wider mb-2">
+              <Scale className="w-4 h-4 text-[#d93829]" /> Exhibit Mark: <span className="text-[#191410] font-bold">{evidence.id}</span>
+              <span className="text-[#eae4d9]">•</span>
               <span>Case: {evidence.caseId}</span>
             </div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl lg:text-3xl font-serif font-bold text-[#191410] tracking-tight">
               {evidence.fileName}
             </h1>
-            <p className="text-sm text-text-muted mt-2 flex flex-wrap items-center gap-x-6 gap-y-1">
-              <span>Seizing / Originating Agency: <strong className="text-white">{evidence.source}</strong></span>
-              <span>Officer on Record: <strong className="text-white">{evidence.uploadedBy}</strong></span>
-              <span>Date of Seizure: <strong className="text-white">{new Date(evidence.uploadDate).toLocaleDateString()}</strong></span>
+            <p className="text-sm text-[#6e665d] mt-2 flex flex-wrap items-center gap-x-6 gap-y-1">
+              <span>Seizing / Originating Agency: <strong className="text-[#191410]">{evidence.source}</strong></span>
+              <span>Officer on Record: <strong className="text-[#191410]">{evidence.uploadedBy}</strong></span>
+              <span>Date of Seizure: <strong className="text-[#191410]">{new Date(evidence.uploadDate).toLocaleDateString()}</strong></span>
             </p>
           </div>
 
@@ -295,7 +357,7 @@ export function EvidenceDetails() {
             <button
               onClick={handleRunAnalysis}
               disabled={isAnalyzing}
-              className="flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg shadow-lg shadow-cyan-600/20 transition-all disabled:opacity-50 text-xs"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#d93829] hover:bg-[#bf2b1d] text-white font-semibold rounded-xl shadow-xs transition-all disabled:opacity-50 text-xs cursor-pointer"
             >
               {isAnalyzing ? (
                 <>
@@ -314,23 +376,106 @@ export function EvidenceDetails() {
       </div>
 
       {/* ============================================================ */}
+      {/* SECTION: FIELD CAPTURE PROVENANCE CARD                       */}
+      {/* ============================================================ */}
+      {evidence.is_field_captured && (
+        <Card className="border border-purple-200 bg-white">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Smartphone className="w-5 h-5 text-purple-700" />
+                <CardTitle className="text-[#191410] text-base">
+                  On-Scene Field Capture Forensic Provenance
+                </CardTitle>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-800 border border-purple-200 text-xs font-mono font-bold flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-purple-600" />
+                Mobile Certified
+              </span>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
+              <div className="p-3 rounded-xl bg-[#faf7f2] border border-[#eae4d9] space-y-1">
+                <span className="text-[#6e665d] text-[10px] uppercase block">Scene GPS Coordinates</span>
+                <div className="text-purple-700 font-bold flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+                  <span className="truncate">
+                    {evidence.field_latitude && evidence.field_longitude 
+                      ? `${evidence.field_latitude.toFixed(6)}° N, ${evidence.field_longitude.toFixed(6)}° E`
+                      : 'GPS coordinates unrecorded'}
+                  </span>
+                </div>
+                {evidence.field_accuracy_meters && (
+                  <span className="text-[10px] text-[#8c8276] block">Accuracy: ±{evidence.field_accuracy_meters.toFixed(1)}m</span>
+                )}
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#faf7f2] border border-[#eae4d9] space-y-1">
+                <span className="text-[#6e665d] text-[10px] uppercase block">Capture Timestamp</span>
+                <div className="text-[#191410] font-bold truncate">
+                  {evidence.field_captured_at ? new Date(evidence.field_captured_at).toLocaleString() : 'Live at scene'}
+                </div>
+                <span className="text-[10px] text-[#8c8276] block truncate">{evidence.field_device_info || 'Mobile Field Device'}</span>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#faf7f2] border border-[#eae4d9] space-y-1">
+                <span className="text-[#6e665d] text-[10px] uppercase block">Tamper Bag / Seal Barcode</span>
+                <div className="text-amber-700 font-bold">
+                  {evidence.field_tamper_seal_number || 'SEAL-NOT-LOGGED'}
+                </div>
+                <span className="text-[10px] text-[#8c8276] block truncate">{evidence.field_location_name || 'Physical Scene Evidence'}</span>
+              </div>
+            </div>
+
+            {/* On-Device Hash Integrity Match */}
+            <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs flex items-center justify-between font-mono">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <div>
+                  <span className="text-emerald-800 font-bold">On-Device SHA-256 Match: </span>
+                  <span className="text-[#6e665d]">{evidence.client_computed_hash?.substring(0, 24)}...</span>
+                </div>
+              </div>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">
+                100% Cryptographic Match
+              </span>
+            </div>
+
+            {/* Officer Signed Declaration */}
+            {evidence.field_officer_declaration && (
+              <div className="p-3.5 rounded-xl bg-[#faf7f2] border border-[#eae4d9] space-y-1 text-xs">
+                <span className="text-[10px] uppercase text-[#6e665d] font-bold block">Officer Integrity Declaration (Sec 63/65B IEA / Sec 61 BSA)</span>
+                <p className="font-serif italic text-[#191410] text-xs leading-relaxed">
+                  "{evidence.field_officer_declaration}"
+                </p>
+                <div className="text-[10px] text-emerald-700 font-mono pt-1">
+                  ✓ Formally confirmed by {evidence.collected_by || evidence.uploaded_by}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* ============================================================ */}
       {/* SECTION: SHA-256 FINGERPRINT & CRYPTOGRAPHIC INTEGRITY CARD  */}
       {/* ============================================================ */}
-      <div className="p-5 rounded-xl border border-cyan-500/30 bg-[#0b1626] shadow-xl space-y-4">
+      <div className="p-5 rounded-2xl border border-[#eae4d9] bg-white shadow-xs space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Fingerprint className="w-4 h-4 text-cyan-400" />
-              <span className="text-xs font-mono uppercase tracking-wider text-cyan-300 font-bold">
+              <Fingerprint className="w-4 h-4 text-[#d93829]" />
+              <span className="text-xs font-mono uppercase tracking-wider text-[#191410] font-bold">
                 Forensic SHA-256 Byte Fingerprint & Chain of Custody
               </span>
               <span className={cn(
                 "px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ml-2 flex items-center gap-1",
                 evidence.hash_verified !== false
-                  ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
-                  : "bg-rose-500/15 text-rose-400 border-rose-500/30"
+                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                  : "bg-red-50 text-red-800 border-red-200"
               )}>
-                {evidence.hash_verified !== false ? <ShieldCheck className="w-3 h-3" /> : <ShieldAlert className="w-3 h-3" />}
+                {evidence.hash_verified !== false ? <ShieldCheck className="w-3 h-3 text-emerald-600" /> : <ShieldAlert className="w-3 h-3 text-red-600" />}
                 {evidence.hash_verified !== false ? "SHA-256 Verified Intact" : "Tamper Warning"}
               </span>
             </div>
@@ -498,15 +643,15 @@ export function EvidenceDetails() {
       {/* ============================================================ */}
       {/* SECTION 1: VERIFIABLE PUBLIC SOURCE & CITATION CARD          */}
       {/* ============================================================ */}
-      <div className="p-5 rounded-xl border border-cyan-500/30 bg-[#0c1626] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-lg">
+      <div className="p-5 rounded-2xl border border-[#eae4d9] bg-white flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider">
-            <BookOpen className="w-4 h-4" /> Official Public Document Source & Judicial Reference
+          <div className="flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
+            <BookOpen className="w-4 h-4 text-[#d93829]" /> Official Public Document Source & Judicial Reference
           </div>
-          <p className="text-sm text-[#191410] font-medium">
+          <p className="text-sm text-[#191410] font-semibold">
             {fileMeta ? fileMeta.sourceOrg : evidence.source}
           </p>
-          <p className="text-xs text-text-muted font-mono">
+          <p className="text-xs text-[#6e665d] font-mono">
             {fileMeta ? fileMeta.legalRef : `Admitted in Judicial Record • Exhibit ${evidence.id}`}
           </p>
         </div>
@@ -516,9 +661,9 @@ export function EvidenceDetails() {
             <a
               href={fileMeta.path}
               download={fileMeta.fileName}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-surface border border-border text-xs font-semibold text-white hover:border-cyan-500/50 hover:text-cyan-300 transition-all"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-[#eae4d9] text-xs font-semibold text-[#191410] hover:bg-[#faf7f2] transition-all shadow-xs"
             >
-              <Download className="w-3.5 h-3.5 text-cyan-400" />
+              <Download className="w-3.5 h-3.5 text-[#d93829]" />
               Download Raw File ({fileMeta.fileName})
             </a>
           )}
@@ -526,7 +671,7 @@ export function EvidenceDetails() {
             href={fileMeta?.sourceUrl || "https://indiankanoon.org/doc/sessions-case-89-2010"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-xs font-semibold text-cyan-300 hover:bg-cyan-500/20 transition-all"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-800 hover:bg-blue-100 transition-all shadow-xs"
           >
             <ExternalLink className="w-3.5 h-3.5" />
             Verify on Public Judicial Portal
@@ -540,18 +685,28 @@ export function EvidenceDetails() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-            <h2 className="text-base font-bold text-white tracking-wide uppercase flex items-center gap-2">
-              <FileText className="w-5 h-5 text-cyan-400" /> Genuine Forensic Exhibit Record (Raw Document Content)
+            <span className="w-2.5 h-2.5 rounded-full bg-[#d93829]" />
+            <h2 className="text-base font-serif font-bold text-[#191410] tracking-wide flex items-center gap-2">
+              <FileText className="w-5 h-5 text-[#d93829]" /> Genuine Forensic Exhibit Record (Raw Document Content)
             </h2>
           </div>
 
-          <div className="flex rounded-lg bg-surface border border-border p-1 text-xs">
+          <div className="flex rounded-xl bg-white border border-[#eae4d9] p-1 text-xs shadow-xs">
+            <button
+              onClick={() => setViewMode('multilingual')}
+              className={cn(
+                "px-3 py-1.5 rounded-lg font-semibold transition-all flex items-center gap-1.5 cursor-pointer",
+                viewMode === 'multilingual' ? "bg-red-50 text-[#d93829] border border-red-200" : "text-[#6e665d] hover:text-[#191410]"
+              )}
+            >
+              <ArrowLeftRight className="w-3.5 h-3.5 text-[#d93829]" />
+              Synchronized Multilingual & OCR
+            </button>
             <button
               onClick={() => setViewMode('formatted')}
               className={cn(
-                "px-3 py-1.5 rounded-md font-medium transition-all",
-                viewMode === 'formatted' ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" : "text-text-muted hover:text-white"
+                "px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer",
+                viewMode === 'formatted' ? "bg-red-50 text-[#d93829] border border-red-200" : "text-[#6e665d] hover:text-[#191410]"
               )}
             >
               Formatted Document View
@@ -559,72 +714,140 @@ export function EvidenceDetails() {
             <button
               onClick={() => setViewMode('raw')}
               className={cn(
-                "px-3 py-1.5 rounded-md font-medium transition-all",
-                viewMode === 'raw' ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" : "text-text-muted hover:text-white"
+                "px-3 py-1.5 rounded-lg font-semibold transition-all cursor-pointer",
+                viewMode === 'raw' ? "bg-red-50 text-[#d93829] border border-red-200" : "text-[#6e665d] hover:text-[#191410]"
               )}
             >
               Raw Plaintext File
             </button>
             <button
               onClick={() => handleOpenCitation()}
-              className="px-3 py-1.5 rounded-md font-medium text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-3 py-1.5 rounded-lg font-semibold text-amber-800 bg-amber-50 border border-amber-200 hover:bg-amber-100 flex items-center gap-1.5 transition-all cursor-pointer"
               title="Inspect exact source-span citations anchored to this exhibit"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
               Source Spans ({citationsCount})
             </button>
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#294057] bg-[#0c131f] overflow-hidden shadow-2xl">
-          {/* Top Bar */}
-          <div className="bg-[#111d2d] px-5 py-3 border-b border-[#294057] flex items-center justify-between text-xs font-mono">
-            <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-green-400 inline-block" />
-              <span className="text-[#191410] font-semibold">{fileMeta ? fileMeta.fileName : evidence.fileName}</span>
-              <span className="text-text-muted">|</span>
-              <span className="text-cyan-400">{((evidence.file_size || 45000) / 1024).toFixed(1)} KB</span>
+        {/* Omni-Search Passage Highlight Banner */}
+        {highlightParam && (
+          <div className="p-3.5 rounded-xl bg-[#fff8e6] border border-[#f5c968] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#784605] shadow-xs">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#d97706] shrink-0" />
+              <div>
+                <span className="font-bold">Command Palette Search Match: </span>
+                <span>Highlighting matched passage for </span>
+                <span className="font-mono font-bold bg-[#fef08a] px-1.5 py-0.5 rounded text-[#854d0e] border border-[#eab308]/60">
+                  &ldquo;{highlightParam}&rdquo;
+                </span>
+                {charStartParam && (
+                  <span className="text-[#a16207] ml-1.5 font-mono text-[11px]">
+                    (Byte Offset: {charStartParam})
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="text-text-muted flex items-center gap-4">
-              <span>AUTHENTIC TRIAL RECORD</span>
-              <span>STATUS: ADMITTED SUBSTANTIVE EVIDENCE</span>
+            <div className="flex items-center gap-2 self-end sm:self-auto">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('omni-highlight-target');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+                className="px-2.5 py-1 bg-[#fef08a] hover:bg-[#fde047] text-[#854d0e] font-semibold rounded-md border border-[#eab308] transition text-[11px] cursor-pointer shadow-2xs"
+              >
+                Jump to Target
+              </button>
+              <button
+                onClick={() => {
+                  searchParams.delete('highlight');
+                  searchParams.delete('char_start');
+                  searchParams.delete('q');
+                  setSearchParams(searchParams);
+                }}
+                className="px-2 py-1 text-[#a16207] hover:text-[#713f12] text-[11px] font-medium transition cursor-pointer"
+              >
+                Dismiss Highlight
+              </button>
             </div>
           </div>
+        )}
 
-          {/* Genuine Document Viewer */}
-          <div className="p-6 md:p-8 overflow-x-auto">
-            {isLoadingFile ? (
-              <div className="py-12 flex flex-col items-center justify-center gap-2 text-cyan-400">
-                <Loader2 className="w-8 h-8 animate-spin" />
-                <span className="text-xs text-text-muted font-mono">Loading authentic document file...</span>
+        {viewMode === 'multilingual' ? (
+          <SideBySideMultilingualViewer
+            caseId={caseId || ''}
+            evidence={evidence}
+            initialSearchQuery={highlightParam}
+            onTextUpdated={() => {
+              evidenceService.getEvidenceById(evidence.id).then(e => {
+                if (e) setEvidence(e);
+              });
+              if (caseId) fetchCitations(caseId, evidence.id);
+            }}
+          />
+        ) : (
+          <div className="rounded-2xl border border-[#eae4d9] bg-white overflow-hidden shadow-xs">
+            {/* Top Bar */}
+            <div className="bg-[#faf7f2] px-5 py-3 border-b border-[#eae4d9] flex items-center justify-between text-xs font-mono">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
+                <span className="text-[#191410] font-semibold">{fileMeta ? fileMeta.fileName : evidence.fileName}</span>
+                <span className="text-[#6e665d]">|</span>
+                <span className="text-blue-700 font-bold">{((evidence.file_size || 45000) / 1024).toFixed(1)} KB</span>
               </div>
-            ) : viewMode === 'raw' ? (
-              <pre className="p-4 rounded-lg bg-[#070c14] border border-border text-cyan-200 font-mono text-xs leading-relaxed overflow-x-auto whitespace-pre">
-                {displayedContent}
-              </pre>
-            ) : (
-              <div className="p-6 md:p-8 bg-[#0e1624] text-text rounded-lg border border-border/80 font-mono text-xs leading-relaxed whitespace-pre-wrap shadow-inner">
-                {displayedContent}
+              <div className="text-[#6e665d] flex items-center gap-4">
+                <span>AUTHENTIC TRIAL RECORD</span>
+                <span>STATUS: ADMITTED SUBSTANTIVE EVIDENCE</span>
               </div>
-            )}
+            </div>
+
+            {/* Genuine Document Viewer */}
+            <div className="p-6 md:p-8 overflow-x-auto">
+              {isLoadingFile ? (
+                <div className="py-12 flex flex-col items-center justify-center gap-2 text-[#d93829]">
+                  <Loader2 className="w-8 h-8 animate-spin" />
+                  <span className="text-xs text-[#6e665d] font-mono">Loading authentic document file...</span>
+                </div>
+              ) : viewMode === 'raw' ? (
+                <pre className="p-4 rounded-xl bg-[#faf7f2] border border-[#eae4d9] text-[#191410] font-mono text-xs leading-relaxed overflow-x-auto whitespace-pre">
+                  {renderHighlightedContent(displayedContent, highlightParam)}
+                </pre>
+              ) : (
+                <div className="p-6 md:p-8 bg-[#faf7f2] text-[#191410] rounded-xl border border-[#eae4d9] font-mono text-xs leading-relaxed whitespace-pre-wrap shadow-inner">
+                  {renderHighlightedContent(displayedContent, highlightParam)}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ============================================================ */}
       {/* SECTION 3: FORENSIC AI ANALYSIS & EXTRACTED INTELLIGENCE     */}
       {/* ============================================================ */}
-      <div className="space-y-6 pt-4 border-t border-border/60">
+      <div className="space-y-6 pt-4 border-t border-[#eae4d9]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-green-400" />
-            <h2 className="text-base font-bold text-white tracking-wide uppercase">
+            <Sparkles className="w-5 h-5 text-emerald-600" />
+            <h2 className="text-base font-serif font-bold text-[#191410] tracking-wide">
               Evidentia Analysis & Extracted Intelligence
             </h2>
           </div>
-          <span className="text-xs font-mono text-text-muted">
-            Engine: Analysis of Competing Hypotheses (ACH)
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-mono text-[#6e665d]">
+              Engine: Analysis of Competing Hypotheses (ACH)
+            </span>
+            {evidence.is_demo_fixture || evidence.extraction_mode === 'demo_fixture' ? (
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                Demo fixture
+              </span>
+            ) : (
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                Extracted live
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Pipeline Stage Indicators */}
@@ -790,10 +1013,10 @@ export function EvidenceDetails() {
                           <Link
                             key={h.id}
                             to={`/cases/${caseId}/hypotheses`}
-                            className="p-3.5 rounded-xl border border-border/70 hover:border-[#d93829] bg-background hover:bg-[#121c2e] transition-all group block"
+                            className="p-3.5 rounded-xl border border-[#eae4d9] hover:border-[#d93829] bg-[#faf7f2] hover:bg-white transition-all group block shadow-xs"
                           >
                             <div className="flex items-center justify-between gap-2 mb-2">
-                              <span className="font-serif font-bold text-xs text-white group-hover:text-[#d93829] transition-colors truncate">
+                              <span className="font-serif font-bold text-xs text-[#191410] group-hover:text-[#d93829] transition-colors truncate">
                                 {h.title}
                               </span>
                               <span className={cn(

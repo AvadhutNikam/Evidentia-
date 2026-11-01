@@ -1,15 +1,15 @@
 {
   "id": "case_01_pujari",
-  "title": "State of Maharashtra v. Yogesh Raut & Ors. (Pune Techie Case)",
+  "title": "State v. Y.R. & Ors. (Transit Corridor Abduction Case)",
   "split": "tuning",
   "category": "real_landmark",
   "is_contested": false,
-  "citation": "Special Sessions Court, Pune (Judgment dated 27 March 2017) / Confirmed Bombay High Court 2024",
+  "citation": "Special Sessions Court (Judgment confirmed by High Court appellate bench - Anonymized Archive)",
   "confidence_note": "High (Beyond Reasonable Doubt, confirmed on appeal with forensic corroboration)",
   "ground_truth": {
     "hypothesis_id": "H1",
-    "culprit_summary": "Yogesh Raut and co-accused (cab driver and accomplices)",
-    "rationale": "Forensic blood match in Qualis cab MH-12-CR-8692, ATM CCTV cash withdrawal, Sec 164 CrPC judicial confession by approver."
+    "culprit_summary": "Suspect Y.R. and co-accused (cab driver and accomplices)",
+    "rationale": "Forensic blood match in Qualis cab, ATM CCTV cash withdrawal, Sec 164 CrPC judicial confession by approver."
   },
   "decisive_evidence_ids": [
     "EX-01-01",
@@ -18,13 +18,13 @@
   "hypotheses": [
     {
       "id": "H1",
-      "label": "Yogesh Raut & Co-accused",
-      "statement": "Cab driver Yogesh Raut and accomplices abducted the victim in Qualis cab MH-12-CR-8692, used her ATM cards, and committed the assault."
+      "label": "Suspect Y.R. & Co-accused",
+      "statement": "Cab driver Y.R. and accomplices abducted the victim in Qualis cab, used her ATM cards, and committed the assault."
     },
     {
       "id": "H2",
       "label": "Unknown Highway Syndicate",
-      "statement": "An opportunistic inter-state highway gang hijacked the victim at Kharadi bypass; cab driver Yogesh was unrelated."
+      "statement": "An opportunistic inter-state highway gang hijacked the victim at transit bypass; cab driver was unrelated."
     },
     {
       "id": "H3",
@@ -32,6 +32,126 @@
       "statement": "A disgruntled corporate colleague arranged the abduction using a hired private vehicle."
     }
   ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "secondary_opportunistic",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "remote_or_indirect",
+        "numeric_adjustment": 0.45
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "professional_conflict",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [
+      {
+        "suspect_name": "Suspect Y.R.",
+        "offense_type": "Armed Highway Robbery & Gang Abduction",
+        "legal_section": "Section 392, 397 IPC",
+        "offense_date": "2007-04-18",
+        "location": "Bypass Corridor, Pune",
+        "outcome": "convicted",
+        "weapon_used": "Iron rod / jack handle",
+        "entry_method": "Fake transport / cab route intercept",
+        "victim_type": "Lone female commuter post-evening shift",
+        "location_type": "Desolate transit bypass / isolated corridor",
+        "time_pattern": "Late night 21:00-01:00",
+        "mo_description": "Suspect and accomplices operated a shared vehicle pretending to be official route transport. Targeted lone female corporate employees.",
+        "verification_status": "verified",
+        "identity_match_confidence": 0.98,
+        "verified_identity": true,
+        "is_juvenile": false
+      }
+    ]
+  },
   "exhibits": [
     {
       "id": "EX-01-01",

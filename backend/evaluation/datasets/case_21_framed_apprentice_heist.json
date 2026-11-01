@@ -1,0 +1,194 @@
+{
+  "id": "case_21_framed_apprentice_heist",
+  "title": "State v. S.K. & Anr. (Opera House Diamond Cutting Laser Heist)",
+  "split": "test",
+  "category": "property_heist",
+  "is_contested": false,
+  "citation": "Independent Contributor: Adv. Tanya Mehra (NLU Delhi) & Adv. Devendra Verma (ILS Pune)",
+  "confidence_note": "High - Confirmation bias trap: Apprentice had planted stone, juvenile prior, and salary dispute, but physical laser striation and biometric turnstile conclusively exonerate him.",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Master Cutter D. Kulkarni (Inside Laser Breach & Framing)",
+    "rationale": "High-resolution stereomicroscopy confirms vault security bracket was severed with a 532nm green Nd:YAG laser tool exclusively licensed to Kulkarni's private workshop. Turnstile biometrics place Apprentice Suresh outside the facility at 11:30 PM, 12 minutes before the vault was electronically breached."
+  },
+  "decisive_evidence_ids": [
+    "EX-21-01",
+    "EX-21-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Apprentice Suresh K. (Framed Employee)",
+      "statement": "Apprentice Suresh breached the inner vault using stolen keys, stole the 15-carat primary diamond, and hid a 2-carat uncut stone in his employee locker."
+    },
+    {
+      "id": "H2",
+      "label": "Master Cutter D. Kulkarni (Inside Precision Theif)",
+      "statement": "Master Cutter Kulkarni utilized his proprietary high-precision 532nm laser cutting tool to bypass vault sensors after hours and planted a dummy stone in Suresh's locker to divert suspicion."
+    },
+    {
+      "id": "H3",
+      "label": "External Armed Dacoity Gang",
+      "statement": "An external armed syndicate penetrated the rooftop ventilation duct and forced the vault mechanism."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "supervised_access",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.15
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "lacks_technical_means",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "unpaid_wages_dispute",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "fully_verified",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_infeasible",
+        "numeric_adjustment": 0.2
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "master_key_and_vault_code",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unsupervised_after_hours",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "proprietary_laser_cutting_tool",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "personal_bankruptcy_liquidation",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "unverified",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.95
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "zero_authorized_access",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "perimeter_alarmed",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "heavy_cutting_equipment",
+        "numeric_adjustment": 0.6
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "syndicate_profit",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.6
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [
+      {
+        "offense_category": "petty_theft",
+        "year_of_conviction": 2021,
+        "relevance_level": "medium",
+        "description": "Juvenile shoplifting charge 5 years ago; used by investigators as prejudicial prior."
+      }
+    ],
+    "H2": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-21-01",
+      "name": "FSL Laser Kerf & Heat-Affected Zone (HAZ) Micro-Spectrometry",
+      "evidence_type": "Forensic",
+      "file_hash": "sha256_laser_kerf_haz_spectrometry",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Stereomicroscopy and electron probe microanalysis of the severed vault titanium bracket reveal ultra-narrow 42-micrometer kerf width with 532nm green laser thermal oxidation. Kerf geometry matches the proprietary Nd:YAG laser tool registered exclusively to Master Cutter Kulkarni; Apprentice Suresh had zero access or training on laser equipment."
+    },
+    {
+      "id": "EX-21-02",
+      "name": "Biometric Turnstile Departure Log & Security CCTV",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_biometric_turnstile_cctv",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Time-synchronized biometric turnstile logs and external street CCTV confirm Apprentice Suresh exited the building at 11:30 PM and boarded the 11:38 PM local train at Charni Road station. The electronic vault door was breached at 11:42 PM, establishing a definitive physical alibi for Suresh."
+    },
+    {
+      "id": "EX-21-03",
+      "name": "Recovered 2-Carat Stone Adhesive Trace Analysis",
+      "evidence_type": "Physical",
+      "file_hash": "sha256_planted_diamond_adhesive",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "The 2-carat uncut diamond recovered from Suresh's locker bears microscopic traces of UV-cured cyanoacrylate bonding polymer identical to the custom adhesive bottle seized from Kulkarni's private worktable, indicating deliberate planting."
+    },
+    {
+      "id": "EX-21-04",
+      "name": "Rooftop Ventilation Shaft Physical Inspection",
+      "evidence_type": "Physical",
+      "file_hash": "sha256_rooftop_vent_inspection",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Perimeter physical survey confirms rooftop ventilation steel security grilles remain undisturbed with unbroken layer of atmospheric soot (0.00 breach), completely refuting external armed syndicate infiltration."
+    }
+  ]
+}

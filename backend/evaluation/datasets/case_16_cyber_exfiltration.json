@@ -1,0 +1,200 @@
+{
+  "id": "case_16_cyber_exfiltration",
+  "title": "State Cyber Crime Cell v. AlphaTech Labs (Defense Algorithm Exfiltration Case)",
+  "split": "blind_test",
+  "category": "blind_mixed_evidence",
+  "is_contested": false,
+  "citation": "Independent Contributor: Cyber Law & Digital Forensics Clinic (Case #BLIND-2024-F02)",
+  "confidence_note": "High - Corroborated network telemetry and physical airport alibi vs planted USB",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Foreign APT Group (Remotely compromised workstation via spear-phishing)",
+    "rationale": "Network firewall logs show C2 beaconing and memory injection mimicking user credentials. Workstation owner was physically in transit on commercial flight during the 02:14 AM exfiltration window."
+  },
+  "decisive_evidence_ids": [
+    "EX-16-01",
+    "EX-16-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Senior Firmware Architect Neil K.",
+      "statement": "Architect downloaded proprietary drone telemetry code onto personal USB to transfer to foreign competitor."
+    },
+    {
+      "id": "H2",
+      "label": "Foreign Advanced Persistent Threat (APT Group)",
+      "statement": "Foreign cyber-espionage syndicate remotely compromised internal subnet via weaponized PDF backdoor and exfiltrated code using architect's cached credentials."
+    },
+    {
+      "id": "H3",
+      "label": "IT Infrastructure Admin Vikram D.",
+      "statement": "Disgruntled system administrator used domain controller root privilege to exfiltrate code and deliberately frame Neil K."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "professional_conflict",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "strongly_verified",
+        "numeric_adjustment": 0.05
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_impossible",
+        "numeric_adjustment": 0.05
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "remote_or_indirect",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "personal_vendetta",
+        "numeric_adjustment": 0.6
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [],
+    "H2": [],
+    "H3": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-16-01",
+      "name": "Network Perimeter Firewall & Endpoint EDR Forensic Dump",
+      "evidence_type": "Document",
+      "file_hash": "sha256_edr_firewall_alphatech_c2",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "EDR memory forensic extraction reveals Neil K.'s workstation process svchost.exe was injected with a Cobalt Strike beacon payload at 02:08 AM. 4.2 GB of encrypted git archive packets were transmitted to an offshore command-and-control server in Frankfurt. The process initiated automatically via a task scheduler backdoor planted 5 days prior via a malicious PDF email attachment."
+    },
+    {
+      "id": "EX-16-02",
+      "name": "Bangalore International Airport CISF Gate Log & Flight Manifest",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_cisf_airport_neil_alibi",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "CISF biometric e-gate logs and IndiGo Airlines flight 6E-512 manifest establish Neil K. passed through security at Bangalore Airport at 01:15 AM and was airborne between 01:55 AM and 04:30 AM without in-flight Wi-Fi connectivity, conclusively disproving physical access to his workstation at the time of exfiltration."
+    },
+    {
+      "id": "EX-16-03",
+      "name": "SanDisk Flash Drive Found in Neil K. Office Desk",
+      "evidence_type": "Document",
+      "file_hash": "sha256_sandisk_usb_desk_neil",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "A 64GB SanDisk USB recovered from Neil K.'s desk drawer contained compiled software binaries. Forensic file metadata analysis demonstrates last written timestamp was 7 months prior to the incident; zero files from the compromised drone guidance repository were present on the media."
+    },
+    {
+      "id": "EX-16-04",
+      "name": "Git Repository Access Audit Log",
+      "evidence_type": "Document",
+      "file_hash": "sha256_git_audit_ssh_key_neil",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Git enterprise server logs indicate the repository was pulled using SSH key neil_rsa_pub. While initially casting circumstantial suspicion on Neil, cryptographic analysis shows the private key was stored unencrypted on his compromised workstation disk and harvested by the malware."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-16-ADV",
+    "name": "Planted Resignation Resentment Memo",
+    "evidence_type": "Document",
+    "file_hash": "sha256_fake_memo_competitor_offer",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Unverified draft email stating 'I will take the guidance code with me if compensation is not matched.'"
+  }
+}

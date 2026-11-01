@@ -19,6 +19,9 @@ export const CASE_ALIASES: Record<string, string[]> = {
 
   '6': ['6', 'bpd-2013-ma-bos-0415', 'boston', 'marathon'],
   'bpd-2013-ma-bos-0415': ['6', 'bpd-2013-ma-bos-0415', 'boston', 'marathon'],
+
+  '7': ['7', 'fir-2012-dl-vst-0370', 'delhi', 'nirbhaya', 'mukesh'],
+  'fir-2012-dl-vst-0370': ['7', 'fir-2012-dl-vst-0370', 'delhi', 'nirbhaya', 'mukesh'],
 };
 
 export function matchesCase(itemCaseId: string | number | undefined, queryCaseId: string | number | undefined): boolean {

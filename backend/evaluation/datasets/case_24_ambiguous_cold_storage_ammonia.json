@@ -1,0 +1,139 @@
+{
+  "id": "case_24_ambiguous_cold_storage_ammonia",
+  "title": "Inquest into Fatal Ammonia Inhalation at Continental Cold Storage",
+  "split": "blind_test",
+  "category": "industrial_disaster",
+  "is_contested": true,
+  "citation": "Independent Contributor: Adv. Mihir Kothari (Bombay High Court) & Adv. Ananya Joshi (NLSIU Bangalore)",
+  "confidence_note": "Inconclusive / Mixed Ambiguity - Dual causative factors: deferred corporate maintenance corrosion vs intentional mechanical wrench valve tampering. Standard of proof beyond reasonable doubt is NOT met.",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Corporate Management Negligence (Corrosion Cracking Flange Failure)",
+    "rationale": "Metallurgical examination reveals severe stress corrosion cracking and 70% thread degradation across flange bolts that failed under normal operating pressure. However, toolmark impressions on secondary bypass valve indicate human tampering, creating irreducible statutory ambiguity."
+  },
+  "decisive_evidence_ids": [
+    "EX-24-01",
+    "EX-24-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Corporate Maintenance Negligence (Flange Corrosion Failure)",
+      "statement": "Management deferred statutory hydrostatic inspections for 3 years, causing catastrophic ammonia rupture from stress corrosion cracking."
+    },
+    {
+      "id": "H2",
+      "label": "Competitor Industrial Sabotage (Deliberate Valve Tampering)",
+      "statement": "An operative hired by rival export company entered through the perimeter fence and manually forced open the secondary pressure relief bypass valve."
+    },
+    {
+      "id": "H3",
+      "label": "Night Watchman Accidental Operation Error",
+      "statement": "The deceased watchman attempted to silence a pressure alarm by turning valves without protective respirator gear."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "management_control",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "ongoing_neglect",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "deferred_capital_budget",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "cost_cutting_savings",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "documented_deferrals",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.85
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "perimeter_trespass",
+        "numeric_adjustment": 0.6
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unmonitored_night_shift",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "heavy_adjustable_wrench",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "commercial_disruption",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "unverified",
+        "numeric_adjustment": 0.65
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.7
+      }
+    ]
+  },
+  "exhibits": [
+    {
+      "id": "EX-24-01",
+      "name": "National Metallurgical Laboratory (NML) Flange Failure Report",
+      "evidence_type": "Forensic",
+      "file_hash": "sha256_nml_flange_corrosion_report",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Scanning Electron Microscopy (SEM) of the failed ANSI Class 300 ammonia flange demonstrates extensive intergranular stress corrosion cracking (SCC) with 68% wall-thickness loss on the inner gasket seat, consistent with long-term deferred maintenance."
+    },
+    {
+      "id": "EX-24-02",
+      "name": "State Directorate of Industrial Safety Inspection & Valve Toolmarks",
+      "evidence_type": "Forensic",
+      "file_hash": "sha256_dis_toolmark_bypass_valve",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Forensic examination of the secondary bypass line discovered fresh serrated mechanical toolmark abrasions on the brass valve stem, indicating a 24-inch pipe wrench was applied to force the valve past its safety detent hours before the rupture. Paint flakes on the valve stem do not match in-house maintenance tools."
+    },
+    {
+      "id": "EX-24-03",
+      "name": "CCTV DVR Hard Drive Diagnostic & Power Log",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_cctv_dvr_power_loss",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Perimeter CCTV recorder experienced power disruption at 01:15 AM due to tripping of external breaker, leaving a 90-minute visual blind spot during which either internal passive failure or external intrusion could have occurred."
+    }
+  ]
+}

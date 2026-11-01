@@ -33,8 +33,10 @@ async def save_uploaded_file(file_content: bytes, original_filename: str) -> Tup
     # 1. Compute SHA-256 fingerprint BEFORE any transformation
     sha256_hash = hashlib.sha256(file_content).hexdigest()
 
-    file_extension = os.path.splitext(original_filename)[1]
-    unique_name = f"{uuid.uuid4().hex}{file_extension}"
+    import re
+    file_extension = os.path.splitext(original_filename)[1].lower()
+    safe_extension = re.sub(r'[^a-z0-9.]', '', file_extension)
+    unique_name = f"{uuid.uuid4().hex}{safe_extension}"
 
     # 2. Try Supabase Storage if configured
     if SUPABASE_URL and SUPABASE_KEY:

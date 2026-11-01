@@ -11,6 +11,7 @@ Implements:
 
 import hashlib
 import os
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Dict, Any, List, Tuple
@@ -20,6 +21,7 @@ from sqlalchemy import desc
 from models import AuditLog, CustodyLog, Evidence, User
 
 GENESIS_HASH = "0000000000000000000000000000000000000000000000000000000000000000"
+_audit_lock = threading.Lock()
 
 
 def compute_sha256_bytes(data: bytes) -> str:
@@ -83,49 +85,54 @@ def log_audit_event(
     case_id: Optional[int] = None,
     before_value: Optional[str] = None,
     after_value: Optional[str] = None,
-    ip_address: Optional[str] = None
+    ip_address: Optional[str] = None,
+    commit: bool = True
 ) -> AuditLog:
     """
     Central helper for writing an append-only, Merkle-chained audit entry.
     """
-    last_log = db.query(AuditLog).order_by(AuditLog.id.desc()).first()
-    prev_hash = last_log.current_hash if last_log else GENESIS_HASH
+    with _audit_lock:
+        last_log = db.query(AuditLog).order_by(AuditLog.id.desc()).first()
+        prev_hash = last_log.current_hash if last_log else GENESIS_HASH
 
-    now = datetime.now(timezone.utc)
+        now = datetime.now(timezone.utc)
 
-    effective_user_name = user_name or "System"
-    curr_hash = calculate_audit_payload_hash(
-        previous_hash=prev_hash,
-        timestamp_iso=now,
-        user_name=effective_user_name,
-        action_type=action_type,
-        target_type=target_type,
-        target_id=str(target_id) if target_id is not None else "",
-        description=description,
-        before_value=str(before_value) if before_value is not None else "",
-        after_value=str(after_value) if after_value is not None else ""
-    )
+        effective_user_name = user_name or "System"
+        curr_hash = calculate_audit_payload_hash(
+            previous_hash=prev_hash,
+            timestamp_iso=now,
+            user_name=effective_user_name,
+            action_type=action_type,
+            target_type=target_type,
+            target_id=str(target_id) if target_id is not None else "",
+            description=description,
+            before_value=str(before_value) if before_value is not None else "",
+            after_value=str(after_value) if after_value is not None else ""
+        )
 
-    audit_entry = AuditLog(
-        case_id=case_id,
-        user_id=user_id,
-        user_name=effective_user_name,
-        user_role=user_role or "analyst",
-        action_type=action_type,
-        target_type=target_type,
-        target_id=str(target_id) if target_id is not None else None,
-        description=description,
-        before_value=str(before_value) if before_value is not None else None,
-        after_value=str(after_value) if after_value is not None else None,
-        ip_address=ip_address,
-        timestamp=now,
-        previous_hash=prev_hash,
-        current_hash=curr_hash
-    )
-    db.add(audit_entry)
-    db.commit()
-    db.refresh(audit_entry)
-    return audit_entry
+        audit_entry = AuditLog(
+            case_id=case_id,
+            user_id=user_id,
+            user_name=effective_user_name,
+            user_role=user_role or "analyst",
+            action_type=action_type,
+            target_type=target_type,
+            target_id=str(target_id) if target_id is not None else None,
+            description=description,
+            before_value=str(before_value) if before_value is not None else None,
+            after_value=str(after_value) if after_value is not None else None,
+            ip_address=ip_address,
+            timestamp=now,
+            previous_hash=prev_hash,
+            current_hash=curr_hash
+        )
+        db.add(audit_entry)
+        if commit:
+            db.commit()
+            db.refresh(audit_entry)
+        else:
+            db.flush()
+        return audit_entry
 
 
 def verify_audit_chain(db: Session, case_id: Optional[int] = None) -> Dict[str, Any]:
@@ -238,11 +245,14 @@ def verify_evidence_integrity(
     db: Session,
     evidence_id: int,
     user_name: str = "Forensics Examiner",
-    user_id: Optional[int] = None
+    user_id: Optional[int] = None,
+    user_role: str = "forensic_analyst",
+    **kwargs
 ) -> Dict[str, Any]:
     """
     Recomputes SHA-256 of the stored physical file on disk/storage and compares it to the original recorded file_hash.
-    Updates Evidence.hash_verified and appends to both the Custody Log and Audit Log.
+    If the file is missing or replaced, it strictly FAILS with 'file missing, cannot verify' (or tamper mismatch),
+    never falls back to synthetic or recorded hashes, writes a critical tamper alert, and flags the custody/audit logs.
     """
     evidence = db.query(Evidence).filter(Evidence.id == evidence_id).first()
     if not evidence:
@@ -250,6 +260,18 @@ def verify_evidence_integrity(
             "success": False,
             "error": f"Evidence #{evidence_id} not found."
         }
+
+    # CRITICAL FIX: Physical forensic exhibits DO NOT have a digital file on disk.
+    # Route them to physical custody continuity & seal verification to avoid false tamper alerts.
+    if getattr(evidence, "evidence_kind", "digital") == "physical":
+        from physical_evidence_engine import verify_physical_evidence_integrity
+        return verify_physical_evidence_integrity(
+            db=db,
+            evidence=evidence,
+            user_name=user_name,
+            user_id=user_id,
+            user_role=user_role
+        )
 
     backend_dir = Path(__file__).resolve().parent
     file_path = None
@@ -267,17 +289,73 @@ def verify_evidence_integrity(
         if candidate.exists() and candidate.is_file():
             file_path = candidate
 
-    recomputed_hash = ""
-    if file_path and file_path.exists():
-        raw_bytes = file_path.read_bytes()
-        recomputed_hash = compute_sha256_bytes(raw_bytes)
-    else:
-        # If running in environment where disk file was created synthetically
-        recomputed_hash = evidence.file_hash or compute_sha256_bytes(f"EXHIBIT_{evidence.id}_{evidence.file_name}_{evidence.case_id}".encode("utf-8"))
+    # Strict check: If physical file is missing, FAIL immediately with tamper alert.
+    # NEVER fall back to recorded hash or synthetic hash.
+    if not file_path or not file_path.exists():
+        evidence.hash_verified = False
+        if hasattr(evidence, "quality_rating") and evidence.quality_rating is not None:
+            evidence.quality_rating = min(evidence.quality_rating, 1.0)
+        db.commit()
+
+        log_custody_event(
+            db=db,
+            evidence_id=evidence.id,
+            case_id=evidence.case_id,
+            action="FILE_MISSING_TAMPER",
+            actor_name=user_name,
+            actor_role=user_role,
+            location="Digital Forensics Laboratory",
+            notes="CRITICAL ERROR: file missing, cannot verify. Physical file unreadable on disk.",
+            file_hash_snapshot=None
+        )
+
+        log_audit_event(
+            db=db,
+            action_type="TAMPER_OR_MISSING",
+            target_type="exhibit",
+            target_id=str(evidence.id),
+            description=f"Evidence '{evidence.file_name}' check failed: file missing, cannot verify.",
+            user_id=user_id,
+            user_name=user_name,
+            case_id=evidence.case_id,
+            before_value=evidence.file_hash,
+            after_value=None
+        )
+
+        try:
+            from alerts_engine import check_integrity_failure_rule
+            check_integrity_failure_rule(
+                case_id=evidence.case_id,
+                db=db,
+                exhibit_id=evidence.id,
+                error_detail="file missing, cannot verify"
+            )
+        except Exception as e:
+            print(f"[!] Could not process missing file alert: {e}")
+
+        return {
+            "success": False,
+            "evidence_id": evidence.id,
+            "file_name": evidence.file_name,
+            "stored_hash": evidence.file_hash,
+            "recorded_hash": evidence.file_hash,
+            "recomputed_hash": None,
+            "integrity_verified": False,
+            "status": "FILE_MISSING_TAMPER",
+            "message": "file missing, cannot verify",
+            "error": "file missing, cannot verify",
+            "is_match": False
+        }
+
+    # Recompute SHA-256 directly from raw file bytes
+    raw_bytes = file_path.read_bytes()
+    recomputed_hash = compute_sha256_bytes(raw_bytes)
 
     # Compare
     is_match = (recomputed_hash == evidence.file_hash)
     evidence.hash_verified = is_match
+    if not is_match and hasattr(evidence, "quality_rating") and evidence.quality_rating is not None:
+        evidence.quality_rating = min(evidence.quality_rating, 1.0)
     db.commit()
 
     # Record custody verification milestone
@@ -285,7 +363,7 @@ def verify_evidence_integrity(
     notes = (
         f"Automated SHA-256 re-computation verified match against recorded fingerprint ({evidence.file_hash[:16]}...)."
         if is_match else
-        f"CRITICAL TAMPER WARNING: Computed hash ({recomputed_hash[:16]}...) does not match custody record ({evidence.file_hash[:16]}...)."
+        f"CRITICAL TAMPER WARNING: Computed hash ({recomputed_hash[:16]}...) does not match custody record ({evidence.file_hash[:16]}...). File modified or replaced."
     )
     log_custody_event(
         db=db,
@@ -293,7 +371,7 @@ def verify_evidence_integrity(
         case_id=evidence.case_id,
         action=custody_action,
         actor_name=user_name,
-        actor_role="forensic_analyst",
+        actor_role=user_role,
         location="Digital Forensics Laboratory",
         notes=notes,
         file_hash_snapshot=recomputed_hash
@@ -305,7 +383,7 @@ def verify_evidence_integrity(
         action_type="INTEGRITY_VERIFY" if is_match else "TAMPER_DETECTED",
         target_type="exhibit",
         target_id=str(evidence.id),
-        description=f"Evidence '{evidence.file_name}' integrity check: {'PASSED' if is_match else 'FAILED (TAMPER DETECTED)'}.",
+        description=f"Evidence '{evidence.file_name}' integrity check: {'PASSED' if is_match else 'FAILED (TAMPER DETECTED: file replaced or modified)'}.",
         user_id=user_id,
         user_name=user_name,
         case_id=evidence.case_id,
@@ -313,15 +391,38 @@ def verify_evidence_integrity(
         after_value=recomputed_hash
     )
 
+    # Trigger or auto-resolve critical integrity alert
+    try:
+        from alerts_engine import check_integrity_failure_rule, auto_resolve_alert
+        if not is_match:
+            check_integrity_failure_rule(
+                case_id=evidence.case_id,
+                db=db,
+                exhibit_id=evidence.id,
+                error_detail=f"Recomputed SHA-256 ({recomputed_hash[:16]}...) differs from original intake fingerprint ({evidence.file_hash[:16]}...). File modified or replaced."
+            )
+        else:
+            auto_resolve_alert(
+                case_id=evidence.case_id,
+                dedup_key=f"integrity_failure_{evidence.case_id}_{evidence.id}",
+                resolution_reason="Integrity re-verified: SHA-256 matches judicial custody fingerprint.",
+                db=db
+            )
+    except Exception as e:
+        print(f"[!] Could not process integrity alert: {e}")
+
     return {
-        "success": True,
+        "success": is_match,
         "evidence_id": evidence.id,
         "file_name": evidence.file_name,
         "stored_hash": evidence.file_hash,
+        "recorded_hash": evidence.file_hash,
         "recomputed_hash": recomputed_hash,
         "integrity_verified": is_match,
         "status": "VALID_INTACT" if is_match else "TAMPER_WARNING",
-        "message": "File integrity intact. SHA-256 matches judicial custody record." if is_match else "CRITICAL TAMPER WARNING: Recomputed SHA-256 differs from original intake hash!"
+        "message": "File integrity intact. SHA-256 matches judicial custody record." if is_match else "CRITICAL TAMPER WARNING: Recomputed SHA-256 differs from original intake hash! File replaced or modified.",
+        "error": None if is_match else "Integrity mismatch: file replaced or modified",
+        "is_match": is_match
     }
 
 

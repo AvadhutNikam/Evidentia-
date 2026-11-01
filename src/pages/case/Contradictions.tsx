@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { contradictionService, investigationService, evidenceService } from '../../services';
 import { Contradiction, Evidence } from '../../types';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
-import { AlertTriangle, Clock, Sparkles, RefreshCw, CheckCircle, ShieldAlert, FileText, Check, ExternalLink, GitBranch, ArrowUpRight } from 'lucide-react';
+import { AlertTriangle, Clock, Sparkles, RefreshCw, CheckCircle, ShieldAlert, FileText, Check, ExternalLink, GitBranch, ArrowUpRight, Zap } from 'lucide-react';
 import { cn } from '../../utils';
 import { useCaseState } from '../../engine/useCaseState';
+import { useStreamingAnalysis } from '../../context/StreamingAnalysisContext';
 
 export function Contradictions() {
   const { caseId } = useParams();
@@ -15,6 +16,7 @@ export function Contradictions() {
   const [scanMessage, setScanMessage] = useState<string | null>(null);
   const [taskCreatedIds, setTaskCreatedIds] = useState<Record<string, boolean>>({});
   const stateTick = useCaseState();
+  const { isItemHighlighted } = useStreamingAnalysis();
 
   const loadContradictions = () => {
     if (caseId) {
@@ -175,24 +177,41 @@ export function Contradictions() {
           contradictions.map((c, idx) => {
             const targetA = resolveEvidenceTarget(c.sourceAId);
             const targetB = resolveEvidenceTarget(c.sourceBId);
+            const isHighlighted = isItemHighlighted('contradiction', c.id) || isItemHighlighted('contradiction', idx);
 
             return (
               <Card key={`${c.id}-${idx}`} className={cn(
-                "border shadow-sm overflow-hidden transition-all bg-white",
+                "border shadow-sm overflow-hidden transition-all bg-white relative",
+                isHighlighted && "ring-2 ring-amber-400 bg-amber-50/50 border-amber-300 shadow-md",
                 c.status === 'Dismissed' 
                   ? "opacity-60 border-border bg-surface/50" 
-                  : "border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.05)]"
+                  : !isHighlighted && "border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.05)]"
               )}>
-                <div className="h-1 w-full bg-gradient-to-r from-red-500/60 to-orange-500/60" />
-                <CardHeader className="bg-red-500/5 border-b border-red-500/10 py-3.5 px-6">
+                <div className={cn(
+                  "h-1 w-full",
+                  isHighlighted ? "bg-gradient-to-r from-amber-500 to-orange-500" : "bg-gradient-to-r from-red-500/60 to-orange-500/60"
+                )} />
+                <CardHeader className={cn(
+                  "border-b py-3.5 px-6",
+                  isHighlighted ? "bg-amber-100/40 border-amber-200" : "bg-red-500/5 border-red-500/10"
+                )}>
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 w-full">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center border border-red-500/30 shrink-0">
-                        <AlertTriangle className="w-4 h-4 text-red-600" />
+                      <div className={cn(
+                        "w-8 h-8 rounded-full flex items-center justify-center border shrink-0",
+                        isHighlighted ? "bg-amber-200/60 border-amber-300 text-amber-700" : "bg-red-500/20 border-red-500/30 text-red-600"
+                      )}>
+                        <AlertTriangle className="w-4 h-4" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
                           <CardTitle className="text-[#191410] text-base font-bold">{c.conflictType}</CardTitle>
+                          {isHighlighted && (
+                            <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-amber-200 text-amber-950 font-bold border border-amber-300 flex items-center gap-1 animate-pulse">
+                              <Zap className="w-3 h-3 text-amber-700" />
+                              NEW CONFLICT
+                            </span>
+                          )}
                           <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface border border-border text-text-muted font-bold">
                             NLI: CONTRADICTION
                           </span>

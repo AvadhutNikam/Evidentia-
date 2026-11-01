@@ -1,0 +1,219 @@
+{
+  "id": "case_15_nhava_sheva_arson",
+  "title": "State v. N.S. Container Logistics (Nhava Sheva Warehouse Arson / Fire Inquest)",
+  "split": "blind_test",
+  "category": "blind_mixed_evidence",
+  "is_contested": false,
+  "citation": "Independent Contributor: Forensic Law Student Moot Archive (Case #BLIND-2024-F01)",
+  "confidence_note": "Moderate - Mixed circumstantial financial motive vs physical fire science",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Contractor Maintenance Welding Crew (Gross Negligence)",
+    "rationale": "Forensic fire burn-pattern analysis and contractor job sheets confirm uninsulated hot-slag from structural welding ignited open lacquer thinner barrels. Owner's vehicle departed 2 hours prior."
+  },
+  "decisive_evidence_ids": [
+    "EX-15-01",
+    "EX-15-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Managing Director Rajesh G. (Arson Insurance Fraud)",
+      "statement": "Director arranged deliberate torching of warehouse to recover ₹45 Crore fire insurance policy to clear impending commercial bank defaults."
+    },
+    {
+      "id": "H2",
+      "label": "Contractor Maintenance Welding Crew (Gross Negligence)",
+      "statement": "Uncertified welding workers operated thermal cutting torch adjacent to volatile chemical storage without mandatory fire-retardant blankets or standby extinguishers."
+    },
+    {
+      "id": "H3",
+      "label": "Electrical Substation Surge / Transformer Failure",
+      "statement": "High-voltage monsoon power fluctuation in the main terminal transformer triggered electrical arcing in ceiling conduits causing passive structural ignition."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "partially_verified",
+        "numeric_adjustment": 0.35
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 0.9
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "limited_capacity",
+        "numeric_adjustment": 0.3
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [],
+    "H2": [
+      {
+        "suspect_name": "Apex Engineering Contractors",
+        "offense_type": "Industrial Safety & Fire Negligence Violation",
+        "legal_section": "Section 285, 287 IPC",
+        "offense_date": "2021-03-12",
+        "location": "MIDC Taloja, Navi Mumbai",
+        "outcome": "convicted",
+        "weapon_used": "Gas cutting torch",
+        "entry_method": "Authorized maintenance access",
+        "victim_type": "Industrial warehouse property",
+        "location_type": "Chemical storage depot",
+        "time_pattern": "Evening shift 19:00-21:00",
+        "mo_description": "Failed to erect fire-resistant partition walls during hot-cutting operations near solvent drums.",
+        "verification_status": "verified",
+        "identity_match_confidence": 0.95,
+        "verified_identity": true,
+        "is_juvenile": false
+      }
+    ],
+    "H3": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-15-01",
+      "name": "State Fire Services Forensic Arson & Burn Origin Investigation",
+      "evidence_type": "Document",
+      "file_hash": "sha256_fire_fsl_nhava_origin",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Detailed inverted V-pattern thermal mapping isolates the primary fire origin to Bay-4 welding partition at floor level. Gas chromatography confirmed absence of kerosene or commercial accelerants; fuel source was unsealed industrial lacquer thinner barrels ignited by 1200°C molten welding slag. Electrical conduit breakers on the main transformer were tripped mechanically post-fire, disproving electrical failure as the initiator."
+    },
+    {
+      "id": "EX-15-02",
+      "name": "Contractor Hot-Work Job Card & Disciplinary Inspection",
+      "evidence_type": "Document",
+      "file_hash": "sha256_apex_contractor_jobcard_09",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Maintenance job ticket confirms Apex Contractors crew was performing uninsulated torch-cutting of steel shelving in Bay-4 until 19:55. Safety auditor inspection reveals two handheld chemical extinguishers beside Bay-4 were discharged and completely empty prior to the incident, with zero water hoses connected."
+    },
+    {
+      "id": "EX-15-03",
+      "name": "Perimeter Gate ANPR & Director Vehicle Log",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_nhava_anpr_gate_south",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "High-definition ANPR camera captures Director Rajesh G.'s Mercedes departing the facility at 18:22 IST. Cellular tower records corroborate his device registered at a business club dinner in South Mumbai from 19:30 onwards through midnight, establishing physical absence during the 20:15 ignition window."
+    },
+    {
+      "id": "EX-15-04",
+      "name": "Commercial Insurance Policy & Bank Debt Recovery Notice",
+      "evidence_type": "Document",
+      "file_hash": "sha256_insurance_debt_notice_nhava",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Financial audit records demonstrate warehouse inventory was insured for ₹45 Crore with policy renewed 3 weeks prior. State Bank had served an asset possession notice under SARFAESI Act for ₹38 Crore pending debt, creating strong circumstantial suspicion of financial motive."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-15-ADV",
+    "name": "Anonymous Tipster Note Accusing Director",
+    "evidence_type": "Document",
+    "file_hash": "sha256_anon_tip_director_arson",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Unsigned computer-printed note dropped at police station claiming Director Rajesh met professional torchmen at a hotel."
+  }
+}

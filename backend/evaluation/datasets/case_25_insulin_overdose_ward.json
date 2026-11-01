@@ -1,0 +1,139 @@
+{
+  "id": "case_25_insulin_overdose_ward",
+  "title": "Inquest into Fatal Hyperinsulinemic Hypoglycemia of Smt. Sharda Devi",
+  "split": "test",
+  "category": "poisoning",
+  "is_contested": false,
+  "citation": "Independent Contributor: Dr. Shweta Rastogi (NFSU) & Prof. K. Sharma (NFSU Gandhinagar)",
+  "confidence_note": "High - Confirmation bias trap: Stepson Rahul had heated will dispute 4 hours prior and inherits ?8 Crore, but post-mortem C-peptide assay and medicine lock prove 04:15 AM injection by nurse on duty.",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Night Ward Nurse Sunita (Fatal Exogenous Insulin Overdose)",
+    "rationale": "Biochemical toxicology proves profound hypoglycemia with serum insulin > 1000 pmol/L and zero detectable C-peptide (< 0.1 ng/mL), establishing injection of synthetic exogenous human insulin. Automated medicine refrigerator dispensing logs confirm Sunita unlocked the rapid-acting insulin cartridge at 04:11 AM, while stepson Rahul departed the hospital at 01:30 AM."
+  },
+  "decisive_evidence_ids": [
+    "EX-25-01",
+    "EX-25-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Stepson Rahul M. (Sole Estate Beneficiary)",
+      "statement": "Stepson Rahul injected lethal dose of insulin during late-night bedside visit to secure immediate ?8 Crore inheritance following heated argument."
+    },
+    {
+      "id": "H2",
+      "label": "Night Ward Nurse Sunita (Lethal Medication Administration)",
+      "statement": "Nurse Sunita administered 100 IU of Actrapid insulin via intravenous cannula at 04:15 AM, acting under financial inducement from rival beneficiaries."
+    },
+    {
+      "id": "H3",
+      "label": "Spontaneous Endogenous Insulinoma Crisis",
+      "statement": "The patient experienced acute neuroglycopenic coma caused by an undetected neuroendocrine pancreatic islet tumor."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "visitor_visitation_pass",
+        "numeric_adjustment": 0.6
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "syringe_procurement_possible",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "eight_crore_will_inheritance",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "fully_verified",
+        "numeric_adjustment": 0.05
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_infeasible",
+        "numeric_adjustment": 0.1
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_intravenous_line_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unsupervised_medication_round",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "dispensing_keys_and_syringes",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "illicit_financial_remittance",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "sole_on_duty_staff",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "exhibits": [
+    {
+      "id": "EX-25-01",
+      "name": "Clinical Biochemistry Toxicological Assay (C-Peptide vs Free Insulin)",
+      "evidence_type": "Forensic",
+      "file_hash": "sha256_c_peptide_insulin_assay",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Post-admission serum assay confirms circulating free insulin level was extremely elevated at 1,240 pmol/L with completely suppressed C-peptide concentration of < 0.05 ng/mL. In endogenous insulinoma, C-peptide is elevated equimolarly with insulin; zero C-peptide is the definitive scientific hallmark of exogenous synthetic insulin administration, entirely ruling out spontaneous pancreatic tumor."
+    },
+    {
+      "id": "EX-25-02",
+      "name": "Hospital Main Entrance Turnstile & Uber Ride Telemetry (Stepson Alibi)",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_turnstile_uber_alibi_rahul",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Hospital visitor gate RFID card logs, lobby CCTV, and verified Uber trip receipts establish Stepson Rahul exited the hospital premises at 01:28 AM and was dropped at his residence in Bandra West at 02:04 AM. The patient's continuous glycemic monitor records normal blood glucose until 04:12 AM, when an abrupt precipitous crash occurred, conclusively eliminating Rahul as the administrator."
+    },
+    {
+      "id": "EX-25-03",
+      "name": "Ward High-Risk Medication Refrigerator Smart-Lock Audit",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_smart_lock_medication_sunita",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Smart-lock biometric access audit of the intensive care medication refrigerator proves Nurse Sunita scanned her credentials at 04:11:15 AM and withdrew a 100 IU vial of Humalog insulin without corresponding physician prescription entry on the electronic health record."
+    }
+  ]
+}

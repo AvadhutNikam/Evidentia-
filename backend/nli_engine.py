@@ -31,6 +31,7 @@ from typing import List, Dict, Any, Optional, Tuple
 from sqlalchemy.orm import Session
 
 from models import Evidence, Contradiction
+from config import DEFAULT_MODEL_NAME
 
 logger = logging.getLogger("evidentia.nli")
 
@@ -148,7 +149,7 @@ Return ONLY a valid JSON array of strings:
 
         try:
             resp = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model=DEFAULT_MODEL_NAME,
                 contents=prompt
             )
             raw = self._clean_json(resp.text)
@@ -223,7 +224,7 @@ If no meaningful interactions exist, return []."""
         results: List[NLIResult] = []
         try:
             resp = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model=DEFAULT_MODEL_NAME,
                 contents=prompt
             )
             raw = self._clean_json(resp.text)
@@ -310,7 +311,7 @@ If no contradictions exist, return []."""
         results: List[NLIResult] = []
         try:
             resp = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model=DEFAULT_MODEL_NAME,
                 contents=prompt
             )
             raw = self._clean_json(resp.text)

@@ -112,13 +112,13 @@ export function ActivityLog() {
       {/* Page Header with Real-Time Cryptographic Ledger State */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-blue-700 uppercase tracking-wider mb-1">
             <Lock className="w-3.5 h-3.5" /> Immutable Audit Ledger • Sec. 65B Certified
           </div>
-          <h1 className="text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight">
+          <h1 className="text-2xl lg:text-3xl font-serif font-bold text-[#191410] tracking-tight">
             Case Activity & Cryptographic Audit Log
           </h1>
-          <p className="text-sm text-text-muted mt-1">
+          <p className="text-sm text-[#6e665d] mt-1">
             Append-only tamper-evident event stream chained using SHA-256 Merkle proofs.
           </p>
         </div>
@@ -127,7 +127,7 @@ export function ActivityLog() {
           <button
             onClick={handleVerifyChain}
             disabled={verifying}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold rounded-lg shadow-lg shadow-emerald-900/30 transition-all text-xs disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold rounded-lg shadow-sm transition-all text-xs disabled:opacity-50 cursor-pointer"
           >
             {verifying ? (
               <>
@@ -136,7 +136,7 @@ export function ActivityLog() {
               </>
             ) : (
               <>
-                <ShieldCheck className="w-4 h-4 text-emerald-200" />
+                <ShieldCheck className="w-4 h-4 text-emerald-100" />
                 <span>Verify Merkle Audit Chain</span>
               </>
             )}
@@ -147,94 +147,94 @@ export function ActivityLog() {
       {/* Merkle Cryptographic Integrity Status Card */}
       {verificationResult && (
         <div className={cn(
-          "p-4 rounded-xl border flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all shadow-lg",
+          "p-4 rounded-xl border flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all shadow-xs",
           verificationResult.chain_intact
-            ? "bg-[#0b1a1a] border-emerald-500/30 text-emerald-300"
-            : "bg-[#240b0b] border-rose-500/50 text-rose-300"
+            ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+            : "bg-red-50 border-red-200 text-red-900"
         )}>
           <div className="flex items-start md:items-center gap-3">
             <div className={cn(
               "w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border",
               verificationResult.chain_intact
-                ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
-                : "bg-rose-500/20 border-rose-500/40 text-rose-400"
+                ? "bg-emerald-100 border-emerald-300 text-emerald-700"
+                : "bg-red-100 border-red-300 text-red-700"
             )}>
               {verificationResult.chain_intact ? <ShieldCheck className="w-5 h-5" /> : <ShieldAlert className="w-5 h-5" />}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm tracking-wide text-white">
+                <span className="font-bold text-sm tracking-wide text-[#191410]">
                   {verificationResult.chain_intact ? "Cryptographic Merkle Chain Verified Intact" : "CRITICAL TAMPER WARNING DETECTED"}
                 </span>
                 <span className={cn(
                   "px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase border",
                   verificationResult.chain_intact
-                    ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                    : "bg-rose-500/20 text-rose-300 border-rose-500/40"
+                    ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                    : "bg-red-100 text-red-800 border-red-200"
                 )}>
                   {verificationResult.status}
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-xs text-[#6e665d] mt-0.5">
                 {verificationResult.message}
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-text-muted border-t md:border-t-0 md:border-l border-border/60 pt-3 md:pt-0 md:pl-5">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#6e665d] border-t md:border-t-0 md:border-l border-[#eae4d9] pt-3 md:pt-0 md:pl-5">
             <div>
-              <div className="text-[10px] uppercase text-text-muted">Verified Blocks</div>
-              <div className="text-white font-bold">{verificationResult.verified_count} / {verificationResult.total_entries}</div>
+              <div className="text-[10px] uppercase text-[#6e665d]">Verified Blocks</div>
+              <div className="text-[#191410] font-bold">{verificationResult.verified_count} / {verificationResult.total_entries}</div>
             </div>
             <div>
-              <div className="text-[10px] uppercase text-text-muted">Genesis Hash</div>
-              <div className="text-white font-bold">{verificationResult.genesis_hash.slice(0, 10)}...</div>
+              <div className="text-[10px] uppercase text-[#6e665d]">Genesis Hash</div>
+              <div className="text-[#191410] font-bold">{verificationResult.genesis_hash.slice(0, 10)}...</div>
             </div>
             <div>
-              <div className="text-[10px] uppercase text-text-muted">Ledger Tip Hash</div>
-              <div className="text-emerald-400 font-bold">{verificationResult.latest_hash.slice(0, 10)}...</div>
+              <div className="text-[10px] uppercase text-[#6e665d]">Ledger Tip Hash</div>
+              <div className="text-emerald-700 font-bold">{verificationResult.latest_hash.slice(0, 10)}...</div>
             </div>
           </div>
         </div>
       )}
 
       {/* Filter and Search Bar */}
-      <Card className="p-4 bg-surface border-border">
+      <Card className="p-4 bg-white border-[#eae4d9]">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div className="flex-1 relative">
-            <Search className="w-4 h-4 text-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#6e665d] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search description, target, hash fingerprint, or action..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-background border border-border rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-text-muted focus:outline-none focus:border-cyan-500"
+              className="w-full bg-[#faf7f2] border border-[#eae4d9] rounded-lg pl-9 pr-3 py-1.5 text-xs text-[#191410] placeholder-[#8c8276] focus:outline-none focus:border-[#d93829]"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1.5 text-xs text-text-muted">
-              <Filter className="w-3.5 h-3.5 text-cyan-400" />
+            <div className="flex items-center gap-1.5 text-xs text-[#6e665d]">
+              <Filter className="w-3.5 h-3.5 text-blue-700" />
               <span>Action:</span>
             </div>
             <select
               value={actionFilter}
               onChange={(e) => setActionFilter(e.target.value)}
-              className="bg-background border border-border rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+              className="bg-white border border-[#eae4d9] rounded-lg px-2.5 py-1.5 text-xs text-[#191410] focus:outline-none focus:border-[#d93829]"
             >
               {uniqueActions.map(act => (
                 <option key={act} value={act}>{act}</option>
               ))}
             </select>
 
-            <div className="flex items-center gap-1.5 text-xs text-text-muted ml-2">
-              <Users className="w-3.5 h-3.5 text-cyan-400" />
+            <div className="flex items-center gap-1.5 text-xs text-[#6e665d] ml-2">
+              <Users className="w-3.5 h-3.5 text-blue-700" />
               <span>Actor:</span>
             </div>
             <select
               value={userFilter}
               onChange={(e) => setUserFilter(e.target.value)}
-              className="bg-background border border-border rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-500"
+              className="bg-white border border-[#eae4d9] rounded-lg px-2.5 py-1.5 text-xs text-[#191410] focus:outline-none focus:border-[#d93829]"
             >
               {uniqueUsers.map(usr => (
                 <option key={usr} value={usr}>{usr}</option>
@@ -248,17 +248,17 @@ export function ActivityLog() {
       {loading ? (
         <div className="animate-pulse space-y-3">
           {[1, 2, 3, 4].map(n => (
-            <div key={n} className="h-24 bg-surface rounded-xl border border-border" />
+            <div key={n} className="h-24 bg-white rounded-xl border border-[#eae4d9]" />
           ))}
         </div>
       ) : filteredLogs.length === 0 ? (
-        <Card className="p-12 text-center bg-surface border-border">
-          <Activity className="w-10 h-10 text-text-muted mx-auto mb-3 opacity-40" />
-          <h3 className="text-sm font-semibold text-white">No Audit Entries Match Filter</h3>
-          <p className="text-xs text-text-muted mt-1">Adjust filters or upload new evidence to populate the cryptographic ledger.</p>
+        <Card className="p-12 text-center bg-white border-[#eae4d9]">
+          <Activity className="w-10 h-10 text-[#8c8276] mx-auto mb-3 opacity-40" />
+          <h3 className="text-sm font-semibold text-[#191410]">No Audit Entries Match Filter</h3>
+          <p className="text-xs text-[#6e665d] mt-1">Adjust filters or upload new evidence to populate the cryptographic ledger.</p>
         </Card>
       ) : (
-        <div className="relative border-l-2 border-border/80 ml-6 space-y-4">
+        <div className="relative border-l-2 border-[#eae4d9] ml-6 space-y-4">
           {filteredLogs.map((entry, index) => {
             const conf = getActionConfig(entry.action_type);
             const Icon = conf.icon;
@@ -268,16 +268,16 @@ export function ActivityLog() {
               <div key={entry.id} className="relative flex items-start gap-4 group">
                 {/* Node on Timeline */}
                 <div className={cn(
-                  "absolute -left-[25px] w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all z-10 shadow-md",
-                  isLatest ? "bg-surface border-cyan-400 scale-105" : "bg-surface border-border group-hover:border-cyan-500/50"
+                  "absolute -left-[25px] w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all z-10 shadow-xs",
+                  isLatest ? "bg-white border-[#d93829] scale-105" : "bg-white border-[#eae4d9] group-hover:border-[#d93829]/50"
                 )}>
                   <Icon className={cn("w-4 h-4", conf.color.split(' ')[0])} />
                 </div>
 
                 {/* Entry Card */}
-                <Card className="flex-1 ml-4 bg-surface border-border hover:border-cyan-500/30 transition-all">
+                <Card className="flex-1 ml-4 bg-white border-[#eae4d9] hover:border-[#d93829]/30 transition-all shadow-xs">
                   <CardContent className="p-4 space-y-3">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/40 pb-2.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#eae4d9]/70 pb-2.5">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className={cn(
                           "px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border",
@@ -285,46 +285,46 @@ export function ActivityLog() {
                         )}>
                           {conf.label}
                         </span>
-                        <span className="text-xs font-semibold text-white">
+                        <span className="text-xs font-semibold text-[#191410]">
                           {entry.user_name}
                         </span>
                         {entry.user_role && (
-                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border text-text-muted uppercase">
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#faf7f2] border border-[#eae4d9] text-[#6e665d] uppercase">
                             {entry.user_role}
                           </span>
                         )}
-                        <span className="text-text-muted text-xs">•</span>
-                        <span className="text-[11px] font-mono text-cyan-400">
+                        <span className="text-[#8c8276] text-xs">•</span>
+                        <span className="text-[11px] font-mono text-blue-700">
                           Target: {entry.target_type} {entry.target_id ? `(#${entry.target_id})` : ''}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-[11px] text-text-muted font-mono whitespace-nowrap">
-                        <Clock className="w-3 h-3 text-text-muted" />
+                      <div className="flex items-center gap-2 text-[11px] text-[#6e665d] font-mono whitespace-nowrap">
+                        <Clock className="w-3 h-3 text-[#6e665d]" />
                         <span>{new Date(entry.timestamp).toLocaleString()}</span>
                       </div>
                     </div>
 
                     {/* Description Body */}
-                    <p className="text-xs text-slate-200 leading-relaxed font-sans">
+                    <p className="text-xs text-[#191410] leading-relaxed font-sans">
                       {entry.description}
                     </p>
 
                     {/* Before & After Values for Auditing Changes */}
                     {(entry.before_value || entry.after_value) && (
-                      <div className="p-2.5 rounded-lg bg-background/80 border border-border/60 text-[11px] font-mono flex flex-wrap items-center gap-3">
+                      <div className="p-2.5 rounded-lg bg-[#faf7f2] border border-[#eae4d9] text-[11px] font-mono flex flex-wrap items-center gap-3">
                         {entry.before_value && (
-                          <div className="flex items-center gap-1.5 text-rose-300">
-                            <span className="text-text-muted uppercase text-[9px]">Before:</span>
+                          <div className="flex items-center gap-1.5 text-red-700">
+                            <span className="text-[#6e665d] uppercase text-[9px]">Before:</span>
                             <span className="line-through opacity-80">{entry.before_value}</span>
                           </div>
                         )}
                         {entry.before_value && entry.after_value && (
-                          <ArrowRight className="w-3 h-3 text-text-muted" />
+                          <ArrowRight className="w-3 h-3 text-[#6e665d]" />
                         )}
                         {entry.after_value && (
-                          <div className="flex items-center gap-1.5 text-emerald-300">
-                            <span className="text-text-muted uppercase text-[9px]">After:</span>
+                          <div className="flex items-center gap-1.5 text-emerald-700">
+                            <span className="text-[#6e665d] uppercase text-[9px]">After:</span>
                             <span className="font-bold">{entry.after_value}</span>
                           </div>
                         )}
@@ -332,28 +332,28 @@ export function ActivityLog() {
                     )}
 
                     {/* Merkle Cryptographic Chaining Footer */}
-                    <div className="pt-2 border-t border-border/40 flex flex-col md:flex-row md:items-center justify-between gap-2 text-[10px] font-mono text-text-muted">
+                    <div className="pt-2 border-t border-[#eae4d9]/70 flex flex-col md:flex-row md:items-center justify-between gap-2 text-[10px] font-mono text-[#6e665d]">
                       <div className="flex items-center gap-3 flex-wrap">
-                        <span className="text-cyan-400 font-bold">Block #{entry.id}</span>
+                        <span className="text-blue-700 font-bold">Block #{entry.id}</span>
                         <div className="flex items-center gap-1">
                           <span>Prev Hash:</span>
-                          <span className="text-slate-400">{entry.previous_hash.slice(0, 12)}...</span>
+                          <span className="text-[#8c8276]">{entry.previous_hash.slice(0, 12)}...</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <span>Block Hash:</span>
-                          <span className="text-emerald-400">{entry.current_hash.slice(0, 16)}...</span>
+                          <span className="text-emerald-700 font-semibold">{entry.current_hash.slice(0, 16)}...</span>
                         </div>
                       </div>
 
                       <button
                         onClick={() => copyToClipboard(entry.current_hash)}
-                        className="flex items-center gap-1 text-[10px] text-text-muted hover:text-white transition-colors cursor-pointer self-start md:self-auto"
+                        className="flex items-center gap-1 text-[10px] text-[#6e665d] hover:text-[#191410] transition-colors cursor-pointer self-start md:self-auto"
                         title="Copy full 64-char SHA-256 block hash"
                       >
                         {copiedHash === entry.current_hash ? (
                           <>
-                            <Check className="w-3 h-3 text-emerald-400" />
-                            <span className="text-emerald-400">Copied</span>
+                            <Check className="w-3 h-3 text-emerald-600" />
+                            <span className="text-emerald-700 font-semibold">Copied</span>
                           </>
                         ) : (
                           <>

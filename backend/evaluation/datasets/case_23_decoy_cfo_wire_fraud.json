@@ -1,0 +1,139 @@
+{
+  "id": "case_23_decoy_cfo_wire_fraud",
+  "title": "State v. R.K. & Anr. (?32 Crore Treasury SWIFT Exfiltration)",
+  "split": "test",
+  "category": "cyber_fraud",
+  "is_contested": false,
+  "citation": "Independent Contributor: Ret. DySP Ashok S. Patil (Anti-Corruption Bureau & Economic Offences Wing)",
+  "confidence_note": "High - Confirmation bias trap: CFO Raman had ?8 Crore crypto debt and booked London flight, but physical HSM token was inserted into basement server switch while Raman was at airport.",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Senior Systems Architect K. Nambiar (Physical HSM Clone & Session Hijack)",
+    "rationale": "Hardware Security Module (HSM) session logs confirm the physical cryptographic token was inserted directly into Switchport 8 in the basement server room at 02:14 AM. Biometric turnstile logs and airport CCTV confirm CFO Raman was at Mumbai Airport terminal departure hall at 02:14 AM with zero device connectivity. Nambiar's badge logged into the server room at 02:08 AM."
+  },
+  "decisive_evidence_ids": [
+    "EX-23-01",
+    "EX-23-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Chief Financial Officer Raman K. (Indebted Executive)",
+      "statement": "CFO Raman authorized the ?32 Crore SWIFT wire to an offshore Panamanian account to liquidate crushing personal cryptocurrency debts before fleeing to London."
+    },
+    {
+      "id": "H2",
+      "label": "Senior Systems Architect K. Nambiar (Insider Network Intruder)",
+      "statement": "Systems Architect Nambiar bypassed multi-factor controls by physically inserting an authorized cryptographic token into the core datacenter switchport while hijacking the CFO's authenticated web session."
+    },
+    {
+      "id": "H3",
+      "label": "External Ransomware / Cobalt Strike APT Syndicate",
+      "statement": "An external advanced persistent threat group gained remote administrative control via unpatched perimeter VPN gateway."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "master_administrative_privileges",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "swift_portal_credentials",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "imminent_personal_bankruptcy",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "fully_verified",
+        "numeric_adjustment": 0.05
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_infeasible",
+        "numeric_adjustment": 0.1
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "datacenter_physical_badge",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "present_at_target_node",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "hardware_switchport_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "unexplained_offshore_wealth",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "unverified",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "exhibits": [
+    {
+      "id": "EX-23-01",
+      "name": "Datacenter Core Switchport 8 Telemetry & HSM Cryptographic Logs",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_core_switchport_hsm_telemetry",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Cisco Catalyst 9500 switchport 8 telemetry proves the wire transaction was signed using a physically plugged-in YubiKey-HSM hardware token at 02:14:22 AM locally on VLAN 40 (Datacenter Operations). The physical token was located inside the secure basement server enclosure, requiring local physical contact."
+    },
+    {
+      "id": "EX-23-02",
+      "name": "Chhatrapati Shivaji Maharaj International Airport CCTV & Immigration Timestamps",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_airport_immigration_cfo",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Immigration checkpoint timestamps and CCTV verify CFO Raman was physically standing in the immigration queue at Terminal 2 from 01:50 AM to 02:35 AM with personal electronics sealed in checked luggage, establishing conclusive impossibility of physical presence in the basement server room."
+    },
+    {
+      "id": "EX-23-03",
+      "name": "Basement Server Enclosure RFID Turnstile Log",
+      "evidence_type": "Digital",
+      "file_hash": "sha256_basement_rfid_nambiar",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Badge access reader logs confirm Systems Architect Nambiar scanned his personal badge into the basement server enclosure at 02:08 AM and departed at 02:26 AM, perfectly encapsulating the 02:14 AM wire transfer."
+    }
+  ]
+}

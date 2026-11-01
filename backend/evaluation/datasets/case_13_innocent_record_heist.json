@@ -1,0 +1,219 @@
+{
+  "id": "case_13_innocent_record_heist",
+  "title": "State v. K.R. & Ors. (Commercial Vault Safe-Breach / Prior Record Trap Case)",
+  "split": "test",
+  "category": "synthetic_trap",
+  "is_contested": false,
+  "citation": "Sessions Court Special Forensic Docket Case #S-13/2026",
+  "confidence_note": "High (Direct autosomal DNA STR match and thermal biometric CCTV vs. verified hospital alibi)",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Active Security Supervisor Kailash R. (H2, Clean Record)",
+    "rationale": "Direct autosomal DNA match on safe latch and thermal CCTV footage prove Kailash R. committed the breach; former offender Devendra P. (H1) is conclusively excluded by DNA and hospital alibi."
+  },
+  "decisive_evidence_ids": [
+    "EX-13-01",
+    "EX-13-02",
+    "EX-13-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Former Employee Devendra P. (Prior Safe-Cracking Record)",
+      "statement": "Former mechanic Devendra P., who has a prior 2021 conviction for commercial safe-cracking, used rotary power tools to breach the workshop vault."
+    },
+    {
+      "id": "H2",
+      "label": "Security Supervisor Kailash R. (Clean Record)",
+      "statement": "Night security shift supervisor Kailash R., having internal alarm bypass codes and master keys, compromised the vault and staged a break-in."
+    },
+    {
+      "id": "H3",
+      "label": "External Unaffiliated Safe Syndicate",
+      "statement": "An external traveling gang bypassed perimeter security and forced open the safe independently."
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "EX-13-01",
+      "name": "State FSL Autosomal STR DNA Report on Safe Latch Bloodstain",
+      "evidence_type": "DNA",
+      "file_hash": "sha256_fsl_dna_safe_latch_blood",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Luminol swab of jagged edge on the pried safe handle yielded human epithelial blood. Autosomal STR 16-locus typing gave a complete single-source male profile matching Suspect Kailash R. (H2) with random match probability 1 in 3.8 billion. Suspect Devendra P. (H1) is definitively excluded across all 16 loci."
+    },
+    {
+      "id": "EX-13-02",
+      "name": "Covert Thermal Security Camera Recording (Rear Service Exit)",
+      "evidence_type": "CCTV",
+      "file_hash": "sha256_thermal_cctv_service_exit_0222",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Auxiliary thermal surveillance camera at rear loading corridor timestamped 02:22 IST captures Suspect Kailash R. (H2) using his personal master RFID fob to silence secondary alarm, carrying three velvet jewelry trays, and loading them into his white vehicle."
+    },
+    {
+      "id": "EX-13-03",
+      "name": "Verified Metro Multispeciality Hospital Emergency Admission & Biometric Log",
+      "evidence_type": "document",
+      "file_hash": "sha256_metro_hospital_er_alibi_dp",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Certified records from Metro Multispeciality Hospital (42 kilometers from the scene) confirm Suspect Devendra P. (H1) was admitted to the emergency ward at 23:15 IST with acute pancreatitis, underwent IV drip administration under continuous nursing supervision until 06:30 IST, and has time-stamped hospital facial biometric entries."
+    },
+    {
+      "id": "EX-13-04",
+      "name": "SCRB Certified Prior Criminal Conviction Dossier for Devendra P.",
+      "evidence_type": "document",
+      "file_hash": "sha256_scrb_prior_record_devendra_2021",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "State Criminal Records Bureau certified record showing Devendra P. was convicted in 2021 under Sections 457/380 IPC for a nighttime workshop burglary involving rotary cutters and pry bars. Sentence completed in 2023."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-13-ADV",
+    "name": "Anonymous Tip Letter Alleging Devendra P.",
+    "evidence_type": "document",
+    "file_hash": "sha256_fake_tip_devendra",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Unsigned handwritten note dropped in police suggestion box asserting that 'Devendra was bragging about a big jewelry score at the local tea stall.'"
+  },
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "remote_or_indirect",
+        "numeric_adjustment": 0.45
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "strongly_verified",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_impossible",
+        "numeric_adjustment": 0.05
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "secondary_opportunistic",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [
+      {
+        "suspect_name": "Devendra P.",
+        "offense_type": "Commercial Workshop Burglary & Safe Breaking",
+        "legal_section": "Section 457, 380 IPC",
+        "offense_date": "2021-04-12",
+        "location": "Industrial Estate, Chakan",
+        "outcome": "convicted",
+        "weapon_used": "Rotary cutter / pry bar",
+        "entry_method": "Forced entry through rear door latch",
+        "victim_type": "Commercial jewelry workshop",
+        "location_type": "Commercial industrial workshop",
+        "time_pattern": "Nighttime 01:00-03:00",
+        "mo_description": "Used mechanical rotary cutter and heavy-duty crowbar to pry open commercial steel safe after cutting service entry latch.",
+        "verification_status": "verified",
+        "identity_match_confidence": 0.96,
+        "verified_identity": true,
+        "is_juvenile": false
+      }
+    ],
+    "H2": []
+  }
+}

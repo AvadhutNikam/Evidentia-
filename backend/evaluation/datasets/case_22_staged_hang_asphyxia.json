@@ -1,0 +1,139 @@
+{
+  "id": "case_22_staged_hang_asphyxia",
+  "title": "Inquest into Fatal Ligature Asphyxia of Industrialist Singhal",
+  "split": "test",
+  "category": "homicide",
+  "is_contested": false,
+  "citation": "Independent Contributor: Dr. Arindam Sen, MD (AIIMS New Delhi) & Prof. K. Sharma (NFSU Gandhinagar)",
+  "confidence_note": "High - Confirmation bias trap: Partner Oberoi screamed death threats at 10 PM, but post-mortem horizontal ligature mark and flight records prove manual strangulation by live-in caregiver at 3:30 AM.",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Live-in Caregiver Anthony (Manual Ligature Strangulation from Behind)",
+    "rationale": "Autopsy establishes a continuous horizontal ligature furrow below thyroid cartilage with sub-conjunctival petechiae, pathognomonic of homicidal ligature strangulation from behind, rather than hanging. Time of death (03:00-04:00 AM) coincides with caregiver's solo bedside shift and completely excludes partner Oberoi who boarded a commercial flight at 11:45 PM."
+  },
+  "decisive_evidence_ids": [
+    "EX-22-01",
+    "EX-22-02"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Business Partner V. Oberoi (Threatening Debtor)",
+      "statement": "Partner Oberoi returned to the residence late at night and hanged Singhal to extinguish a ?15 Crore personal loan default."
+    },
+    {
+      "id": "H2",
+      "label": "Live-in Caregiver Anthony (Homicidal Ligature Strangulation)",
+      "statement": "Caregiver Anthony strangled Singhal from behind with a nylon medical cord at 03:30 AM to conceal narcotic painkiller theft, then staged the body on the ceiling hook."
+    },
+    {
+      "id": "H3",
+      "label": "Suicidal Suspension (Self-Inflicted Hanging)",
+      "statement": "Singhal committed suicide via suspension from the ceiling fan due to severe depressive insomnia."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "forced_or_invited_access",
+        "numeric_adjustment": 0.6
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_elsewhere",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "extreme_financial_debt",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "fully_verified",
+        "numeric_adjustment": 0.05
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_infeasible",
+        "numeric_adjustment": 0.1
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "exclusive_bedroom_custody",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unsupervised_overnight_shift",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "medical_cord_and_sedatives",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "theft_concealment",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "sole_individual_present",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "exhibits": [
+    {
+      "id": "EX-22-01",
+      "name": "Department of Forensic Medicine Autopsy Protocol",
+      "evidence_type": "Forensic",
+      "file_hash": "sha256_autopsy_ligature_morphology",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Post-mortem dissection reveals a completely horizontal, continuous ligature furrow located below the level of the thyroid cartilage, with inward fracture of the greater cornu of hyoid bone and dense petechial hemorrhages in bilateral palpebral conjunctivae. Findings conclusively establish homicidal ligature strangulation applied horizontally from behind; entirely incompatible with suicidal suspension (hanging produces an oblique, non-continuous groove above thyroid)."
+    },
+    {
+      "id": "EX-22-02",
+      "name": "CISF Airport Departure Biometrics & In-Flight Passenger Manifest",
+      "evidence_type": "Document",
+      "file_hash": "sha256_cisf_flight_manifest_oberoi",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 5,
+      "text": "Immigration facial recognition logs and boarding pass records verify Business Partner Oberoi passed international security at 10:45 PM and was airborne on flight AI-102 to Dubai at 11:45 PM. Core body temperature and post-mortem vitreous potassium confirm Singhal died between 03:00 AM and 04:00 AM, conclusively exculpating Oberoi."
+    },
+    {
+      "id": "EX-22-03",
+      "name": "Caregiver Anthony Shift Log & Medical Waste Bin Recovery",
+      "evidence_type": "Physical",
+      "file_hash": "sha256_caregiver_braided_cord",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Forensic recovery from the basement bio-hazard bin identified a 6mm braided nylon traction cord bearing victim's cervical epidermal DNA and Anthony's sweat epithelial markers. Furrow microscopic weave impression on Singhal's neck matches this 6mm braided cord exactly."
+    }
+  ]
+}

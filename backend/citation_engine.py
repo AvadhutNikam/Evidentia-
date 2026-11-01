@@ -277,6 +277,7 @@ def anchor_fact_citation(
         case_id=case_id,
         evidence_id=evidence_id,
         chunk_id=chunk_id,
+        version_id=getattr(evidence, "current_version_id", None) if evidence else None,
         fact_type=fact_type,
         fact_id=fact_id,
         quote=verification["resolved_quote"] or raw_quote,

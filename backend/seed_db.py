@@ -92,13 +92,14 @@ def seed(force=False):
                 title=c["title"],
                 description=c["description"],
                 status=c["status"],
-                created_by=c["created_by"]
+                created_by=c["created_by"],
+                is_demo=True
             )
             db.add(case_obj)
             db.commit()
             db.refresh(case_obj)
             created_cases[c["id"]] = case_obj
-            print(f"[OK] Seeded Case #{case_obj.id}: {case_obj.title[:55]}...")
+            print(f"[OK] Seeded Demo Case #{case_obj.id}: {case_obj.title[:55]}...")
 
         # -------------------------------------------------------------
         # EVIDENCE, ENTITIES, EVENTS FOR CASE 1 (Nayana Pujari)
@@ -112,8 +113,10 @@ def seed(force=False):
             storage_path="uploads/sample_atm_cctv.mp4",
             uploaded_by="PI Kishor Mhaswade",
             processing_status=EvidenceStatus.ANALYZED,
-            extracted_text="Yerwada SBI ATM footage timestamped 21:42:15 on 07-Oct-2009. Two males observed using victim Nayana Pujari ATM card. White Toyota Qualis cab visible at street curb.",
-            source="State Bank of India Yerwada ATM CCTV Feed"
+            extracted_text="[Demo data] Yerwada SBI ATM footage timestamped 21:42:15 on 07-Oct-2009. Two males observed using victim Nayana Pujari ATM card. White Toyota Qualis cab visible at street curb.",
+            source="State Bank of India Yerwada ATM CCTV Feed",
+            extraction_mode="demo_fixture",
+            is_demo_fixture=True
         )
         ev_c1_2 = Evidence(
             case_id=c1.id,
@@ -123,8 +126,10 @@ def seed(force=False):
             storage_path="uploads/sample_cdr_dump.pdf",
             uploaded_by="PI Kishor Mhaswade",
             processing_status=EvidenceStatus.ANALYZED,
-            extracted_text="Cell tower logs near Kharadi bypass show 3 mobile IMEI numbers co-locating between 20:30 and 22:15. Tower handoffs recorded towards Rajgurunagar route.",
-            source="Vodafone & Airtel Telecom Tower CDR"
+            extracted_text="[Demo data] Cell tower logs near Kharadi bypass show 3 mobile IMEI numbers co-locating between 20:30 and 22:15. Tower handoffs recorded towards Rajgurunagar route.",
+            source="Vodafone & Airtel Telecom Tower CDR",
+            extraction_mode="demo_fixture",
+            is_demo_fixture=True
         )
         ev_c1_3 = Evidence(
             case_id=c1.id,
@@ -134,8 +139,10 @@ def seed(force=False):
             storage_path="uploads/qualis_forensics.pdf",
             uploaded_by="Forensic SIT Team",
             processing_status=EvidenceStatus.ANALYZED,
-            extracted_text="Forensic search of Toyota Qualis MH-12-AQ-4411 recovered biological trace blood matching victim's profile and hair strands on rear seat upholstery.",
-            source="State Forensic Science Laboratory Pune"
+            extracted_text="[Demo data] Forensic search of Toyota Qualis MH-12-AQ-4411 recovered biological trace blood matching victim's profile and hair strands on rear seat upholstery.",
+            source="State Forensic Science Laboratory Pune",
+            extraction_mode="demo_fixture",
+            is_demo_fixture=True
         )
         ev_c1_4 = Evidence(
             case_id=c1.id,
@@ -145,8 +152,10 @@ def seed(force=False):
             storage_path="uploads/approver_confession.pdf",
             uploaded_by="Magistrate Judicial Officer",
             processing_status=EvidenceStatus.ANALYZED,
-            extracted_text="Statement recorded under Section 164 CrPC by approver Rajesh Chaudhari detailing vehicle movements, abduction from Kharadi, and role of Yogesh Raut.",
-            source="Judicial Magistrate First Class Pune Court"
+            extracted_text="[Demo data] Statement recorded under Section 164 CrPC by approver Rajesh Chaudhari detailing vehicle movements, abduction from Kharadi, and role of Yogesh Raut.",
+            source="Judicial Magistrate First Class Pune Court",
+            extraction_mode="demo_fixture",
+            is_demo_fixture=True
         )
         db.add_all([ev_c1_1, ev_c1_2, ev_c1_3, ev_c1_4])
         db.commit()

@@ -1,15 +1,15 @@
 {
   "id": "case_02_indiranagar",
-  "title": "State of Karnataka v. Manjunath & Ors. (Indiranagar Robbery-Homicide)",
+  "title": "State v. M.N. & Ors. (Suburban Residence Robbery Case)",
   "split": "tuning",
   "category": "real_landmark",
   "is_contested": false,
-  "citation": "Principal Sessions Court, Bengaluru (SC-412/2019)",
+  "citation": "Principal Sessions Court (Anonymized Archive Case #SC-412)",
   "confidence_note": "High (Direct latent fingerprint match and gold jewellery recovery under Sec 27 Evidence Act)",
   "ground_truth": {
     "hypothesis_id": "H1",
-    "culprit_summary": "Former domestic assistant Manjunath and accomplice",
-    "rationale": "Latent fingerprint on broken window latch matched Manjunath; stolen 120g temple gold recovered from pawn broker based on disclosure."
+    "culprit_summary": "Former domestic assistant M.N. and accomplice",
+    "rationale": "Latent fingerprint on broken window latch matched M.N.; stolen 120g temple gold recovered from pawn broker based on disclosure."
   },
   "decisive_evidence_ids": [
     "EX-02-01",
@@ -18,8 +18,8 @@
   "hypotheses": [
     {
       "id": "H1",
-      "label": "Former Domestic Staff Manjunath",
-      "statement": "Former domestic worker Manjunath knew the safe combination, broke through the rear window, and assaulted the resident."
+      "label": "Former Domestic Staff M.N.",
+      "statement": "Former domestic worker M.N. knew the safe combination, broke through the rear window, and assaulted the resident."
     },
     {
       "id": "H2",
@@ -32,6 +32,126 @@
       "statement": "An estranged relative staged the burglary to seize property deeds and ancestral gold."
     }
   ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "key_premises_access",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_vicinity",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "secondary_opportunistic",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "remote_or_indirect",
+        "numeric_adjustment": 0.45
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.75
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "personal_enmity_grudge",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [
+      {
+        "suspect_name": "Suspect M.N.",
+        "offense_type": "Residential Theft & Breach of Trust",
+        "legal_section": "Section 381 IPC",
+        "offense_date": "2017-06-14",
+        "location": "Bengaluru East",
+        "outcome": "convicted",
+        "weapon_used": "None",
+        "entry_method": "Domestic staff trusted key access",
+        "victim_type": "Private residential bungalow",
+        "location_type": "Urban residence",
+        "time_pattern": "Daytime shift",
+        "mo_description": "Stole gold jewelry from unlocked bedroom bureau while employed as domestic help.",
+        "verification_status": "verified",
+        "identity_match_confidence": 0.95,
+        "verified_identity": true,
+        "is_juvenile": false
+      }
+    ]
+  },
   "exhibits": [
     {
       "id": "EX-02-01",

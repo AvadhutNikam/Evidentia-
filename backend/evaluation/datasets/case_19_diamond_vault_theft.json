@@ -1,0 +1,200 @@
+{
+  "id": "case_19_diamond_vault_theft",
+  "title": "State v. P.J. & Ors. (Opera House Diamond Vault Staged Burglary Case)",
+  "split": "blind_test",
+  "category": "blind_mixed_evidence",
+  "is_contested": false,
+  "citation": "Independent Contributor: Judicial Academy Mock Trial Case Study (Case #BLIND-2024-F05)",
+  "confidence_note": "High - Customs airport seizure of stolen diamonds and electronic lock audit",
+  "ground_truth": {
+    "hypothesis_id": "H1",
+    "culprit_summary": "Jeweler Owner Pravin J. and Accomplices (Staged Theft)",
+    "rationale": "Digital lock audit shows owner's authentic PIN opened vault without forced entry. Customs intercepted owner's brother-in-law boarding flight to Dubai with the missing diamonds."
+  },
+  "decisive_evidence_ids": [
+    "EX-19-01",
+    "EX-19-03"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Jeweler Owner Pravin J. (Staged Insurance Burglary)",
+      "statement": "Owner staged an elaborate fake burglary using his master credentials to claim ₹12 Crore insurance while smuggling stones to Dubai via kin."
+    },
+    {
+      "id": "H2",
+      "label": "Estranged Nephew Yash J. (Duplicate Keycard Theft)",
+      "statement": "Nephew addicted to high-stakes gambling cloned vault keycard and looted safe while uncle was away at trade exhibition."
+    },
+    {
+      "id": "H3",
+      "label": "Professional Underground Safecracking Syndicate",
+      "statement": "Organized criminal gang tunneled through sewer conduit and utilized electromagnetic lock bypass to breach subterranean vault."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "partially_verified",
+        "numeric_adjustment": 0.4
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "remote_or_indirect",
+        "numeric_adjustment": 0.45
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "standard_physical_capacity",
+        "numeric_adjustment": 0.7
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.85
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "unconfirmed_unknown",
+        "numeric_adjustment": 0.4
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "direct_financial_gain",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [],
+    "H2": [],
+    "H3": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-19-01",
+      "name": "Godrej Electronic Time-Lock & Master Vault Audit Telemetry",
+      "evidence_type": "Document",
+      "file_hash": "sha256_godrej_vault_timelock_audit",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Digital diagnostic read-out from the vault controller demonstrates the door was opened at 23:42 IST with owner Pravin J.'s authentic Master PIN and mechanical key. Zero acoustic sensor alarms, drill torque triggers, or electronic tampering events were logged during the incident."
+    },
+    {
+      "id": "EX-19-02",
+      "name": "Forensic Structural Examination of Vault Walls & Basement",
+      "evidence_type": "Document",
+      "file_hash": "sha256_fsl_structural_tunnel_inspection",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Physical inspection of masonry and subterranean drainage conduits confirms reinforced concrete walls are completely intact with no drilling, tunnel breaches, or structural compromises."
+    },
+    {
+      "id": "EX-19-03",
+      "name": "Mumbai Customs Intelligence Air Cargo Seizure Dossier",
+      "evidence_type": "Document",
+      "file_hash": "sha256_customs_air_cargo_seizure_dubai",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Air Intelligence Unit at Terminal 2 intercepted Pravin J.'s brother-in-law Nilesh boarding Emirates flight EK-501 to Dubai. 4,200 carats of certified cut diamonds matching the serial numbers on the victim's vault ledger were recovered concealed in false bottoms of hard-shell luggage."
+    },
+    {
+      "id": "EX-19-04",
+      "name": "Bank Consortium SARFAESI Default & Debt Ledger",
+      "evidence_type": "Document",
+      "file_hash": "sha256_bank_debt_sarfaesi_opera_house",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 3,
+      "text": "Certified forensic financial audit showing jeweler's enterprise had defaulted on ₹18 Crore working capital facilities with loan recall notices issued 10 days before the alleged heist."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-19-ADV",
+    "name": "Planted Goa Casino Debt Ledger Scribble",
+    "evidence_type": "Document",
+    "file_hash": "sha256_goa_casino_nephew_iou_scribble",
+    "hash_verified": false,
+    "chain_of_custody_complete": false,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 1,
+    "text": "Photocopied handwritten IOU slip claiming nephew Yash owed ₹5 Crore to Goa bookies."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "Evidentia AI - Forensic & Police Case Intelligence",
+  "short_name": "Evidentia",
+  "description": "On-premise forensic investigation, case file management, and Section 63 BSA compliance for police stations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#faf7f2",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Field Capture",
+      "short_name": "Capture",
+      "description": "One-tap crime scene photo and audio capture with GPS and hashing",
+      "url": "/cases/1/field-capture",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    },
+    {
+      "name": "Intake & Statements",
+      "short_name": "Intake",
+      "description": "Scanned FIR, handwritten statement and audio voice log reading",
+      "url": "/cases/1/intake",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    },
+    {
+      "name": "Today's Priorities",
+      "short_name": "Priorities",
+      "description": "Statutory 60/90-day countdowns and critical investigation tasks",
+      "url": "/cases/1/priorities",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    }
+  ]
+}
+

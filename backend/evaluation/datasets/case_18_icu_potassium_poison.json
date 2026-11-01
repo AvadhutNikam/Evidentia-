@@ -1,0 +1,201 @@
+{
+  "id": "case_18_icu_potassium_poison",
+  "title": "Inquest into Fatal Hyperkalemia of Patient S.V. (Apex ICU Medico-Legal Case)",
+  "split": "blind_test",
+  "category": "blind_mixed_evidence",
+  "is_contested": false,
+  "citation": "Independent Contributor: Medico-Legal Jurisprudence Fellowship Archive (Case #BLIND-2024-F04)",
+  "confidence_note": "High - Audio dictaphone emergency tape, pharmacy dispensation, and toxicology",
+  "ground_truth": {
+    "hypothesis_id": "H2",
+    "culprit_summary": "Junior Resident Dr. Gaurav (Fatal Iatrogenic Medical Dosing Error)",
+    "rationale": "Code Blue emergency recording captures Dr. Gaurav mistakenly issuing an immediate IV direct push bolus command for concentrated KCl during arrhythmia panic, which nurse Sunita questioned and administered per explicit repeated order."
+  },
+  "decisive_evidence_ids": [
+    "EX-18-01",
+    "EX-18-03",
+    "EX-18-04"
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "label": "Night Duty Staff Nurse Sunita (Malicious Intentional Poisoning)",
+      "statement": "Nurse Sunita intentionally injected concentrated potassium chloride into patient's peripheral cannula due to an ongoing administrative grievance."
+    },
+    {
+      "id": "H2",
+      "label": "Junior Resident Dr. Gaurav (Fatal Iatrogenic Dosing Error)",
+      "statement": "Junior resident physician panicked during acute tachyarrhythmia and verbally ordered an immediate IV direct bolus of concentrated KCl instead of calcium gluconate."
+    },
+    {
+      "id": "H3",
+      "label": "Automated Syringe Infusion Device Runaway Failure",
+      "statement": "Microprocessor calibration failure in the motorized infusion pump delivered 50ml volume instantaneously instead of continuous 24-hour rate."
+    }
+  ],
+  "suspect_factors": {
+    "H1": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.9
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "personal_vendetta",
+        "numeric_adjustment": 0.5
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H2": [
+      {
+        "factor_type": "access",
+        "factor_value": "direct_physical_access",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "specialized_expert",
+        "numeric_adjustment": 0.95
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.2
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ],
+    "H3": [
+      {
+        "factor_type": "access",
+        "factor_value": "none_or_restricted",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "opportunity",
+        "factor_value": "confirmed_at_scene",
+        "numeric_adjustment": 0.8
+      },
+      {
+        "factor_type": "means",
+        "factor_value": "limited_capacity",
+        "numeric_adjustment": 0.3
+      },
+      {
+        "factor_type": "motive",
+        "factor_value": "none_apparent",
+        "numeric_adjustment": 0.1
+      },
+      {
+        "factor_type": "alibi_status",
+        "factor_value": "none",
+        "numeric_adjustment": 1.0
+      },
+      {
+        "factor_type": "travel_feasibility",
+        "factor_value": "physically_feasible",
+        "numeric_adjustment": 1.0
+      }
+    ]
+  },
+  "prior_records": {
+    "H1": [],
+    "H2": [],
+    "H3": []
+  },
+  "exhibits": [
+    {
+      "id": "EX-18-01",
+      "name": "Forensic Toxicology & FSL Lab Post-Mortem Blood Assay",
+      "evidence_type": "Document",
+      "file_hash": "sha256_toxicology_kcl_hyperkalemia_assay",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Post-mortem femoral blood panel reveals acute serum potassium spike to 9.8 mEq/L resulting in fatal cardiac arrest. Syringe remnants recovered from ICU sharps bin contained high-concentration 15% potassium chloride without dilution solution."
+    },
+    {
+      "id": "EX-18-02",
+      "name": "Central Hospital Pharmacy Automated Dispensation Log",
+      "evidence_type": "Document",
+      "file_hash": "sha256_pyxis_pharmacy_dispense_gaurav",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Pyxis electronic medication station log indicates concentrated KCl 50ml ampoule was dispensed under Dr. Gaurav's biometric physician login at 03:14 AM and signed out to ICU Bed-4."
+    },
+    {
+      "id": "EX-18-03",
+      "name": "Emergency Resuscitation Audio Dictaphone Recording",
+      "evidence_type": "CDR",
+      "file_hash": "sha256_dictaphone_code_blue_apex_icu",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "ICU automated clinical dictaphone captures audio at 03:18:22: Dr. Gaurav shouts 'Heart rate 190, wide complex! Push 20 of potassium stat, bolus now!' Nurse Sunita's voice is recorded querying: 'Doctor, direct bolus? That is concentrated.' Dr. Gaurav is recorded responding: 'Yes, push it fast, patient is coding!' Conclusively confirming catastrophic verbal iatrogenic directive."
+    },
+    {
+      "id": "EX-18-04",
+      "name": "Biomedical Engineering Syringe Pump Inspection Report",
+      "evidence_type": "Document",
+      "file_hash": "sha256_bme_infusion_pump_audit_b4",
+      "hash_verified": true,
+      "chain_of_custody_complete": true,
+      "sec_65b_certificate_present": true,
+      "source_independent": true,
+      "quality_rating": 4,
+      "text": "Biomedical engineering diagnostic testing on the B.Braun Perfusor pump at Bed-4 confirms motor gearing and optical encoders operated within 0.1% tolerance with zero volume runaway or software watchdog exceptions."
+    }
+  ],
+  "adversarial_exhibit": {
+    "id": "EX-18-ADV",
+    "name": "Hospital Administration Internal Complaint Memo",
+    "evidence_type": "Document",
+    "file_hash": "sha256_nurse_sunita_harassment_complaint",
+    "hash_verified": true,
+    "chain_of_custody_complete": true,
+    "sec_65b_certificate_present": false,
+    "source_independent": false,
+    "quality_rating": 2,
+    "text": "HR disciplinary notice against Nurse Sunita regarding attendance arguments, introduced to allege vindictive sabotage."
+  }
+}
